@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alturelle Compliance Group</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,108 +11,106 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(to bottom right, #3f4368, #6b6d8d);
-      color: #f8f8f8;
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+      color: #f5f5f5;
     }
     .container {
-      max-width: 880px;
+      max-width: 860px;
       margin: 0 auto;
-      padding: 80px 20px 50px;
+      padding: 80px 20px;
       text-align: center;
-    }
-    .hero {
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 40px 20px;
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
     }
     .logo {
       width: 90px;
-      margin-bottom: 26px;
+      margin: 0 auto 28px auto;
+      display: block;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));
     }
     h1 {
       font-size: 2.7rem;
-      margin-bottom: 10px;
+      font-weight: 600;
+      margin-bottom: 12px;
       color: #ffffff;
     }
-    .tagline {
-      font-size: 1.2rem;
-      color: #ddd;
-      margin-bottom: 40px;
+    .badge {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #c5d1e6;
+      margin-bottom: 48px;
     }
     .section {
-      margin: 50px 0;
+      margin-bottom: 48px;
     }
     .section h2 {
-      font-size: 1.6rem;
+      font-size: 1.35rem;
       margin-bottom: 16px;
-      color: #ffffff;
+      color: #d6e1f3;
     }
     .section p, .section ul {
-      font-size: 1.05rem;
+      font-size: 1.075rem;
       line-height: 1.8;
-      max-width: 720px;
+      max-width: 700px;
       margin: 0 auto;
-      color: #eaeaea;
+      color: #e1e6ed;
     }
     .section ul {
       list-style: none;
-      padding-left: 0;
+      padding: 0;
     }
     .section ul li::before {
-      content: '•';
-      margin-right: 8px;
-      color: #bfb3ff;
+      content: '\2022';
+      color: #9bb7dc;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
     }
     .contact-card {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
-      padding: 30px 20px;
-      margin: 0 auto 40px auto;
-      max-width: 520px;
+      padding: 32px 20px;
+      max-width: 500px;
+      margin: 0 auto 48px auto;
+      backdrop-filter: blur(8px);
     }
     .contact-button {
-      display: inline-block;
       margin-top: 20px;
-      padding: 12px 30px;
-      background-color: #ffffff;
-      color: #3f4368;
+      padding: 14px 30px;
+      background-color: #4b6fa1;
+      color: white;
       border: none;
-      border-radius: 30px;
+      border-radius: 32px;
       font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .contact-button:hover {
+      background-color: #678fc7;
     }
     .quote {
       font-style: italic;
-      color: #d2cce9;
-      margin: 40px auto;
-      max-width: 600px;
-    }
-    .icon {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      color: #bfb3ff;
+      color: #cdd7e9;
+      margin: 50px auto 30px;
+      max-width: 640px;
     }
     footer {
       text-align: center;
       font-size: 0.85rem;
-      color: #aaa;
-      padding: 40px 10px 20px;
+      color: #a3acc2;
+      padding: 30px 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="hero">
-      <img src="logo.png" alt="Alturelle Logo" class="logo" />
-      <h1>Alturelle Compliance Group</h1>
-      <div class="tagline">Certified. Compliant. Mobile. Registered in Wyoming. Trust-Owned.</div>
-    </div>
+    <!-- Hero -->
+    <img src="logo.png" alt="Alturelle Logo" class="logo">
+    <h1>Alturelle Compliance Group</h1>
+    <div class="badge">Mobile. Certified. Trust-Owned. Wyoming Registered.</div>
 
+    <!-- What We Offer -->
     <div class="section">
       <h2>What We Offer</h2>
       <ul>
@@ -120,52 +118,59 @@
         <li>Breath Alcohol Testing (BAT)</li>
         <li>Post-Accident, Random, and Pre-Employment Testing</li>
         <li>DER Program Compliance & Management</li>
-        <li>Mobile & On-Site Testing — 24/7 Available</li>
+        <li>Mobile & On-Site Testing — Available 24/7</li>
       </ul>
     </div>
 
+    <!-- Industries -->
     <div class="section">
       <h2>Industries & Clients We Serve</h2>
       <ul>
         <li>DOT & Transportation</li>
-        <li>Government Agencies & Contractors</li>
-        <li>School Systems & Safety Programs</li>
-        <li>Corporate Employers & HR Teams</li>
+        <li>Government Agencies & Federal Contractors</li>
+        <li>School Systems & Public Safety Programs</li>
+        <li>Corporate Employers & HR Departments</li>
         <li>Celebrities, Executives & High-Profile Clients</li>
       </ul>
     </div>
 
+    <!-- DER Program -->
     <div class="section">
       <h2>DER Program Compliance & Management</h2>
-      <p>For DOT-regulated companies, we serve as your certified DER — ensuring full compliance, handling testing coordination, and protecting your business from costly violations.</p>
+      <p>For DOT-regulated companies, we serve as your certified DER — ensuring full compliance, handling testing coordination, and shielding your business from costly violations.</p>
     </div>
 
+    <!-- Federal Ready -->
     <div class="section">
-      <h2>Federal Readiness</h2>
-      <p><strong>Federal Vendor Ready – Mobile, Certified & Compliant.</strong></p>
+      <h2>Federal Vendor Ready</h2>
+      <p><strong>Mobile. Compliant. Government-Ready.</strong> Alturelle is positioned to support federal-level programs and complex compliance needs across the nation.</p>
     </div>
 
+    <!-- Client Promise -->
     <div class="section">
-      <h2>Client Promise</h2>
+      <h2>Our Promise</h2>
       <p>We deliver compliant, confidential, and professional results — every time.</p>
     </div>
 
+    <!-- Contact CTA -->
     <div class="contact-card">
       <p><strong>Email:</strong> contact@alturelle.com</p>
       <p><strong>Phone:</strong> 202-982-6963</p>
       <a href="mailto:contact@alturelle.com" class="contact-button">Schedule Consultation</a>
     </div>
 
+    <!-- Quote -->
     <div class="quote">
       “Compliance isn’t a checkbox — it’s your brand’s integrity. Let us protect both.”
     </div>
 
     <footer>
-      &copy; 2025 Alturelle Compliance Group · Wyoming · Cleveland, OH · All rights reserved
+      &copy; 2025 Alturelle Compliance Group · Cleveland, OH · Trust-Owned · All Rights Reserved
     </footer>
   </div>
 </body>
 </html>
+
 
 
 
