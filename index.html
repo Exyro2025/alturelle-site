@@ -11,75 +11,95 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: url('https://i.postimg.cc/Znbq3bn0/bg-soft-light.jpg') no-repeat center center fixed;
+      background: linear-gradient(to right, #f2f4f7, #e0e7ef);
       background-size: cover;
-      color: #333;
+      color: #2e2e2e;
     }
     .container {
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 80px 20px;
-      background: rgba(255, 255, 255, 0.92);
-      border-radius: 16px;
+      padding: 60px 20px;
       text-align: center;
     }
     .logo {
       width: 80px;
-      margin-bottom: 24px;
+      margin: 0 auto 30px auto;
+      display: block;
     }
     h1 {
       font-size: 2.5rem;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      font-weight: 600;
     }
-    p {
-      font-size: 1.125rem;
-      margin-bottom: 24px;
+    .services {
+      font-size: 1.1rem;
+      margin: 40px auto 30px auto;
       line-height: 1.6;
+      max-width: 650px;
     }
-    .email-box {
-      padding: 12px;
-      width: 100%;
-      max-width: 400px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
+    .contact-card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px 20px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      max-width: 500px;
+      margin: 0 auto 40px auto;
     }
     .contact-button {
-      margin-top: 20px;
-      padding: 12px 24px;
+      display: inline-block;
+      margin-top: 18px;
+      padding: 12px 28px;
       background-color: #000;
       color: white;
       border: none;
       border-radius: 30px;
       font-size: 1rem;
       cursor: pointer;
+      text-decoration: none;
+    }
+    .quote {
+      font-style: italic;
+      color: #444;
+      margin: 30px auto;
+      max-width: 600px;
     }
     footer {
       text-align: center;
-      font-size: 0.875rem;
-      color: #666;
-      margin-top: 60px;
+      font-size: 0.85rem;
+      color: #888;
+      padding: 40px 10px 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- Hero -->
     <img src="logo.png" alt="Alturelle Logo" class="logo" />
     <h1>Alturelle Compliance Group</h1>
-    <p>
-      Certified. Compliant. Mobile.<br>
-      We deliver discreet drug and alcohol testing, DER program management, and compliance services to government agencies, DOT-regulated employers, school districts, and high-profile clientele.
-    </p>
-    <input class="email-box" type="email" placeholder="contact@alturelle.com" disabled />
-    <div>
-      <a href="mailto:contact@alturelle.com">
-        <button class="contact-button">Contact Us</button>
-      </a>
-    </div>
-  </div>
 
-  <footer>
-    &copy; 2025 Alturelle Compliance Group · Cleveland, OH · 202-982-6963
-  </footer>
+    <!-- Services -->
+    <div class="services">
+      Certified. Compliant. Mobile.<br><br>
+      We provide discreet drug and alcohol testing, DER program management, and compliance services for DOT-regulated companies, government agencies, school districts, and high-profile clientele.
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="contact-card">
+      <p>Email us at <strong>contact@alturelle.com</strong></p>
+      <p>Or call <strong>202-982-6963</strong></p>
+      <a href="mailto:contact@alturelle.com" class="contact-button">Contact Us</a>
+    </div>
+
+    <!-- Quote -->
+    <div class="quote">
+      “Compliance isn’t a checkbox — it’s your brand’s integrity. Let us protect both.”
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      &copy; 2025 Alturelle Compliance Group · Cleveland, OH · All rights reserved
+    </footer>
+  </div>
 </body>
 </html>
+
