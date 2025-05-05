@@ -9,96 +9,75 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
+      background: linear-gradient(135deg, #12151c, #1f2833);
       color: #f1f5f9;
-      line-height: 1.6;
     }
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 100px 20px 60px;
+    header {
+      padding: 30px 20px;
       text-align: center;
     }
     .logo {
-      width: 100px;
-      margin-bottom: 24px;
+      width: 80px;
+      margin: 0 auto 16px;
     }
-    h1 {
+    .hero-title {
       font-size: 2.8rem;
       font-weight: 600;
-      margin-bottom: 12px;
+      margin: 0;
     }
-    .tagline {
-      font-size: 1.15rem;
+    .hero-subtitle {
+      font-size: 1.2rem;
       color: #94a3b8;
-      margin-bottom: 40px;
+      margin-top: 12px;
     }
     .section {
-      margin: 60px 0;
+      padding: 60px 20px;
+      text-align: center;
+      max-width: 880px;
+      margin: 0 auto;
     }
     .section h2 {
-      font-size: 1.35rem;
-      margin-bottom: 14px;
-      color: #cbd5e1;
-    }
-    .section p {
-      max-width: 720px;
-      margin: 0 auto;
-      font-size: 1.05rem;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
       color: #e2e8f0;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
-    }
-    .grid-item {
-      background: #1e293b;
-      border-left: 4px solid #64748b;
-      border-radius: 8px;
-      padding: 24px;
-      text-align: left;
-    }
-    .grid-item h3 {
-      font-size: 1.15rem;
-      margin-bottom: 10px;
-      color: #f1f5f9;
-    }
-    .grid-item p {
-      font-size: 0.98rem;
+    .section p {
+      font-size: 1.05rem;
       color: #cbd5e1;
+      line-height: 1.7;
     }
-    .contact-card {
-      background: #1e293b;
-      border: 1px solid #475569;
-      border-radius: 10px;
-      padding: 32px;
-      max-width: 460px;
+    .quote {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #a3aebf;
       margin: 40px auto;
+      max-width: 720px;
     }
-    .contact-card p {
+    .cta {
+      background-color: #1e293b;
+      border-radius: 12px;
+      padding: 40px 20px;
+      margin: 60px auto;
+      max-width: 480px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .cta p {
       margin: 10px 0;
     }
-    .contact-button {
+    .cta .contact-button {
       margin-top: 16px;
-      padding: 12px 30px;
-      background-color: #475569;
+      padding: 12px 28px;
+      background-color: #64748b;
       color: white;
       border: none;
       border-radius: 30px;
       font-size: 1rem;
       cursor: pointer;
       transition: background 0.3s ease;
+      text-decoration: none;
     }
-    .contact-button:hover {
-      background-color: #64748b;
-    }
-    .quote {
-      font-style: italic;
-      color: #a3aebf;
-      margin: 60px auto 20px;
-      font-size: 1.05rem;
+    .cta .contact-button:hover {
+      background-color: #7b91ac;
     }
     footer {
       text-align: center;
@@ -109,49 +88,51 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <header>
     <img src="logo.png" alt="Alturelle Logo" class="logo" />
-    <h1>Alturelle Compliance Group</h1>
-    <div class="tagline">Certified. Confidential. Commanding.</div>
+    <h1 class="hero-title">Alturelle Compliance Group</h1>
+    <div class="hero-subtitle">Where compliance meets intelligence</div>
+  </header>
 
-    <div class="section">
-      <h2>Strategic Compliance for a New Era</h2>
-      <p>Alturelle delivers private compliance operations for agencies, corporations, and elite individuals who require discretion, precision, and presence. This is not a service — it’s a partnership in protection.</p>
-    </div>
-
-    <div class="section">
-      <h2>Capabilities</h2>
-      <div class="grid">
-        <div class="grid-item">
-          <h3>Mobile Drug & Alcohol Testing</h3>
-          <p>Discreet, certified testing delivered to your location. DOT & Non-DOT protocols observed with clinical precision.</p>
-        </div>
-        <div class="grid-item">
-          <h3>DER Program Oversight</h3>
-          <p>Alturelle assumes full DER responsibilities — shielding your organization from liability, audit risk, and costly errors.</p>
-        </div>
-        <div class="grid-item">
-          <h3>Executive & On-Demand Testing</h3>
-          <p>Private, concierge-level testing services for high-profile individuals, events, and transportation professionals.</p>
-        </div>
-        <div class="grid-item">
-          <h3>Federal & Agency Readiness</h3>
-          <p>Positioned for government contract support and federal vendor compliance. Mobile. Certified. Ready.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="contact-card">
-      <p><strong>Email</strong>: contact@alturelle.com</p>
-      <p><strong>Phone</strong>: 202-982-6963</p>
-      <a href="mailto:contact@alturelle.com" class="contact-button">Schedule Consultation</a>
-    </div>
-
-    <div class="quote">“Alturelle is where compliance meets intelligence.”</div>
-
-    <footer>
-      &copy; 2025 Alturelle Compliance Group · Cleveland, OH · All rights reserved
-    </footer>
+  <div class="section">
+    <h2>Private Compliance Intelligence</h2>
+    <p>Alturelle operates at the intersection of discretion and law. We are a private consultancy specializing in mobile drug and alcohol testing, DER oversight, and executive compliance solutions — structured for agencies, corporations, and high-profile individuals requiring absolute precision and presence.</p>
   </div>
+
+  <div class="section">
+    <h2>What We Offer</h2>
+    <p>
+      • On-Demand Mobile Testing (DOT/Non-DOT) <br>
+      • Certified Breath Alcohol Testing (BAT) <br>
+      • DER Program Management & Compliance <br>
+      • Executive & Confidential Screening <br>
+      • Federal Contractor & Vendor Readiness <br>
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Industries & Entities Served</h2>
+    <p>Transportation, Government Agencies, Corporate Employers, School Districts, VIPs & High-Profile Clients</p>
+  </div>
+
+  <div class="section">
+    <h2>DER Oversight as a Service</h2>
+    <p>Most companies don’t want the legal responsibility of DER management — Alturelle assumes the role fully, shielding you from risk while ensuring compliant operations. This is not a software subscription. It is strategic partnership.</p>
+  </div>
+
+  <div class="quote">
+    “Compliance isn’t a checkbox — it’s your brand’s integrity. Let us protect both.”
+  </div>
+
+  <div class="cta">
+    <p><strong>Email:</strong> contact@alturelle.com</p>
+    <p><strong>Phone:</strong> 202-982-6963</p>
+    <a href="mailto:contact@alturelle.com" class="contact-button">Schedule Consultation</a>
+  </div>
+
+  <footer>
+    &copy; 2025 Alturelle Compliance Group · Cleveland, OH · All rights reserved
+  </footer>
 </body>
 </html>
+
