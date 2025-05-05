@@ -11,112 +11,143 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(to bottom right, #f7f5f2, #e4dcd5);
-      color: #2d2d2d;
+      background: linear-gradient(to bottom right, #3f4368, #6b6d8d);
+      color: #f8f8f8;
     }
     .container {
-      max-width: 850px;
+      max-width: 880px;
       margin: 0 auto;
-      padding: 70px 20px 40px;
+      padding: 80px 20px 50px;
       text-align: center;
     }
+    .hero {
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
     .logo {
-      width: 85px;
+      width: 90px;
       margin-bottom: 26px;
     }
     h1 {
-      font-size: 2.6rem;
-      margin-bottom: 12px;
-      color: #4a392e;
+      font-size: 2.7rem;
+      margin-bottom: 10px;
+      color: #ffffff;
     }
     .tagline {
       font-size: 1.2rem;
-      color: #7b6d61;
+      color: #ddd;
       margin-bottom: 40px;
     }
     .section {
-      margin-bottom: 50px;
+      margin: 50px 0;
     }
     .section h2 {
       font-size: 1.6rem;
-      color: #3c322a;
       margin-bottom: 16px;
+      color: #ffffff;
     }
-    .section p {
+    .section p, .section ul {
       font-size: 1.05rem;
-      line-height: 1.7;
-      max-width: 700px;
+      line-height: 1.8;
+      max-width: 720px;
       margin: 0 auto;
+      color: #eaeaea;
+    }
+    .section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .section ul li::before {
+      content: '•';
+      margin-right: 8px;
+      color: #bfb3ff;
     }
     .contact-card {
-      background: white;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 16px;
       padding: 30px 20px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-      max-width: 500px;
       margin: 0 auto 40px auto;
+      max-width: 520px;
     }
     .contact-button {
       display: inline-block;
       margin-top: 20px;
       padding: 12px 30px;
-      background-color: #4a392e;
-      color: white;
+      background-color: #ffffff;
+      color: #3f4368;
       border: none;
       border-radius: 30px;
       font-size: 1rem;
       cursor: pointer;
       text-decoration: none;
+      font-weight: 600;
     }
     .quote {
       font-style: italic;
-      color: #5a4c3f;
+      color: #d2cce9;
       margin: 40px auto;
       max-width: 600px;
+    }
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #bfb3ff;
     }
     footer {
       text-align: center;
       font-size: 0.85rem;
-      color: #888;
+      color: #aaa;
       padding: 40px 10px 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" alt="Alturelle Logo" class="logo" />
-    <h1>Alturelle Compliance Group</h1>
-    <div class="tagline">Certified. Compliant. Mobile.</div>
-
-    <div class="section">
-      <h2>Who We Are</h2>
-      <p>Alturelle is a federally aligned mobile compliance company providing discreet drug and alcohol testing, DER program management, and consulting services tailored for high-demand industries.</p>
+    <div class="hero">
+      <img src="logo.png" alt="Alturelle Logo" class="logo" />
+      <h1>Alturelle Compliance Group</h1>
+      <div class="tagline">Certified. Compliant. Mobile. Registered in Wyoming. Trust-Owned.</div>
     </div>
 
     <div class="section">
       <h2>What We Offer</h2>
-      <p>
-        - DOT & Non-DOT Urine Drug Testing<br>
-        - Breath Alcohol Testing (BAT)<br>
-        - DER Program Compliance & Oversight<br>
-        - Mobile On-Site Collection & Event Services<br>
-        - Confidential Testing for VIP Clients<br>
-      </p>
+      <ul>
+        <li>DOT & Non-DOT Urine Drug Testing</li>
+        <li>Breath Alcohol Testing (BAT)</li>
+        <li>Post-Accident, Random, and Pre-Employment Testing</li>
+        <li>DER Program Compliance & Management</li>
+        <li>Mobile & On-Site Testing — 24/7 Available</li>
+      </ul>
     </div>
 
     <div class="section">
-      <h2>Industries Served</h2>
-      <p>DOT-Regulated Companies · Government Agencies · School Districts · Healthcare & Aviation · Entertainment & High-Profile Clients</p>
+      <h2>Industries & Clients We Serve</h2>
+      <ul>
+        <li>DOT & Transportation</li>
+        <li>Government Agencies & Contractors</li>
+        <li>School Systems & Safety Programs</li>
+        <li>Corporate Employers & HR Teams</li>
+        <li>Celebrities, Executives & High-Profile Clients</li>
+      </ul>
     </div>
 
     <div class="section">
       <h2>DER Program Compliance & Management</h2>
-      <p>For DOT-regulated companies, we serve as your certified DER — ensuring full compliance, coordinating testing, managing results, and protecting your business from costly violations.</p>
+      <p>For DOT-regulated companies, we serve as your certified DER — ensuring full compliance, handling testing coordination, and protecting your business from costly violations.</p>
     </div>
 
     <div class="section">
       <h2>Federal Readiness</h2>
-      <p>Alturelle is discreet, responsive, and federally aligned for immediate deployment. All services are handled with precision, compliance, and client confidentiality at the forefront.</p>
+      <p><strong>Federal Vendor Ready – Mobile, Certified & Compliant.</strong></p>
+    </div>
+
+    <div class="section">
+      <h2>Client Promise</h2>
+      <p>We deliver compliant, confidential, and professional results — every time.</p>
     </div>
 
     <div class="contact-card">
@@ -130,11 +161,12 @@
     </div>
 
     <footer>
-      &copy; 2025 Alturelle Compliance Group · Cleveland, OH · Trust-owned · All rights reserved
+      &copy; 2025 Alturelle Compliance Group · Wyoming · Cleveland, OH · All rights reserved
     </footer>
   </div>
 </body>
 </html>
+
 
 
 
