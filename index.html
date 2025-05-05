@@ -9,16 +9,29 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #12151c, #1f2833);
-      color: #f1f5f9;
+      background: linear-gradient(to bottom, #0f1115, #1a2230);
+      color: #f8fafc;
+      overflow-x: hidden;
     }
     header {
-      padding: 30px 20px;
+      padding: 40px 20px 20px;
       text-align: center;
+      position: relative;
+    }
+    .hero-bg {
+      background: url('https://i.postimg.cc/xj0kXN4y/alturelle-shadow.jpg') center/cover no-repeat;
+      filter: brightness(0.6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.5;
     }
     .logo {
-      width: 80px;
-      margin: 0 auto 16px;
+      width: 90px;
+      margin-bottom: 20px;
     }
     .hero-title {
       font-size: 2.8rem;
@@ -27,47 +40,59 @@
     }
     .hero-subtitle {
       font-size: 1.2rem;
-      color: #94a3b8;
+      color: #cbd5e1;
       margin-top: 12px;
     }
+    .quote-top {
+      margin: 30px auto 0;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #a0aec0;
+      max-width: 700px;
+    }
     .section {
-      padding: 60px 20px;
+      padding: 50px 30px;
       text-align: center;
-      max-width: 880px;
+      max-width: 900px;
       margin: 0 auto;
     }
     .section h2 {
-      font-size: 1.5rem;
-      margin-bottom: 16px;
+      font-size: 1.4rem;
+      margin-bottom: 14px;
       color: #e2e8f0;
+      position: relative;
+    }
+    .section h2::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: #94a3b8;
+      margin: 12px auto 0;
     }
     .section p {
       font-size: 1.05rem;
-      color: #cbd5e1;
+      color: #d1d5db;
+      max-width: 750px;
+      margin: 0 auto;
       line-height: 1.7;
     }
-    .quote {
-      font-style: italic;
-      font-size: 1.1rem;
-      color: #a3aebf;
-      margin: 40px auto;
-      max-width: 720px;
-    }
     .cta {
-      background-color: #1e293b;
-      border-radius: 12px;
-      padding: 40px 20px;
+      background: #1f2937;
+      border-radius: 16px;
+      padding: 40px 30px;
       margin: 60px auto;
-      max-width: 480px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     }
     .cta p {
       margin: 10px 0;
     }
-    .cta .contact-button {
-      margin-top: 16px;
-      padding: 12px 28px;
-      background-color: #64748b;
+    .contact-button {
+      margin-top: 20px;
+      padding: 12px 30px;
+      background-color: #475569;
       color: white;
       border: none;
       border-radius: 30px;
@@ -76,8 +101,15 @@
       transition: background 0.3s ease;
       text-decoration: none;
     }
-    .cta .contact-button:hover {
-      background-color: #7b91ac;
+    .contact-button:hover {
+      background-color: #64748b;
+    }
+    .quote {
+      font-style: italic;
+      color: #94a3b8;
+      margin: 60px auto 30px;
+      font-size: 1.05rem;
+      max-width: 720px;
     }
     footer {
       text-align: center;
@@ -89,35 +121,37 @@
 </head>
 <body>
   <header>
+    <div class="hero-bg"></div>
     <img src="logo.png" alt="Alturelle Logo" class="logo" />
     <h1 class="hero-title">Alturelle Compliance Group</h1>
-    <div class="hero-subtitle">Where compliance meets intelligence</div>
+    <div class="hero-subtitle">Certified. Confidential. Commanding.</div>
+    <div class="quote-top">Alturelle was not created to serve the public. It exists for those who cannot afford public mistakes.</div>
   </header>
 
   <div class="section">
     <h2>Private Compliance Intelligence</h2>
-    <p>Alturelle operates at the intersection of discretion and law. We are a private consultancy specializing in mobile drug and alcohol testing, DER oversight, and executive compliance solutions — structured for agencies, corporations, and high-profile individuals requiring absolute precision and presence.</p>
+    <p>We deliver discreet drug & alcohol testing, DER oversight, and federal vendor support for agencies, corporations, and elite individuals. This is not a clinic. This is executive-level compliance infrastructure — mobile, trusted, and precise.</p>
   </div>
 
   <div class="section">
-    <h2>What We Offer</h2>
+    <h2>Core Services</h2>
     <p>
-      • On-Demand Mobile Testing (DOT/Non-DOT) <br>
-      • Certified Breath Alcohol Testing (BAT) <br>
-      • DER Program Management & Compliance <br>
-      • Executive & Confidential Screening <br>
-      • Federal Contractor & Vendor Readiness <br>
+      • Certified Urine Drug Testing (DOT/Non-DOT)<br>
+      • Breath Alcohol Testing (BAT)<br>
+      • Post-Accident & Randomized Testing<br>
+      • DER Program Management & Legal Oversight<br>
+      • VIP & High-Profile Mobile Testing — by appointment only<br>
     </p>
   </div>
 
   <div class="section">
-    <h2>Industries & Entities Served</h2>
-    <p>Transportation, Government Agencies, Corporate Employers, School Districts, VIPs & High-Profile Clients</p>
+    <h2>Industries We Serve</h2>
+    <p>DOT-Regulated Transportation · Federal Contractors · Government Agencies · School Districts · Private Security · Executive Wellness</p>
   </div>
 
   <div class="section">
-    <h2>DER Oversight as a Service</h2>
-    <p>Most companies don’t want the legal responsibility of DER management — Alturelle assumes the role fully, shielding you from risk while ensuring compliant operations. This is not a software subscription. It is strategic partnership.</p>
+    <h2>DER Compliance Shield</h2>
+    <p>Most firms fear the legal exposure. Alturelle assumes the Designated Employer Representative (DER) role entirely — coordinating testing, managing records, and shielding your business from compliance penalties. This is not a formality. It’s full-scale protection.</p>
   </div>
 
   <div class="quote">
@@ -125,8 +159,8 @@
   </div>
 
   <div class="cta">
-    <p><strong>Email:</strong> contact@alturelle.com</p>
-    <p><strong>Phone:</strong> 202-982-6963</p>
+    <p><strong>Email</strong>: contact@alturelle.com</p>
+    <p><strong>Phone</strong>: 202-982-6963</p>
     <a href="mailto:contact@alturelle.com" class="contact-button">Schedule Consultation</a>
   </div>
 
@@ -135,4 +169,5 @@
   </footer>
 </body>
 </html>
+
 
