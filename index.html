@@ -9,93 +9,68 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(to bottom, #0f1115, #1a2230);
-      color: #f8fafc;
-      overflow-x: hidden;
+      background: linear-gradient(to bottom, #0a0f1a, #1b263b);
+      color: #f1f5f9;
     }
-    header {
-      padding: 40px 20px 20px;
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 100px 24px 60px;
       text-align: center;
-      position: relative;
-    }
-    .hero-bg {
-      background: url('https://i.postimg.cc/xj0kXN4y/alturelle-shadow.jpg') center/cover no-repeat;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.35;
     }
     .logo {
-      width: 90px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
+      width: 80px;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
     }
-    .hero-title {
-      font-size: 2.8rem;
+    h1 {
+      font-size: 2.6rem;
       font-weight: 600;
-      margin: 0;
-      animation: fadeIn 1.2s ease-in-out;
+      margin-bottom: 10px;
     }
-    .hero-subtitle {
+    .tagline {
       font-size: 1.2rem;
       color: #cbd5e1;
-      margin-top: 12px;
-      animation: fadeIn 1.6s ease-in-out;
+      margin-bottom: 30px;
     }
-    .quote-top {
-      margin: 30px auto 0;
+    .quote {
       font-style: italic;
       font-size: 1.05rem;
       color: #a0aec0;
-      max-width: 700px;
-      animation: fadeIn 2s ease-in-out;
+      margin-bottom: 60px;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .section {
-      padding: 50px 30px;
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .section h2 {
-      font-size: 1.4rem;
-      margin-bottom: 14px;
+    .section-title {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
       color: #e2e8f0;
-      position: relative;
     }
-    .section h2::after {
-      content: '';
-      display: block;
-      width: 40px;
+    .divider {
+      width: 50px;
       height: 2px;
       background: #94a3b8;
-      margin: 12px auto 0;
+      margin: 14px auto 30px;
     }
-    .section p {
+    .section-text {
       font-size: 1.05rem;
-      color: #d1d5db;
-      max-width: 750px;
-      margin: 0 auto;
+      color: #dbeafe;
       line-height: 1.7;
+      max-width: 720px;
+      margin: 0 auto 50px;
     }
-    .cta {
+    .contact-card {
       background: #1f2937;
+      padding: 30px 24px;
       border-radius: 16px;
-      padding: 40px 30px;
-      margin: 60px auto;
-      max-width: 500px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    }
-    .cta p {
-      margin: 10px 0;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+      margin-top: 50px;
     }
     .contact-button {
       margin-top: 20px;
-      padding: 12px 30px;
-      background-color: #475569;
+      padding: 12px 28px;
+      background-color: #334155;
       color: white;
       border: none;
       border-radius: 30px;
@@ -103,89 +78,68 @@
       cursor: pointer;
       transition: background 0.3s ease;
       text-decoration: none;
+      display: inline-block;
     }
     .contact-button:hover {
-      background-color: #64748b;
-    }
-    .quote {
-      font-style: italic;
-      color: #94a3b8;
-      margin: 60px auto 30px;
-      font-size: 1.05rem;
-      max-width: 720px;
+      background-color: #475569;
     }
     footer {
+      margin-top: 80px;
       text-align: center;
-      font-size: 0.85rem;
-      color: #64748b;
-      padding: 30px 20px 16px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      .section, .cta {
-        padding: 30px 20px;
-      }
-      .hero-title {
-        font-size: 2rem;
-      }
+      font-size: 0.875rem;
+      color: #94a3b8;
+      padding-bottom: 40px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="hero-bg"></div>
+  <div class="container">
     <img src="logo.png" alt="Alturelle Logo" class="logo" />
-    <h1 class="hero-title">Alturelle Compliance Group</h1>
-    <div class="hero-subtitle">Certified. Confidential. Commanding.</div>
-    <div class="quote-top">Alturelle was not created to serve the public. It exists for those who cannot afford public mistakes.</div>
-  </header>
+    <h1>Alturelle Compliance Group</h1>
+    <div class="tagline">Certified. Confidential. Mobile.</div>
+    <div class="quote">Alturelle was not created to serve the public. It exists for those who cannot afford public mistakes.</div>
 
-  <div class="section">
-    <h2>Private Compliance Intelligence</h2>
-    <p>We deliver discreet drug & alcohol testing, DER oversight, and federal vendor support for agencies, corporations, and elite individuals. This is not a clinic. This is executive-level compliance infrastructure — mobile, trusted, and precise.</p>
-  </div>
-
-  <div class="section">
-    <h2>Core Services</h2>
-    <p>
-      • Certified Urine Drug Testing (DOT/Non-DOT)<br>
+    <div class="section-title">What We Offer</div>
+    <div class="divider"></div>
+    <div class="section-text">
+      • DOT & Non-DOT Urine Drug Testing<br>
       • Breath Alcohol Testing (BAT)<br>
-      • Post-Accident & Randomized Testing<br>
-      • DER Program Management & Legal Oversight<br>
-      • VIP & High-Profile Mobile Testing — by appointment only<br>
-    </p>
-  </div>
+      • Post-Accident, Random, and Pre-Employment Testing<br>
+      • DER Program Compliance & Management<br>
+      • Mobile & On-Site Testing — 24/7 Available
+    </div>
 
-  <div class="section">
-    <h2>Industries We Serve</h2>
-    <p>DOT-Regulated Transportation · Federal Contractors · Government Agencies · School Districts · Private Security · Executive Wellness</p>
-  </div>
+    <div class="section-title">Industries & Clients We Serve</div>
+    <div class="divider"></div>
+    <div class="section-text">
+      DOT & Transportation · Government Agencies & Contractors · School Systems & Safety Programs · Corporate Employers & HR Teams · Celebrities, Executives & High-Profile Clients
+    </div>
 
-  <div class="section">
-    <h2>DER Compliance Shield</h2>
-    <p>Most firms fear the legal exposure. Alturelle assumes the Designated Employer Representative (DER) role entirely — coordinating testing, managing records, and shielding your business from compliance penalties. This is not a formality. It’s full-scale protection.</p>
-  </div>
+    <div class="section-title">DER Program Compliance & Management</div>
+    <div class="divider"></div>
+    <div class="section-text">
+      For DOT-regulated companies, we serve as your certified DER — ensuring full compliance, handling testing coordination, and protecting your business from costly violations.
+    </div>
 
-  <div class="quote">
-    “Compliance isn’t a checkbox — it’s your brand’s integrity. Let us protect both.”
-  </div>
+    <div class="section-title">Client Promise</div>
+    <div class="divider"></div>
+    <div class="section-text">
+      We deliver compliant, confidential, and professional results — every time.
+    </div>
 
-  <div class="cta">
-    <p><strong>Email</strong>: contact@alturelle.com</p>
-    <p><strong>Phone</strong>: 202-982-6963</p>
-    <a href="mailto:contact@alturelle.com" class="contact-button">Schedule Consultation</a>
-  </div>
+    <div class="contact-card">
+      <p><strong>Email</strong>: contact@alturelle.com</p>
+      <p><strong>Phone</strong>: 202-982-6963</p>
+      <a href="mailto:contact@alturelle.com" class="contact-button">Schedule Consultation</a>
+    </div>
 
-  <footer>
-    &copy; 2025 Alturelle Compliance Group · Cleveland, OH · All rights reserved
-  </footer>
+    <footer>
+      &copy; 2025 Alturelle Compliance Group · Cleveland, OH · All rights reserved
+    </footer>
+  </div>
 </body>
 </html>
+
 
 
 
