@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "https://alturelle.com/:path*",
+      "destination": "https://www.alturelle.com/:path*",
+      "permanent": true
+    }
+  ]
+}
