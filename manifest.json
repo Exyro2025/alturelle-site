@@ -1,22 +1,21 @@
 {
-  "name": "Alturelle Compliance",
+  "name": "Alturelle Compliance Group",
   "short_name": "Alturelle",
- "icons": [
-  {
-    "src": "/icon.png",
-    "type": "image/png",
-    "sizes": "192x192"
-  },
-  {
-    "src": "/icon.png",
-    "type": "image/png",
-    "sizes": "512x512"
-  }
-]
-
-  ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  "background_color": "#0a0f1a",
+  "theme_color": "#0a0f1a",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
 }
+
