@@ -1,8 +1,14 @@
 {
   "redirects": [
     {
-      "source": "https://alturelle.com/:path*",
-      "destination": "https://www.alturelle.com/:path*",
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "alturelle.com"
+        }
+      ],
+      "destination": "https://www.alturelle.com/$1",
       "permanent": true
     }
   ]
