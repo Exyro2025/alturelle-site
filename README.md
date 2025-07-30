@@ -1,11 +1,11 @@
-# Alturelle Compliance Group – Official Website
+# Altruelle Compliance Group – Official Website
 
-This is the official website for **Alturelle Compliance Group**, a mobile compliance firm offering certified drug & alcohol testing and DER program management across government-regulated industries, schools, and VIP clients.
+This is the official website for **Altruelle Compliance Group**, a mobile compliance firm offering certified drug & alcohol testing and DER program management across government-regulated industries, schools, and VIP clients.
 
 ---
 
 ## 🌐 Live Site (Vercel)
-Coming soon: [https://alturelle-site.vercel.app](https://alturelle-site.vercel.app)
+Coming soon: [https://altruelle-site.vercel.app](https://altruelle-site.vercel.app)
 
 ---
 
@@ -18,9 +18,9 @@ Coming soon: [https://alturelle-site.vercel.app](https://alturelle-site.vercel.a
 ---
 
 ## 📬 Contact Info
-- Website: [https://www.alturelle.com](https://www.alturelle.com)
+- Website: [https://www.altruelle.com](https://www.altruelle.com)
 - Email: [contact@alturelle.com](mailto:contact@alturelle.com)
-- Phone: 202-982-6963
+- Phone: 301-834-2981
 - Location: Cleveland, OH
 
 ---
@@ -33,7 +33,7 @@ Coming soon: [https://alturelle-site.vercel.app](https://alturelle-site.vercel.a
 ---
 
 ## 📄 License
-© 2025 Alturelle Compliance Group. All rights reserved.
+© 2025 Altruelle Compliance Group. All rights reserved.
 
 ---
 
