@@ -13,27 +13,46 @@
       background-color: #0b0f13;
       color: #f5f5f5;
     }
+
     header, footer {
       text-align: center;
       padding: 2rem 1rem;
     }
+
     .hero {
       background: url('/rapidlocker-page-background.png') no-repeat center center;
       background-size: cover;
       padding: 5rem 2rem;
       text-align: center;
+      position: relative;
     }
+
+    /* Optional dark overlay for better text visibility */
+    /*
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+    */
+
+    .hero-content {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 0.5rem;
     }
+
     .hero p {
       font-size: 1.25rem;
       color: #c8c8c8;
-    }
-    .hero-content {
-      max-width: 600px;
-      margin: 0 auto;
     }
 
     .section {
@@ -41,14 +60,17 @@
       max-width: 900px;
       margin: auto;
     }
+
     .section h2 {
       font-size: 2rem;
       margin-bottom: 1rem;
       text-align: center;
     }
+
     .features li {
       margin-bottom: 1rem;
     }
+
     .cta-button {
       display: inline-block;
       background-color: #0070f3;
@@ -59,6 +81,7 @@
       font-weight: bold;
       margin-top: 1rem;
     }
+
     .image-row {
       display: flex;
       flex-wrap: wrap;
@@ -66,6 +89,7 @@
       gap: 1.5rem;
       margin-top: 2rem;
     }
+
     .image-row img {
       max-width: 100%;
       height: auto;
@@ -74,16 +98,21 @@
   </style>
 </head>
 <body>
-  <header style="text-align: center;">
-  <img src="/logo.png" alt="Altruelle Compliance Group Logo" width="80" />
-  <div style="margin-top: 1rem;">
-    <a href="https://tidycal.com/1jlkz8m" class="cta-button" target="_blank" rel="noopener noreferrer">
-      Request Access
-    </a>
-  </div>
-</header>
+  <header>
+    <img src="/logo.png" alt="Altruelle Compliance Group Logo" width="80" />
+    <div style="margin-top: 1rem;">
+      <a href="https://tidycal.com/1jlkz8m" class="cta-button" target="_blank" rel="noopener noreferrer">
+        Request Access
+      </a>
+    </div>
+  </header>
 
-
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Alturelle RapidLocker™</h1>
+      <p>The Future of Secure, Mobile Drug Testing</p>
+    </div>
+  </section>
 
   <section class="section">
     <h2>What Is RapidLocker™?</h2>
@@ -97,12 +126,10 @@
 
   <section class="section">
     <h2>Visual Overview</h2>
-   <div class="image-row">
-     <img src="/rapidlocker-overview-1.png" alt="RapidLocker Overview 1" style="max-width: 100%; width: 400px; margin: 1rem;" />
-     <img src="/rapidlocker-overview-2.png" alt="RapidLocker Overview 2" style="max-width: 100%; width: 400px; margin: 1rem;" />
-   </div>
-
-
+    <div class="image-row">
+      <img src="/rapidlocker-overview-1.png" alt="RapidLocker Overview 1" style="width: 400px; margin: 1rem;" />
+      <img src="/rapidlocker-overview-2.png" alt="RapidLocker Overview 2" style="width: 400px; margin: 1rem;" />
+    </div>
   </section>
 
   <section class="section">
@@ -124,12 +151,10 @@
   </section>
 
   <section class="section-text" style="text-align: center; margin-top: 4rem;">
-  <p style="font-size: 0.9rem; color: #ccc;">
-    RapidLocker™ is a patent-pending secure testing system developed by Altruelle Compliance Group.
-  </p>
-</section>
-
-
+    <p style="font-size: 0.9rem; color: #ccc;">
+      RapidLocker™ is a patent-pending secure testing system developed by Altruelle Compliance Group.
+    </p>
+  </section>
 
   <footer>
     &copy; 2025 Altruelle Compliance Group · All rights reserved.<br />
@@ -138,4 +163,5 @@
   </footer>
 </body>
 </html>
+
 
