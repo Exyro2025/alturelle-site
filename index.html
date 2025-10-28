@@ -201,6 +201,57 @@
   Designed for FMCSA, DER, and Compliance Tech Funding Programs
 </div>
 
-  </div>
+ </div>
+
+<!-- Chatbase Embed -->
+<script>
+(function () {
+  if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+    window.chatbase = (...args) => {
+      if (!window.chatbase.q) window.chatbase.q = [];
+      window.chatbase.q.push(args);
+    };
+    window.chatbase = new Proxy(window.chatbase, {
+      get(target, prop) {
+        if (prop === "q") return target.q;
+        return (...a) => target(prop, ...a);
+      },
+    });
+  }
+
+  const onLoad = function () {
+    const script = document.createElement("script");
+    script.src = "https://www.chatbase.co/embed.min.js";
+    script.id = "Wv-qzd0Zz_QOOVHBGQCLz";   // <-- your Chatbase agent ID
+    script.domain = "www.chatbase.co";
+    document.body.appendChild(script);
+  };
+
+  if (document.readyState === "complete") onLoad();
+  else window.addEventListener("load", onLoad);
+})();
+</script>
+
+<!-- Fade-in Animation (optional) -->
+<style>
+  #chatbase-bubble {
+    opacity: 0;
+    transition: opacity 0.8s ease-in;
+  }
+  #chatbase-bubble.visible {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const bubble = document.getElementById("chatbase-bubble");
+      if (bubble) bubble.classList.add("visible");
+    }, 1000);
+  });
+</script>
+
+
 </body>
 </html>
