@@ -3,19 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Altruelle Compliance Group</title>
 
-  <meta name="description" content="Altruelle Compliance Group provides certified mobile DOT and non-DOT urine drug testing services for regulated employers, government contractors, and safety-sensitive programs." />
+  <meta name="description" content="Altruelle Compliance Group provides certified, confidential, and mobile DOT and non-DOT urine drug testing services for regulated employers, government contractors, and safety-sensitive programs." />
 
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/png" href="/icon.png">
   <meta name="theme-color" content="#ffffff" />
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
   <meta property="og:title" content="Altruelle Compliance Group" />
-  <meta property="og:description" content="Certified mobile DOT urine drug testing services for regulated employers and compliance-driven organizations." />
+  <meta property="og:description" content="Certified mobile DOT drug testing and compliance support for regulated employers and safety-sensitive programs." />
   <meta property="og:image" content="/og-image.jpg" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://altruelle.com" />
@@ -36,13 +34,14 @@
     .logo {
       width: 80px;
       margin-bottom: 24px;
+      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
     }
     h1 {
       font-size: 2.6rem;
       font-weight: 600;
       margin-bottom: 10px;
     }
-    .banner {
+    .coming-soon-banner {
       background: #14532d;
       color: #f8fafc;
       padding: 16px;
@@ -50,6 +49,7 @@
       font-size: 1rem;
       margin: 24px auto;
       max-width: 520px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.2);
     }
     .tagline {
       font-size: 1.2rem;
@@ -87,6 +87,7 @@
       background: #1f2937;
       padding: 30px 24px;
       border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
       margin-top: 50px;
     }
     .contact-button {
@@ -99,28 +100,32 @@
       text-decoration: none;
       display: inline-block;
     }
+    .contact-button:hover {
+      background-color: #475569;
+    }
     footer {
       margin-top: 80px;
+      text-align: center;
       font-size: 0.875rem;
       color: #94a3b8;
+      padding-bottom: 40px;
     }
   </style>
 </head>
 
 <body>
 
-<nav style="background:#0a0f1a;padding:1rem;text-align:center;">
-  <a href="/" style="margin:0 20px;color:#f1f5f9;text-decoration:none;font-weight:600;">Home</a>
-  <a href="/rapidlocker.html" style="margin:0 20px;color:#f1f5f9;text-decoration:none;font-weight:600;">RapidLocker™</a>
+<nav style="background: #0a0f1a; padding: 1rem; text-align: center;">
+  <a href="/" style="margin: 0 20px; color: #f1f5f9; text-decoration: none; font-weight: 600;">Home</a>
+  <a href="/rapidlocker.html" style="margin: 0 20px; color: #f1f5f9; text-decoration: none; font-weight: 600;">RapidLocker™</a>
 </nav>
 
 <div class="container">
-
-  <img src="logo.png" alt="Altruelle Compliance Group Logo" class="logo" />
+  <img src="logo.png" alt="Altruelle Logo" class="logo" />
   <h1>Altruelle Compliance Group</h1>
 
-  <div class="banner">
-    <strong>✔ Mobile DOT Drug & Alcohol Testing Support</strong><br>
+  <div class="coming-soon-banner">
+    <strong>✔ Mobile DOT Drug Testing Services</strong><br>
     Serving regulated employers and safety-sensitive programs.
   </div>
 
@@ -163,14 +168,53 @@
     </p>
   </section>
 
+  <section style="text-align: center; margin: 3rem 0;">
+    <img 
+      src="/altruelle-mobile-testing-banner.png" 
+      alt="Mobile Testing Capabilities – Altruelle Compliance Group"
+      style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.4);" 
+    />
+  </section>
+
   <footer>
-    © 2025 Altruelle Compliance Group · All rights reserved<br>
-    A Vōrai Private Holdings Company · Mobile Compliance Services
+    © 2025 Altruelle Compliance Group · All rights reserved.<br>
+    A Vōrai Private Holdings Company · Mobile Compliance Services Across the U.S.<br>
+    Patent-Pending Technology · Altruelle RapidLocker™ by Vōrai Private Holdings
   </footer>
 
 </div>
 
+<!-- Chatbase Embed -->
+<script>
+(function () {
+  if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+    window.chatbase = (...args) => {
+      if (!window.chatbase.q) window.chatbase.q = [];
+      window.chatbase.q.push(args);
+    };
+    window.chatbase = new Proxy(window.chatbase, {
+      get(target, prop) {
+        if (prop === "q") return target.q;
+        return (...a) => target(prop, ...a);
+      },
+    });
+  }
+
+  const onLoad = function () {
+    const script = document.createElement("script");
+    script.src = "https://www.chatbase.co/embed.min.js";
+    script.id = "Wv-qzd0Zz_QOOVHBGQCLz";
+    script.domain = "www.chatbase.co";
+    document.body.appendChild(script);
+  };
+
+  if (document.readyState === "complete") onLoad();
+  else window.addEventListener("load", onLoad);
+})();
+</script>
+
 </body>
 </html>
+
 
 
