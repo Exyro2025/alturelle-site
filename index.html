@@ -208,7 +208,8 @@ DOT & Non-DOT Urine Drug Testing
   const onLoad = function () {
     const script = document.createElement("script");
     script.src = "https://www.chatbase.co/embed.min.js";
-    script.id = "Wv-qzd0Zz_QOOVHBGQCLz";
+    script.id = "chatbase-script";
+    script.setAttribute("data-chatbase-id", "Wv-qzd0Zz_QOOVHBGQCLz");
     script.domain = "www.chatbase.co";
     document.body.appendChild(script);
   };
@@ -218,18 +219,7 @@ DOT & Non-DOT Urine Drug Testing
 })();
 </script>
 
-<!-- Force new chat session on page load -->
-<script>
-  window.addEventListener("load", () => {
-    if (window.chatbase) {
-      try {
-        window.chatbase("reset");
-      } catch (e) {}
-    }
-  });
-</script>
-
-</body>
+  </body>
 </html>
 
 
