@@ -189,34 +189,44 @@ DOT & Non-DOT Urine Drug Testing
 
 </div>
 
-<!-- Chatbase Loader -->
+<!-- Chatbase Embed (Session Reset on Page Load) -->
 <script>
-  function loadChatbase() {
-    // Remove existing widget + history
-    const existingScript = document.getElementById("chatbase-script");
-    if (existingScript) existingScript.remove();
+(function () {
+  // Clear Chatbase session on each page load
+  try {
+    localStorage.removeItem("chatbase_session_id");
+    localStorage.removeItem("chatbase_messages");
+  } catch (e) {}
 
-    const existingBubble = document.getElementById("chatbase-bubble");
-    if (existingBubble) existingBubble.remove();
-
-    // Reset global
+  if (!window.chatbase || window.chatbase("getState") !== "initialized") {
     window.chatbase = (...args) => {
       if (!window.chatbase.q) window.chatbase.q = [];
       window.chatbase.q.push(args);
     };
 
-    // Inject fresh widget
+    window.chatbase = new Proxy(window.chatbase, {
+      get(target, prop) {
+        if (prop === "q") return target.q;
+        return (...args) => target(prop, ...args);
+      },
+    });
+  }
+
+  const onLoad = function () {
     const script = document.createElement("script");
     script.src = "https://www.chatbase.co/embed.min.js";
     script.id = "chatbase-script";
-    script.domain = "www.chatbase.co";
     script.setAttribute("data-chatbase-id", "Wv-qzd0Zz_QOOVHBGQCLz");
-
+    script.domain = "www.chatbase.co";
     document.body.appendChild(script);
-  }
+  };
 
-  // Load fresh chat every page load
-  window.addEventListener("load", loadChatbase);
+  if (document.readyState === "complete") {
+    onLoad();
+  } else {
+    window.addEventListener("load", onLoad);
+  }
+})();
 </script>
 
 
