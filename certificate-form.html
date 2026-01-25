@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Altruelle Academy | Certificate Generation</title>
+    <style>
+        body { background: #0a0c12; color: white; font-family: sans-serif; text-align: center; padding: 50px; }
+        .cert-card { background: #161b22; padding: 40px; border-radius: 15px; border: 1px solid #4aa7ff; max-width: 600px; margin: auto; }
+        input { padding: 12px; width: 80%; border-radius: 5px; border: 1px solid #30363d; background: #0d1117; color: white; margin: 20px 0; }
+        .print-btn { cursor: pointer; padding: 15px 30px; background: #4aa7ff; color: black; border: none; border-radius: 5px; font-weight: bold; text-transform: uppercase; }
+        
+        /* THIS PART HIDES THE UI WHEN PRINTING */
+        @media print {
+            .no-print { display: none; }
+            body { background: white; color: black; padding: 0; }
+            .cert-card { border: 5px double #0a0c12; width: 100%; max-width: 100%; background: white; color: black; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cert-card">
+        <div class="no-print">
+            <img src="logo.png" alt="Altruelle Logo" style="width: 150px; margin-bottom: 20px;">
+            <h2>Training Complete</h2>
+            <p>Please enter your full name as it should appear on your official DOT Certificate.</p>
+            
+            <input type="text" id="studentName" placeholder="First and Last Name">
+            <br>
+            <button class="print-btn" onclick="window.print()">Generate & Print Certificate</button>
+        </div>
+
+        <div class="print-only">
+            <h1 style="font-size: 40px; margin-top: 20px;">CERTIFICATE OF COMPLETION</h1>
+            <p>This certifies that</p>
+            <h2 id="displayName" style="font-size: 32px; text-decoration: underline;">[Name]</h2>
+            <p>has successfully completed the 120-minute mandatory training for</p>
+            <h3>DOT REASONABLE SUSPICION SUPERVISOR TRAINING</h3>
+            <p>In accordance with <strong>49 CFR §382.603</strong></p>
+            <hr style="width: 50%; margin: 40px auto;">
+            <p style="font-size: 12px;">Verified by Altruelle Sovereign Proctor | Session ID: ALTR-2026-8K</p>
+        </div>
+    </div>
+
+    <script>
+        // This simple script copies the name from the box to the certificate in real-time
+        const input = document.getElementById('studentName');
+        const display = document.getElementById('displayName');
+        input.addEventListener('input', () => {
+            display.textContent = input.value || "[Name]";
+        });
+    </script>
+
+</body>
+</html>
