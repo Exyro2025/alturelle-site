@@ -90,15 +90,23 @@
         <iframe src="https://attic-swoop-68239140.figma.site/"></iframe>
     </main>
 
-    <footer>
+   <footer>
+    <div style="display: flex; align-items: center; gap: 20px;">
         <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
-        <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION PENDING | 49 CFR §382.603</div>
-    </footer>
+        
+        <a id="claimButton" href="certificate-form.html" style="display: none; text-decoration: none;">
+            <button style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #4affaa; background: rgba(74, 255, 170, 0.1); color: #4affaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">
+                Claim Certificate
+            </button>
+        </a>
+    </div>
+    <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
+</footer>
 
 
     <script>
     // 1. SET THE 120-MINUTE TIMER
-    let timeRemaining = 10;
+    let timeRemaining = 120 * 60;
     const timerDisplay = document.getElementById('timer');
 
     // 2. THE AI PROCTOR HANDOVER INITIALIZATION
@@ -129,6 +137,7 @@
         if (timeRemaining <= 0) {
             clearInterval(countdown);
             timerDisplay.textContent = "CERTIFICATION ELIGIBLE";
+            document.getElementById('claimButton').style.display = "block";
             timerDisplay.style.color = "#4affaa"; // Changes to Digital Green when legal requirement is met
         }
         timeRemaining--;
