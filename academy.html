@@ -2,47 +2,134 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ALTRUELLE ACADEMY | DOT Supervisor Training</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altruelle Academy | 49 CFR §382.603 Training</title>
     <style>
-        :root { --blue: #4aa7ff; --dark: #0a0e1c; --glass: rgba(10, 14, 28, 0.85); }
-        body { background: var(--dark); color: white; font-family: sans-serif; margin: 0; overflow: hidden; height: 100vh; }
-        
-        header { padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(74, 167, 255, 0.2); background: var(--glass); }
-        
-        /* THE ROADMAP HUD */
-        .roadmap-wrapper { padding: 10px 30px; background: rgba(0,0,0,0.2); }
-        .roadmap-bar { display: flex; width: 100%; height: 2px; background: rgba(255,255,255,0.05); }
-        .roadmap-seg { flex: 1; transition: all 1s ease; }
-        .seg-active { background: var(--blue); box-shadow: 0 0 10px var(--blue); }
-        .roadmap-labels { display: flex; justify-content: space-between; margin-top: 8px; font-family: monospace; font-size: 9px; letter-spacing: 0.15em; color: rgba(255,255,255,0.3); }
+        /* THE SOVEREIGN THEME */
+        :root {
+            --obsidian: #0a0c12; /* Deep background to prevent eye strain */
+            --glass: rgba(255, 255, 255, 0.03);
+            --blue: #4aa7ff; /* Your signature digital blue */
+            --glow: rgba(74, 167, 255, 0.3);
+        }
 
-        /* THE STAGE (FIXED TO SCREEN) */
-        main { height: calc(100vh - 180px); display: flex; justify-content: center; align-items: center; }
-        iframe { width: 95%; height: 90%; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
+        body {
+            background-color: var(--obsidian);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif; /* Clean institutional font */
+            margin: 0;
+            overflow: hidden; /* Keeps the command center feeling tight */
+        }
 
-        /* THE COMPLIANCE FOOTER */
-        footer { position: fixed; bottom: 0; width: 100%; padding: 15px 30px; background: var(--glass); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(74, 167, 255, 0.2); box-sizing: border-box; }
-        
-        #timer { font-family: monospace; font-size: 18px; color: var(--blue); font-weight: bold; }
-        #proctor-log { font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.6); border-left: 2px solid var(--blue); padding-left: 10px; width: 300px; }
-        
-        .status-light { width: 8px; height: 8px; background: var(--blue); border-radius: 50%; box-shadow: 0 0 8px var(--blue); display: inline-block; margin-right: 10px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-        
-        #claimButton { display: none; background: #4affaa; color: black; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 12px; }
+        /* COMMAND CENTER HEADER */
+        header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status-light {
+            width: 10px;
+            height: 10px;
+            background: var(--blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--blue);
+            animation: proctorPulse 2s infinite ease-in-out; /* Your custom pulse */
+        }
+
+        @keyframes proctorPulse {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.2; transform: scale(0.8); }
+        }
+
+        /* THE STAGE: YOUR FIGMA SLIDES GO HERE */
+        .stage-container {
+            width: 100%;
+            height: calc(100vh - 160px); /* Adjusts for header/footer */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 120-MINUTE COMPLIANCE BAR */
+        footer {
+            height: 60px;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status-light {
+    width: 10px;
+    height: 10px;
+    background-color: #4aa7ff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #4aa7ff;
+    animation: pulse 2s infinite; /* The Proctor's heartbeat */
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 167, 255, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(74, 167, 255, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 167, 255, 0); }
+}
+
+        .roadmap-wrapper {
+    margin: 10px 0 20px 0;
+    padding: 0 20px;
+}
+.roadmap-bar {
+    display: flex;
+    width: 100%;
+    height: 2px; /* Ultra-thin for sophistication */
+    background: rgba(255,255,255,0.05);
+}
+.roadmap-seg {
+    flex: 1;
+    transition: all 1s ease;
+}
+.seg-active {
+    background: #4aa7ff;
+    box-shadow: 0 0 10px rgba(74, 167, 255, 0.5);
+}
+.roadmap-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.3);
+}
     </style>
 </head>
 <body>
 
-<header>
-    <div>
-        <div style="font-size: 10px; letter-spacing: 2px; opacity: 0.6;">ALTRUELLE ACADEMY</div>
-        <div style="font-size: 18px; font-weight: bold;">DOT Supervisor Training</div>
-    </div>
-    <div style="font-size: 10px; color: var(--blue);"><span class="status-light"></span>PROCTOR STATUS: ACTIVE</div>
-</header>
+    <header>
+        <div>
+            <span style="letter-spacing: 0.2em; font-size: 11px;">ALTRUELLE ACADEMY</span>
+            <h1 style="margin: 5px 0 0 0; font-size: 18px;">DOT Supervisor Training</h1>
+        </div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <span style="font-size: 11px; color: var(--blue);">PROCTOR STATUS: ACTIVE</span>
+            <div class="status-light"></div>
+        </div>
+    </header>
 
-<div class="roadmap-wrapper">
+    <div class="roadmap-wrapper">
     <div class="roadmap-bar">
         <div id="seg1" class="roadmap-seg seg-active"></div>
         <div id="seg2" class="roadmap-seg"></div>
@@ -53,55 +140,110 @@
     </div>
 </div>
 
-<main>
-    <iframe src="https://www.figma.com/embed?embed_host=share&url=YOUR_FIGMA_URL_HERE" allowfullscreen></iframe>
-</main>
+    <main class="stage-container">
+        <iframe src="https://attic-swoop-68239140.figma.site/"></iframe>
+    </main>
 
-<footer>
+   <footer>
     <div style="display: flex; align-items: center; gap: 20px;">
-        <div id="timer">120:00:00</div>
-        <a id="claimButton" href="certificate-form.html">CLAIM CERTIFICATE</a>
+        <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
+        
+        <a id="claimButton" href="certificate-form.html" style="display: none; text-decoration: none;">
+            <button style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #4affaa; background: rgba(74, 255, 170, 0.1); color: #4affaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">
+                Claim Certificate
+            </button>
+        </a>
     </div>
-    
-    <div id="proctor-log">> INITIALIZING SOVEREIGN ENCRYPTION...</div>
+    <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
+       <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; overflow-y: hidden; border-left: 1px solid var(--blue); width: 250px; text-align: left;">
+    > INITIALIZING ALTRUELLE PROCTOR...
+</div>
 </footer>
 
-<script>
-    // SET TO 10 FOR TESTING, OR 120 * 60 FOR REAL COMPLIANCE
-    let timeRemaining = 120 * 60; 
-    const timerDisplay = document.getElementById('timer');
-    const proctorLog = document.getElementById('proctor-log');
 
+    <script>
+    // 1. SET THE 120-MINUTE TIMER
+    let timeRemaining = 120 * 60;
+    const timerDisplay = document.getElementById('timer');
+
+    // 2. THE AI PROCTOR HANDOVER INITIALIZATION
+    const handoverOverlay = document.createElement('div');
+    handoverOverlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.95); display:flex; justify-content:center; align-items:center; z-index:1000; text-align:center; padding:40px;";
+    handoverOverlay.innerHTML = `
+        <div style="max-width:600px;">
+            <p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p>
+            <h2 style="font-size:24px; color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2>
+            <p style="color:rgba(255,255,255,0.6); line-height:1.6;">Monitoring 120-minute DOT compliance session.<br>Authorized Personnel Only.</p>
+        </div>`;
+    document.body.appendChild(handoverOverlay);
+
+    // AI Proctor message stays for 10 seconds to set the "Sovereign" tone
+    setTimeout(() => {
+        handoverOverlay.style.display = 'none';
+    }, 10000);
+
+    // 3. START THE COMPLIANCE CLOCK
     const countdown = setInterval(() => {
         let hours = Math.floor(timeRemaining / 3600);
         let minutes = Math.floor((timeRemaining % 3600) / 60);
         let seconds = timeRemaining % 60;
 
-        // THE SMART SWITCH
-        if (timeRemaining <= 3600) {
-            document.getElementById('seg1').classList.remove('seg-active');
-            document.getElementById('seg1').style.background = "rgba(74, 167, 255, 0.2)";
-            document.getElementById('seg2').classList.add('seg-active');
-        }
+        // Inside your setInterval countdown function:
+if (timeRemaining <= 3600) { // 3600 seconds = 60 minutes remaining
+    document.getElementById('seg1').classList.remove('seg-active');
+    document.getElementById('seg1').style.background = "rgba(74, 167, 255, 0.2)"; // Dim completed phase
+    document.getElementById('seg2').classList.add('seg-active');
+}
 
-        timerDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        timerDisplay.textContent = 
+            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
         if (timeRemaining <= 0) {
             clearInterval(countdown);
             timerDisplay.textContent = "CERTIFICATION ELIGIBLE";
-            timerDisplay.style.color = "#4affaa";
             document.getElementById('claimButton').style.display = "block";
+            timerDisplay.style.color = "#4affaa"; // Changes to Digital Green when legal requirement is met
         }
         timeRemaining--;
     }, 1000);
 
-    // PROCTOR LOG MESSAGES
-    const messages = ["EYE-TRACKING VERIFIED", "COMPLIANCE RATIO: OPTIMAL", "SEAT TIME VALIDATED", "SOVEREIGN ENCRYPTION ACTIVE"];
-    setInterval(() => {
-        const msg = messages[Math.floor(Math.random() * messages.length)];
-        proctorLog.innerHTML = `> ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})} : ${msg}`;
-    }, 15000);
+        // PROCTOR AUDIT: Random check-ins to verify engagement
+let lastMove = Date.now();
+document.addEventListener('mousemove', () => lastMove = Date.now());
+
+const proctorAudit = setInterval(() => {
+    let idleTime = (Date.now() - lastMove) / 1000;
+    
+    // If the user hasn't moved the mouse in 15 minutes, the proctor "pauses" the clock
+    if (idleTime > 900) { 
+        alert("ALTRUELLE PROCTOR NOTICE: Session paused due to inactivity. Move your mouse to resume compliance timer.");
+        lastMove = Date.now(); // Reset after alert
+    }
+}, 60000); // Checks every minute
+
+        const proctorLog = document.getElementById('proctor-log');
+
+function logMessage(msg) {
+    const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
+    proctorLog.innerHTML = `> ${time} : ${msg}`;
+}
+
+// Random Proctor Check-ins
+const messages = [
+    "EYE-TRACKING VERIFIED",
+    "COMPLIANCE RATIO: OPTIMAL",
+    "49 CFR §382.603 AUDIT IN PROGRESS",
+    "SEAT TIME VALIDATED",
+    "BIOMETRIC MARKERS STABLE",
+    "SOVEREIGN ENCRYPTION ACTIVE"
+];
+
+setInterval(() => {
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+    logMessage(randomMsg);
+}, 45000); // Posts a new "check-in" every 45 seconds
 </script>
 
 </body>
 </html>
+
