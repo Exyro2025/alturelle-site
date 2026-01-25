@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Altruelle — Authority Matrix (Internal)</title>
+  <title>Altruelle — Authority Matrix</title>
   <style>
     :root{
       --bg0:#07090f; --bg1:#0b1020; --ink:#dbe6ff; --muted:#96a6c7;
       --line:rgba(120,160,255,.18); --line2:rgba(120,160,255,.10);
       --glow:rgba(90,140,255,.22); --blue:#4aa7ff;
+      --shadow: 0 30px 80px rgba(0,0,0,.55);
     }
-    
+ 
     *{box-sizing:border-box}
     html,body{height:100%; margin:0; padding:0; background: var(--bg0);}
     body{
@@ -20,77 +21,52 @@
                   linear-gradient(180deg, var(--bg0), var(--bg1));
     }
 
-    /* 1. THE SOVEREIGN NAVIGATION TAB */
+    /* 1. SOVEREIGN NAVIGATION */
     .global-nav {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      height: 80px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      background: rgba(7, 9, 15, 0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--line2);
+      position: sticky; top: 0; width: 100%; height: 80px;
+      display: flex; justify-content: center; align-items: center;
+      z-index: 1000; background: rgba(7, 9, 15, 0.9);
+      backdrop-filter: blur(20px); border-bottom: 1px solid var(--line2);
     }
     .nav-links { display: flex; gap: 40px; align-items: center; }
     .nav-item {
-      text-decoration: none;
-      color: rgba(255,255,255,0.4);
-      font-size: 11px;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      font-weight: 600;
-      transition: all 0.3s;
+      text-decoration: none; color: rgba(255,255,255,0.4);
+      font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+      font-weight: 600; transition: all 0.3s;
     }
     .nav-item.active {
-      color: #fff;
-      padding: 10px 22px;
-      border: 1px solid rgba(74, 167, 255, 0.3);
-      border-radius: 12px;
-      background: rgba(74, 167, 255, 0.05);
+      color: #fff; padding: 10px 22px; border: 1px solid rgba(74, 167, 255, 0.3);
+      border-radius: 12px; background: rgba(74, 167, 255, 0.05);
     }
 
     .wrap{ max-width: 1240px; margin: 0 auto; padding: 44px 24px 80px; position:relative; z-index:1; }
 
-    /* 2. THE BRAND HEADER */
+    /* 2. HEADER ARCHITECTURE */
     .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:24px; }
     .brand h1{ margin:0; font-family: ui-serif, Georgia, serif; font-weight: 600; font-size: 64px; line-height: 1.03; }
     .brand .sub{ margin:0; color: rgba(110,170,255,.95); text-transform: uppercase; letter-spacing: .34em; font-size: 13px; }
-    
     .docmeta{ text-align:right; min-width: 280px; }
     .docid{ font-family: ui-monospace, monospace; font-size: 24px; letter-spacing: .18em; color: var(--blue); margin-bottom: 10px; }
     .chip{ font-family: ui-monospace, monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(120,160,255,.85); }
 
-    /* 3. THE INTERACTIVE PORTAL */
-    .matrix-section {
-      margin-top: 40px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #000;
-      height: 700px;
-      overflow: hidden;
-      position: relative;
+    /* 3. INTERACTIVE PORTAL */
+    .matrix-portal {
+      margin: 40px 0; border: 1px solid var(--line); border-radius: 14px;
+      background: #000; height: 750px; overflow: hidden; position: relative;
+      box-shadow: var(--shadow);
     }
     iframe {
-      width: 100%;
-      height: calc(100% + 48px); /* Masking Figma toolbar */
-      margin-top: -48px;
-      border: none;
+      width: 100%; height: calc(100% + 48px); /* Hide Figma toolbar */
+      margin-top: -48px; border: none;
     }
 
-    /* 4. THE SOVEREIGN SEAL */
-    .foot {
-      margin-top: 40px;
-      display: flex;
-      justify-content: space-between;
-      font-family: ui-monospace, monospace;
-      font-size: 11px;
-      letter-spacing: .16em;
-      color: rgba(130,160,210,.55);
-      text-transform: uppercase;
-    }
+    /* 4. LOWER PANELS & SEAL */
+    .lower{ display:grid; grid-template-columns: 1.35fr 1fr; gap: 18px; margin-top: 26px; position: relative; }
+    .panel{ border-radius: 14px; border: 1px solid var(--line); padding: 20px 22px; background: rgba(12,16,30,.52); }
+    .seal{ position:absolute; right: -40px; bottom: -80px; width: 360px; height: 360px; border-radius: 999px; border: 1px solid var(--line); display: grid; place-items: center; opacity: 0.6; pointer-events: none; }
+    .sealInner{ text-align: center; color: var(--ink); text-transform: uppercase; letter-spacing: .22em; }
+
+    .foot{ margin-top: 40px; display:flex; justify-content:space-between; font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: .16em; color: rgba(130,160,210,.55); }
   </style>
 </head>
 <body>
@@ -107,19 +83,43 @@
     <header class="top">
       <div class="brand">
         <h1>Altruelle</h1>
-        <p class="sub">OBSERVATIONAL AUTHORITY REGISTER</p>
+        <p class="sub">THE OBSERVATIONAL AUTHORITY REGISTER</p>
       </div>
       <div class="docmeta">
         <div class="docid">ALTR-DOT-2026-8K</div>
-        <div class="chip">CLASSIFICATION: <strong>AUTHORIZED ONLY</strong></div>
+        <div class="chip">CLASSIFICATION: <strong>AUTHORIZED PERSONNEL ONLY</strong></div>
       </div>
     </header>
 
-    <section class="matrix-section">
-      <iframe 
-        src="YOUR_FIGMA_PROTOTYPE_URL?embed_host=share&kind=&viewer=1&hide-footer=1" 
-        allowfullscreen>
-      </iframe>
+    <section class="matrix-portal">
+      <iframe src="YOUR_FIGMA_PROTOTYPE_URL?embed_host=share&kind=&viewer=1&hide-footer=1" allowfullscreen></iframe>
+    </section>
+
+    <section class="lower">
+      <div class="panel">
+        <h3 style="letter-spacing: .22em; font-size: 14px; color: var(--blue);">OBSERVATION PROTOCOL</h3>
+        <p style="font-size: 14px; line-height: 1.7; opacity: 0.8;">
+          Trained observers document biological indicators across three pillars. 
+          Evidence of age-reversal optimization or tissue repair latency establishes 
+          sovereign state compliance.
+        </p>
+      </div>
+      
+      <div class="panel">
+        <h3 style="letter-spacing: .22em; font-size: 14px; color: var(--blue);">REGULATORY COMPLIANCE</h3>
+        <div style="font-family: monospace; font-size: 12px; margin-top: 10px;">
+          <div style="display:flex; justify-content:space-between; padding: 8px 0;"><span>49 CFR Part 382</span><span style="color:#38d06f;">COMPLIANT</span></div>
+          <div style="display:flex; justify-content:space-between; padding: 8px 0;"><span>GENE-REPAIR STATUS</span><span style="color:#38d06f;">VALIDATED</span></div>
+        </div>
+      </div>
+
+      <div class="seal">
+        <div class="sealInner">
+          <div style="font-size: 11px;">AUTHORIZED</div>
+          <div style="font-size: 22px; font-weight: 700;">OBSERVER</div>
+          <div style="font-size: 11px; opacity: 0.6;">DOT-RS-2026</div>
+        </div>
+      </div>
     </section>
 
     <footer class="foot">
@@ -127,6 +127,5 @@
       <div>ALTURELLE / DOT-RS-2026</div>
     </footer>
   </main>
-
 </body>
 </html>
