@@ -95,5 +95,45 @@
         <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION PENDING | 49 CFR §382.603</div>
     </footer>
 
+
+    <script>
+    // 1. SET THE 120-MINUTE TIMER
+    let timeRemaining = 120 * 60; 
+    const timerDisplay = document.getElementById('timer');
+
+    // 2. THE AI PROCTOR HANDOVER INITIALIZATION
+    const handoverOverlay = document.createElement('div');
+    handoverOverlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.95); display:flex; justify-content:center; align-items:center; z-index:1000; text-align:center; padding:40px;";
+    handoverOverlay.innerHTML = `
+        <div style="max-width:600px;">
+            <p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p>
+            <h2 style="font-size:24px; color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2>
+            <p style="color:rgba(255,255,255,0.6); line-height:1.6;">Monitoring 120-minute DOT compliance session.<br>Authorized Personnel Only.</p>
+        </div>`;
+    document.body.appendChild(handoverOverlay);
+
+    // AI Proctor message stays for 10 seconds to set the "Sovereign" tone
+    setTimeout(() => {
+        handoverOverlay.style.display = 'none';
+    }, 10000);
+
+    // 3. START THE COMPLIANCE CLOCK
+    const countdown = setInterval(() => {
+        let hours = Math.floor(timeRemaining / 3600);
+        let minutes = Math.floor((timeRemaining % 3600) / 60);
+        let seconds = timeRemaining % 60;
+
+        timerDisplay.textContent = 
+            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        if (timeRemaining <= 0) {
+            clearInterval(countdown);
+            timerDisplay.textContent = "CERTIFICATION ELIGIBLE";
+            timerDisplay.style.color = "#4affaa"; // Changes to Digital Green when legal requirement is met
+        }
+        timeRemaining--;
+    }, 1000);
+</script>
+
 </body>
 </html>
