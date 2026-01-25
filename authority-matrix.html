@@ -1,14 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Altruelle — Authority Matrix (Internal)</title>
   <style>
-    /* 1. Global Reset & Sovereign Aesthetic */
-    body, html { margin: 0; padding: 0; height: 100%; background: #000; overflow: hidden; font-family: system-ui, -apple-system, sans-serif; }
+    :root {
+      --bg0: #07090f;
+      --bg1: #0b1020;
+      --ink: #dbe6ff;
+      --line: rgba(120, 160, 255, .18);
+      --line2: rgba(120, 160, 255, .10);
+      --blue: #4aa7ff;
+    }
 
-    /* 2. The Integrated Navigation (Matches image_61ca11) */
-    .sovereign-header {
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; overflow: hidden; background: var(--bg0); }
+
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(1200px 700px at 18% 30%, rgba(74, 167, 255, .16), transparent 55%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
+
+    /* 1. Sovereign Navigation Tab */
+    .sovereign-nav {
       position: fixed;
       top: 0;
       left: 0;
@@ -18,59 +35,109 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.8);
+      background: rgba(7, 9, 15, 0.8);
       backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid var(--line2);
     }
 
-    .nav-links { display: flex; align-items: center; gap: 40px; }
-
+    .nav-links { display: flex; gap: 40px; }
     .nav-item {
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 255, 255, 0.4);
       text-decoration: none;
-      font-size: 13px;
-      letter-spacing: 0.18em;
+      font-size: 11px;
+      letter-spacing: .25em;
       text-transform: uppercase;
       font-weight: 600;
-      transition: color 0.4s;
     }
 
-    /* The "Active" Sovereign Tab */
     .nav-item.active {
       color: #fff;
-      padding: 10px 20px;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 12px;
-      background: rgba(255,255,255,0.03);
+      padding: 8px 18px;
+      border: 1px solid rgba(74, 167, 255, 0.3);
+      border-radius: 8px;
+      background: rgba(74, 167, 255, 0.05);
     }
 
-    /* 3. The "Frontier" Figma Wrapper (Hides UI and centers content) */
-    .prototype-container {
+    /* 2. Bespoke Header Info */
+    .top-meta {
       position: absolute;
-      /* This -48px crop removes the Figma toolbar perfectly */
-      top: 22px; 
+      top: 90px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .brand-id h1 { margin: 0; font-size: 32px; letter-spacing: .02em; font-family: ui-serif, Georgia, serif; }
+    .brand-id p { margin: 4px 0 0; font-size: 10px; letter-spacing: .3em; color: var(--blue); opacity: 0.8; }
+
+    /* 3. Interactive Authority Matrix Portal */
+    .matrix-portal {
+      position: absolute;
+      top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       z-index: 1;
     }
 
-    iframe { width: 100%; height: 100%; border: none; }
+    /* Hiding Figma UI to maintain 'Million-Dollar' Bespoke feel */
+    iframe {
+      width: 100%;
+      height: calc(100% + 48px);
+      margin-top: -48px;
+      border: none;
+    }
+
+    /* 4. Sovereign Seal */
+    .seal-anchor {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10;
+      opacity: 0.6;
+      text-align: right;
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: .2em;
+      color: var(--blue);
+    }
   </style>
 </head>
 <body>
 
-  <header class="sovereign-header">
-    <nav class="nav-links">
+  <nav class="sovereign-nav">
+    <div class="nav-links">
       <a href="index.html" class="nav-item">Home</a>
       <a href="#" class="nav-item">RapidLocker™</a>
       <a href="authority-matrix.html" class="nav-item active">AUTHORITY MATRIX (INTERNAL)</a>
-    </nav>
-  </header>
+    </div>
+  </nav>
 
-  <div class="prototype-container">
-    <iframe src="YOUR_FIGMA_PROTOTYPE_URL?embed_host=share&kind=&viewer=1&hide-footer=1" allowfullscreen></iframe>
+  <div class="top-meta">
+    <div class="brand-id">
+      <h1>Altruelle</h1>
+      <p>OBSERVATIONAL AUTHORITY REGISTER</p>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-size: 18px; letter-spacing: .15em; color: var(--blue);">ALTR-DOT-2026-8K</div>
+      <div style="font-size: 10px; opacity: 0.5;">CLASSIFICATION: AUTHORIZED ONLY</div>
+    </div>
   </div>
+
+  <main class="matrix-portal">
+    <iframe 
+      src="YOUR_FIGMA_PROTOTYPE_URL?embed_host=share&kind=&viewer=1&hide-footer=1" 
+      allowfullscreen>
+    </iframe>
+  </main>
+
+  <footer class="seal-anchor">
+    REGISTRY: ALT-OBS-001<br/>
+    ALTURELLE / DOT-RS-2026
+  </footer>
 
 </body>
 </html>
