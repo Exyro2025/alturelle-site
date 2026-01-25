@@ -86,6 +86,34 @@
     70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(74, 167, 255, 0); }
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 167, 255, 0); }
 }
+
+        .roadmap-wrapper {
+    margin: 10px 0 20px 0;
+    padding: 0 20px;
+}
+.roadmap-bar {
+    display: flex;
+    width: 100%;
+    height: 2px; /* Ultra-thin for sophistication */
+    background: rgba(255,255,255,0.05);
+}
+.roadmap-seg {
+    flex: 1;
+    transition: all 1s ease;
+}
+.seg-active {
+    background: #4aa7ff;
+    box-shadow: 0 0 10px rgba(74, 167, 255, 0.5);
+}
+.roadmap-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.3);
+}
     </style>
 </head>
 <body>
@@ -100,6 +128,17 @@
             <div class="status-light"></div>
         </div>
     </header>
+
+    <div class="roadmap-wrapper">
+    <div class="roadmap-bar">
+        <div id="seg1" class="roadmap-seg seg-active"></div>
+        <div id="seg2" class="roadmap-seg"></div>
+    </div>
+    <div class="roadmap-labels">
+        <span>PHASE I: CONTROLLED SUBSTANCES (60M)</span>
+        <span>PHASE II: ALCOHOL MISUSE (60M)</span>
+    </div>
+</div>
 
     <main class="stage-container">
         <iframe src="https://attic-swoop-68239140.figma.site/"></iframe>
@@ -148,6 +187,13 @@
         let hours = Math.floor(timeRemaining / 3600);
         let minutes = Math.floor((timeRemaining % 3600) / 60);
         let seconds = timeRemaining % 60;
+
+        // Inside your setInterval countdown function:
+if (timeRemaining <= 3600) { // 3600 seconds = 60 minutes remaining
+    document.getElementById('seg1').classList.remove('seg-active');
+    document.getElementById('seg1').style.background = "rgba(74, 167, 255, 0.2)"; // Dim completed phase
+    document.getElementById('seg2').classList.add('seg-active');
+}
 
         timerDisplay.textContent = 
             `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
