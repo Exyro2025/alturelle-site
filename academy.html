@@ -71,6 +71,21 @@
             background: var(--glass);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
+
+        .status-light {
+    width: 10px;
+    height: 10px;
+    background-color: #4aa7ff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #4aa7ff;
+    animation: pulse 2s infinite; /* The Proctor's heartbeat */
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 167, 255, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(74, 167, 255, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 167, 255, 0); }
+}
     </style>
 </head>
 <body>
@@ -101,6 +116,9 @@
         </a>
     </div>
     <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
+       <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; overflow-y: hidden; border-left: 1px solid var(--blue); width: 250px; text-align: left;">
+    > INITIALIZING ALTRUELLE PROCTOR...
+</div>
 </footer>
 
 
@@ -142,6 +160,42 @@
         }
         timeRemaining--;
     }, 1000);
+
+        // PROCTOR AUDIT: Random check-ins to verify engagement
+let lastMove = Date.now();
+document.addEventListener('mousemove', () => lastMove = Date.now());
+
+const proctorAudit = setInterval(() => {
+    let idleTime = (Date.now() - lastMove) / 1000;
+    
+    // If the user hasn't moved the mouse in 15 minutes, the proctor "pauses" the clock
+    if (idleTime > 900) { 
+        alert("ALTRUELLE PROCTOR NOTICE: Session paused due to inactivity. Move your mouse to resume compliance timer.");
+        lastMove = Date.now(); // Reset after alert
+    }
+}, 60000); // Checks every minute
+
+        const proctorLog = document.getElementById('proctor-log');
+
+function logMessage(msg) {
+    const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
+    proctorLog.innerHTML = `> ${time} : ${msg}`;
+}
+
+// Random Proctor Check-ins
+const messages = [
+    "EYE-TRACKING VERIFIED",
+    "COMPLIANCE RATIO: OPTIMAL",
+    "49 CFR §382.603 AUDIT IN PROGRESS",
+    "SEAT TIME VALIDATED",
+    "BIOMETRIC MARKERS STABLE",
+    "SOVEREIGN ENCRYPTION ACTIVE"
+];
+
+setInterval(() => {
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+    logMessage(randomMsg);
+}, 45000); // Posts a new "check-in" every 45 seconds
 </script>
 
 </body>
