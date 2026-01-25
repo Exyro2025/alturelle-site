@@ -144,20 +144,14 @@
         <iframe src="https://attic-swoop-68239140.figma.site/"></iframe>
     </main>
 
-   <footer>
+  <footer style="position: fixed; bottom: 0; left: 0; width: 100%; padding: 15px 30px; background: rgba(10, 14, 28, 0.95); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(74, 167, 255, 0.2); box-sizing: border-box; z-index: 100;">
     <div style="display: flex; align-items: center; gap: 20px;">
-        <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
-        
-        <a id="claimButton" href="certificate-form.html" style="display: none; text-decoration: none;">
-            <button style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #4affaa; background: rgba(74, 255, 170, 0.1); color: #4affaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">
-                Claim Certificate
-            </button>
-        </a>
+        <div id="timer" style="font-family: monospace; font-size: 18px; color: #4aa7ff; font-weight: bold;">120:00:00</div>
+        <a id="claimButton" href="certificate-form.html" style="display: none; background: #4affaa; color: black; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 12px;">CLAIM CERTIFICATE</a>
     </div>
-    <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
-       <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; overflow-y: hidden; border-left: 1px solid var(--blue); width: 250px; text-align: left;">
-    > INITIALIZING ALTRUELLE PROCTOR...
-</div>
+    <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.6); border-left: 2px solid #4aa7ff; padding-left: 10px; width: 300px;">
+        > INITIALIZING SOVEREIGN ENCRYPTION...
+    </div>
 </footer>
 
 
@@ -188,24 +182,38 @@
         let minutes = Math.floor((timeRemaining % 3600) / 60);
         let seconds = timeRemaining % 60;
 
-        // Inside your setInterval countdown function:
-if (timeRemaining <= 3600) { // 3600 seconds = 60 minutes remaining
-    document.getElementById('seg1').classList.remove('seg-active');
-    document.getElementById('seg1').style.background = "rgba(74, 167, 255, 0.2)"; // Dim completed phase
-    document.getElementById('seg2').classList.add('seg-active');
-}
+// 3. START THE COMPLIANCE CLOCK
+const countdown = setInterval(() => {
+    let hours = Math.floor(timeRemaining / 3600);
+    let minutes = Math.floor((timeRemaining % 3600) / 60);
+    let seconds = timeRemaining % 60;
 
-        timerDisplay.textContent = 
-            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-        if (timeRemaining <= 0) {
-            clearInterval(countdown);
-            timerDisplay.textContent = "CERTIFICATION ELIGIBLE";
-            document.getElementById('claimButton').style.display = "block";
-            timerDisplay.style.color = "#4affaa"; // Changes to Digital Green when legal requirement is met
+    // THE SMART SWITCH (Combined & Clean)
+    if (timeRemaining <= 3600) {
+        const s1 = document.getElementById('seg1');
+        const s2 = document.getElementById('seg2');
+        if(s1 && s2) {
+            // Dim Phase I
+            s1.style.background = "rgba(74, 167, 255, 0.2)";
+            s1.style.boxShadow = "none";
+            // Light up Phase II
+            s2.style.background = "#4aa7ff";
+            s2.style.boxShadow = "0 0 10px #4aa7ff";
+            s2.classList.add('seg-active');
         }
-        timeRemaining--;
-    }, 1000);
+    }
+
+    timerDisplay.textContent = 
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+    if (timeRemaining <= 0) {
+        clearInterval(countdown);
+        timerDisplay.textContent = "CERTIFICATION ELIGIBLE";
+        document.getElementById('claimButton').style.display = "block";
+        timerDisplay.style.color = "#4affaa";
+    }
+    timeRemaining--;
+}, 1000);
 
         // PROCTOR AUDIT: Random check-ins to verify engagement
 let lastMove = Date.now();
