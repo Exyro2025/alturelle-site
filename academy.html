@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altruelle Academy | 49 CFR §382.603 Training</title>
+    <style>
+        /* THE SOVEREIGN THEME */
+        :root {
+            --obsidian: #0a0c12; /* Deep background to prevent eye strain */
+            --glass: rgba(255, 255, 255, 0.03);
+            --blue: #4aa7ff; /* Your signature digital blue */
+            --glow: rgba(74, 167, 255, 0.3);
+        }
+
+        body {
+            background-color: var(--obsidian);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif; /* Clean institutional font */
+            margin: 0;
+            overflow: hidden; /* Keeps the command center feeling tight */
+        }
+
+        /* COMMAND CENTER HEADER */
+        header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status-light {
+            width: 10px;
+            height: 10px;
+            background: var(--blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--blue);
+            animation: proctorPulse 2s infinite ease-in-out; /* Your custom pulse */
+        }
+
+        @keyframes proctorPulse {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.2; transform: scale(0.8); }
+        }
+
+        /* THE STAGE: YOUR FIGMA SLIDES GO HERE */
+        .stage-container {
+            width: 100%;
+            height: calc(100vh - 160px); /* Adjusts for header/footer */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 120-MINUTE COMPLIANCE BAR */
+        footer {
+            height: 60px;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <span style="letter-spacing: 0.2em; font-size: 11px;">ALTRUELLE ACADEMY</span>
+            <h1 style="margin: 5px 0 0 0; font-size: 18px;">DOT Supervisor Training</h1>
+        </div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <span style="font-size: 11px; color: var(--blue);">PROCTOR STATUS: ACTIVE</span>
+            <div class="status-light"></div>
+        </div>
+    </header>
+
+    <main class="stage-container">
+        <iframe src="YOUR_FIGMA_EMBED_LINK_HERE"></iframe>
+    </main>
+
+    <footer>
+        <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
+        <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION PENDING | 49 CFR §382.603</div>
+    </footer>
+
+</body>
+</html>
