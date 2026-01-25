@@ -2,80 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Altruelle — Authority Register (Internal)</title>
+  <title>Altruelle — Authority Matrix (Internal)</title>
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; background: #000; font-family: system-ui, -apple-system, sans-serif; overflow: hidden; }
+    /* 1. Global Reset & Sovereign Aesthetic */
+    body, html { margin: 0; padding: 0; height: 100%; background: #000; overflow: hidden; font-family: system-ui, -apple-system, sans-serif; }
 
-    /* The Sovereign Header (The Tab you saw in image_61ca11) */
-    .sovereign-nav {
+    /* 2. The Integrated Navigation (Matches image_61ca11) */
+    .sovereign-header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 60px;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(12px);
+      height: 70px;
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
-    .nav-container {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
+    .nav-links { display: flex; align-items: center; gap: 40px; }
 
-    .nav-link {
-      color: rgba(255, 255, 255, 0.6);
+    .nav-item {
+      color: rgba(255,255,255,0.5);
       text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 0.15em;
+      font-size: 13px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      font-weight: 500;
-      transition: color 0.3s;
+      font-weight: 600;
+      transition: color 0.4s;
     }
 
-    /* The "Internal" Pill Box Tab */
-    .nav-link.active {
+    /* The "Active" Sovereign Tab */
+    .nav-item.active {
       color: #fff;
-      padding: 8px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
     }
 
-    /* The Figma Wrapper (Hiding the UI) */
-    .authority-frame-container {
+    /* 3. The "Frontier" Figma Wrapper (Hides UI and centers content) */
+    .prototype-container {
       position: absolute;
-      top: 15px; /* Offset to hide Figma top bar while leaving room for Nav */
+      /* This -48px crop removes the Figma toolbar perfectly */
+      top: 22px; 
       left: 0;
       width: 100vw;
       height: 100vh;
       z-index: 1;
     }
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    iframe { width: 100%; height: 100%; border: none; }
   </style>
 </head>
 <body>
 
-  <header class="sovereign-nav">
-    <div class="nav-container">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="#" class="nav-link">RapidLocker™</a>
-      <a href="authority-matrix.html" class="nav-link active">Authority Matrix (Internal)</a>
-    </div>
+  <header class="sovereign-header">
+    <nav class="nav-links">
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="#" class="nav-item">RapidLocker™</a>
+      <a href="authority-matrix.html" class="nav-item active">AUTHORITY MATRIX (INTERNAL)</a>
+    </nav>
   </header>
 
-  <div class="authority-frame-container">
-    <iframe src="YOUR_FIGMA_PROTOTYPE_URL?embed_host=share&kind=&viewer=1&hide-footer=1&timestamp=2026" allowfullscreen></iframe>
+  <div class="prototype-container">
+    <iframe src="YOUR_FIGMA_PROTOTYPE_URL?embed_host=share&kind=&viewer=1&hide-footer=1" allowfullscreen></iframe>
   </div>
 
 </body>
