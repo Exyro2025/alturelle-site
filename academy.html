@@ -197,7 +197,7 @@
     </div>
 
     <script>
- // 1. SETTINGS & DATA
+// 1. SETTINGS & DATA
 const moduleLockTime = 1440000; 
 let timeRemaining = 7200; // 120 Minutes
 let currentStep = 0;
@@ -216,7 +216,20 @@ function logMessage(msg) {
     document.getElementById('proctor-log').innerHTML = `> ${time} : ${msg}`;
 }
 
-// 2. COMPLIANCE CLOCK & MILESTONES
+// 2. THE SOVEREIGN FOCUS GUARD (Bespoke Participation Monitoring)
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        canStart = false; // Clock stops immediately
+        logMessage("SESSION PAUSED: WINDOW FOCUS LOST");
+        document.querySelector('.status-light').style.background = "#ff4a4a"; // Red Alert
+    } else {
+        canStart = true; // Clock resumes only when they return
+        logMessage("SESSION RESUMED: FOCUS VERIFIED");
+        document.querySelector('.status-light').style.background = "var(--blue)";
+    }
+});
+
+// 3. COMPLIANCE CLOCK & MILESTONES
 const countdown = setInterval(() => {
     if (!canStart) return;
     
@@ -224,10 +237,11 @@ const countdown = setInterval(() => {
     let minutes = Math.floor((timeRemaining % 3600) / 60);
     let seconds = timeRemaining % 60;
 
-    // MILESTONE: At 10 minutes (6600s left), pulse the button to remind the Instructor
+    // Milestone pulse for Instructor at 10 minutes (6600s left)
     if (timeRemaining === 6600 && currentStep === 0) {
-        document.getElementById('launch-assist-btn').classList.add('assist-pulse');
-        logMessage("PROCTOR SUGGESTION: READY FOR MODULE 1");
+        const btn = document.getElementById('launch-assist-btn');
+        if(btn) btn.classList.add('assist-pulse');
+        logMessage("PROCTOR READY: MODULE 1 INITIALIZED");
     }
 
     document.getElementById('timer').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
@@ -240,15 +254,14 @@ const countdown = setInterval(() => {
     timeRemaining--;
 }, 1000);
 
-// 3. INSTRUCTOR-LED TRIGGER
+// 4. INSTRUCTOR-LED TRIGGER (Launch Scenario)
 function launchScenario() {
     if (!canStart) return;
 
     const trainingBox = document.getElementById('training-module');
     const launchBtn = document.getElementById('launch-assist-btn');
     
-    // Stop the pulsing once the Instructor clicks it
-    launchBtn.classList.remove('assist-pulse');
+    if (launchBtn) launchBtn.classList.remove('assist-pulse');
 
     if (currentStep < dotScenarios.length) {
         const s = dotScenarios[currentStep];
@@ -258,121 +271,30 @@ function launchScenario() {
         document.getElementById('instruction-note').innerText = s.note;
 
         trainingBox.style.display = 'block';
-        document.getElementById('next-module-btn').style.display = 'block'; // Immediate Instructor control
+        document.getElementById('next-module-btn').style.display = 'block'; 
         currentStep++;
+        logMessage(`INSTRUCTOR REVEAL: ${s.title}`);
     }
 }
 
 document.getElementById('next-module-btn').onclick = () => {
-    document.getElementById('training-module').style.display = 'none'; // Return to lecture
+    document.getElementById('training-module').style.display = 'none';
+    logMessage("INSTRUCTOR RESUMING LECTURE");
 };
 
-// 4. THE HANDOVER (IMAGE 1)
+// 5. THE MASTER HANDOVER (Initializing screen)
 window.onload = function() {
     const intro = document.createElement('div');
     intro.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.98); display:flex; justify-content:center; align-items:center; z-index:10000; text-align:center;";
-    intro.innerHTML = `<div style="max-width:600px;"><p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p><h2 style="color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2></div>`;
+    intro.innerHTML = `<div style="max-width:600px;"><p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p><h2 style="color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2><p style="color:rgba(255,255,255,0.5); font-size:14px;">49 CFR §382.603 Compliance Session</p></div>`;
     document.body.appendChild(intro);
 
     setTimeout(() => {
         intro.style.display = 'none';
         canStart = true;
-        logMessage("SESSION AUTHENTICATED: MONITORING CLASS");
+        logMessage("SESSION AUTHENTICATED: MONITORING ACTIVE");
     }, 10000);
 };
 </script>
-
-    // 4. THE PROCTOR ASSIST (Agreed Instructor-Triggered Reveal)
-    function launchScenario() {
-        const trainingBox = document.getElementById('training-module');
-        const nextBtn = document.getElementById('next-module-btn');
-        
-        if (currentStep < dotScenarios.length) {
-            const s = dotScenarios[currentStep];
-            document.getElementById('module-tag').innerText = s.module;
-            document.getElementById('scenario-title').innerText = s.title;
-            document.getElementById('scenario-text').innerText = s.text;
-            document.getElementById('instruction-note').innerText = s.note;
-
-            trainingBox.style.display = 'block'; 
-            nextBtn.style.display = 'block'; // Always available for Instructor control
-
-            logMessage(`SOVEREIGN ASSIST: ${s.title}`);
-            currentStep++;
-        }
-    }
-
-    // Returns focus to your slides immediately when you are done
-    document.getElementById('next-module-btn').onclick = () => {
-        document.getElementById('training-module').style.display = 'none';
-        logMessage("INSTRUCTOR RESUMING LECTURE");
-    };
-
-    // 5. THE MASTER HANDOVER (Agreed 10-Second Tone Setter)
-    window.onload = function() {
-        const intro = document.createElement('div');
-        intro.id = "handover-overlay";
-        intro.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.98); display:flex; justify-content:center; align-items:center; z-index:10000; text-align:center; padding:40px;";
-        intro.innerHTML = `
-            <div style="max-width:600px;">
-                <p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p>
-                <h2 style="font-size:24px; color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2>
-                <p style="color:rgba(255,255,255,0.6);">Monitoring 120-minute DOT compliance session.</p>
-            </div>`;
-        document.body.appendChild(intro);
-
-        setTimeout(() => {
-            intro.style.display = 'none';
-            canStart = true; // The clock starts, but the screen stays clear for you
-            logMessage("SESSION AUTHENTICATED: SCANNER PULSE ACTIVE");
-        }, 10000); 
-    };
-
-    // 4. THE PROCTOR ASSIST (Instructor-Triggered Reveal)
-    function launchScenario() {
-        const trainingBox = document.getElementById('training-module');
-        const nextBtn = document.getElementById('next-module-btn');
-        
-        if (currentStep < dotScenarios.length) {
-            const s = dotScenarios[currentStep];
-            document.getElementById('module-tag').innerText = s.module;
-            document.getElementById('scenario-title').innerText = s.title;
-            document.getElementById('scenario-text').innerText = s.text;
-            document.getElementById('instruction-note').innerText = s.note;
-
-            trainingBox.style.display = 'block'; // Proctor reveals the scenario
-            nextBtn.style.display = 'none';
-
-            logMessage(`SCENARIO ASSIST: ${s.title}`);
-
-            // Compliance lock ensures seat time per module
-            setTimeout(() => {
-                nextBtn.style.display = 'block';
-                logMessage("SECTION VERIFIED: PROCEED WHEN READY");
-            }, moduleLockTime);
-            
-            currentStep++;
-        }
-    }
-
-    document.getElementById('next-module-btn').onclick = () => {
-        document.getElementById('training-module').style.display = 'none'; // Return control to Instructor
-    };
-
-    // 5. THE MASTER HANDOVER (INITIALIZING OVERLAY)
-    window.onload = function() {
-        const intro = document.createElement('div');
-        intro.id = "handover-overlay";
-        intro.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.98); display:flex; justify-content:center; align-items:center; z-index:10000; text-align:center; padding:40px;";
-        intro.innerHTML = `<div style="max-width:600px;"><p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p><h2 style="font-size:24px; color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2><p style="color:rgba(255,255,255,0.6);">Monitoring 120-minute DOT compliance session.</p></div>`;
-        document.body.appendChild(intro);
-
-        setTimeout(() => {
-            intro.style.display = 'none';
-            canStart = true; 
-            logMessage("SESSION AUTHENTICATED: CLASS MONITORING ACTIVE");
-        }, 10000); // 10-second Initializing screen
-    };
-    </script>
 </body>
 </html>
