@@ -264,8 +264,7 @@ function traineeLockdown() {
 
   // Prevent trainees from interacting with the slide iframe (recommended)
   const frame = document.querySelector("iframe");
-  if (frame) frame.style.pointerEvents = "none";
-}
+  
 // =================================================================
 
 
@@ -282,7 +281,7 @@ function logMessage(msg) {
 function downloadLog() {
     if (!isInstructor()) return;
 
-    const logContent = document.getElementById('proctor-log').innerText;
+    const logContent = document.getElementById('proctor-log').innerText || '';
     const blob = new Blob([logContent], { type: 'text/plain' });
     const anchor = document.createElement('a');
     anchor.download = `Compliance_Log_Altruelle.txt`;
