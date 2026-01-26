@@ -73,6 +73,14 @@
         
         document.getElementById('cert-id').textContent = `CERTIFICATE ID: ${serial}`;
         document.getElementById('currentDate').textContent = date.toLocaleDateString();
+
+        window.onload = function() {
+    const savedName = localStorage.getItem('altruelle_student_name');
+    if (savedName) {
+        document.getElementById('studentName').value = savedName;
+        document.getElementById('displayName').textContent = savedName;
+    }
+};
     </script>
 
 </body>
