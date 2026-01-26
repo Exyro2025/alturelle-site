@@ -380,15 +380,7 @@ function updateScenario() {
             nextBtn.style.display = 'block';
             logMessage("MODULE ACCESS GRANTED: PROCTOR VERIFIED");
         }, moduleLockTime); 
- // In production, this would be 1440000ms (24 minutes)
-
-        setTimeout(() => {
-
-            nextBtn.style.display = 'block';
-
-            logMessage("MODULE ACCESS GRANTED: PROCTOR VERIFIED");
-
-        }, moduleLockTime); 
+ 
 
     } else {
         // FINAL COMPLIANCE STATE: Triggers after all 5 modules (120 mins)
