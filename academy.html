@@ -380,12 +380,20 @@ function updateScenario() {
             nextBtn.style.display = 'block';
             logMessage("MODULE ACCESS GRANTED: PROCTOR VERIFIED");
         }, moduleLockTime); 
-    } else {
+} else {
+        // Final Compliance State
         document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
-        document.getElementById('scenario-text').innerText = "The AI Proctor has validated your seat time. You may now claim your certificate.";
-        document.getElementById('instruction-note').innerText = "✓ Compliance requirements fully satisfied.";
+        document.getElementById('scenario-text').innerHTML = `
+            <div style="text-align: center; padding: 10px;">
+                <p style="color: #4affaa; font-size: 18px; margin-bottom: 20px;">✓ 120-MINUTE COMPLIANCE VERIFIED</p>
+                <p style="margin-bottom: 25px;">The Sovereign Proctor has validated your session data. You are now authorized to claim your Federal Compliance Certificate.</p>
+                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+                    Claim Official Certificate
+                </button>
+            </div>`;
+        document.getElementById('instruction-note').innerText = "Session Authenticated.";
+        logMessage("AUDIT COMPLETE: SESSION VERIFIED");
     }
-}
 </script>
 
 </body>
