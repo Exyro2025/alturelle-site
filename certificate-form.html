@@ -5,7 +5,7 @@
     <title>Altruelle Academy | Certificate Generation</title>
     <style>
         body { background: #0a0c12; color: white; font-family: sans-serif; text-align: center; padding: 50px; }
-        .cert-card { background: #161b22; padding: 40px; border-radius: 15px; border: 1px solid #4aa7ff; max-width: 600px; margin: auto; }
+        .cert-card { background: #161b22; padding: 40px; border-radius: 15px; border: 1px solid #4aa7ff; max-width: 600px; margin: auto; position: relative; }
         input { padding: 12px; width: 80%; border-radius: 5px; border: 1px solid #30363d; background: #0d1117; color: white; margin: 20px 0; }
         .print-btn { cursor: pointer; padding: 15px 30px; background: #4aa7ff; color: black; border: none; border-radius: 5px; font-weight: bold; text-transform: uppercase; }
         
@@ -14,6 +14,7 @@
             .no-print { display: none; }
             body { background: white; color: black; padding: 0; }
             .cert-card { border: 5px double #0a0c12; width: 100%; max-width: 100%; background: white; color: black; }
+            .qr-code { filter: brightness(0); } /* Makes QR solid black for printing */
         }
     </style>
 </head>
@@ -37,18 +38,41 @@
             <p>has successfully completed the 120-minute mandatory training for</p>
             <h3>DOT REASONABLE SUSPICION SUPERVISOR TRAINING</h3>
             <p>In accordance with <strong>49 CFR §382.603</strong></p>
+            
             <hr style="width: 50%; margin: 40px auto;">
-            <p style="font-size: 12px;">Verified by Altruelle Sovereign Proctor | Session ID: ALTR-2026-8K</p>
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; padding: 0 20px;">
+                <div style="text-align: left;">
+                    <p style="font-size: 10px; margin: 0; opacity: 0.6;">VERIFIED BY ALTRUELLE SOVEREIGN PROCTOR</p>
+                    <p id="cert-id" style="font-family: monospace; font-size: 12px; font-weight: bold; color: #4aa7ff; margin: 5px 0;">GENERATING ID...</p>
+                    <p style="font-size: 9px; margin: 0; opacity: 0.5;">DATE ISSUED: <span id="currentDate"></span></p>
+                </div>
+                
+                <div class="qr-code">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://exyro2025.github.io/alturelle-site/index.html" 
+                         style="width: 60px; height: 60px; border: 1px solid rgba(74, 167, 255, 0.3); padding: 5px; filter: invert(1);" 
+                         alt="Verification QR Code">
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // This simple script copies the name from the box to the certificate in real-time
+        // 1. DYNAMIC NAME UPDATER
         const input = document.getElementById('studentName');
         const display = document.getElementById('displayName');
         input.addEventListener('input', () => {
             display.textContent = input.value || "[Name]";
         });
+
+        // 2. SOVEREIGN SERIAL NUMBER GENERATOR
+        const date = new Date();
+        const year = date.getFullYear();
+        const randomCode = Math.random().toString(36).substring(2, 6).toUpperCase();
+        const serial = `ALT-${year}-${randomCode}-SC`;
+        
+        document.getElementById('cert-id').textContent = `CERTIFICATE ID: ${serial}`;
+        document.getElementById('currentDate').textContent = date.toLocaleDateString();
     </script>
 
 </body>
