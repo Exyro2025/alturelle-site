@@ -219,6 +219,56 @@ const dotScenarios = [
     { module: "Module 5: Compliance Resolution", title: "Refusal to Test", text: "A driver refuses a test. Under DOT regulations, this is legally identical to a positive test.", note: "✓ PARTICIPATION: Trainee must confirm presence to continue." }
 ];
 
+        // === ROLE GATE (STATIC SAFE) =====================================
+// Default is TRAINEE. Instructor unlock is via URL hash.
+// Example instructor link:
+// academy.html#instructor=CHANGE_THIS_CODE
+
+const INSTRUCTOR_CODE = "AlturelleSovereign2026_9XQ71_PRIVATE";
+const ROLE_KEY = "alturelle_role";
+
+function setRole(role) { sessionStorage.setItem(ROLE_KEY, role); }
+function getRole() { return sessionStorage.getItem(ROLE_KEY) || "trainee"; }
+
+(function initRoleFromHash(){
+  const hash = String(window.location.hash || "");
+  const m = hash.match(/instructor=([^&]+)/i);
+  if (!m) { setRole("trainee"); return; }
+  const code = decodeURIComponent(m[1] || "");
+  if (code === INSTRUCTOR_CODE) setRole("instructor");
+  else setRole("trainee");
+})();
+
+const isInstructor = () => getRole() === "instructor";
+
+// Lock down UI for trainees (no layout break)
+function traineeLockdown() {
+  if (isInstructor()) return;
+
+  // Disable instructor-only buttons
+  const launchBtn = document.getElementById("launch-assist-btn");
+  if (launchBtn) {
+    launchBtn.disabled = true;
+    launchBtn.style.pointerEvents = "none";
+    launchBtn.style.opacity = "0.35";
+    launchBtn.title = "Instructor-controlled";
+  }
+
+  // Your Download button has no ID; target by its onclick
+  document.querySelectorAll("button[onclick='downloadLog()']").forEach(btn => {
+    btn.disabled = true;
+    btn.style.pointerEvents = "none";
+    btn.style.opacity = "0.35";
+    btn.title = "Instructor-controlled";
+  });
+
+  // Prevent trainees from interacting with the slide iframe (recommended)
+  const frame = document.querySelector("iframe");
+  if (frame) frame.style.pointerEvents = "none";
+}
+// =================================================================
+
+
 function logMessage(msg) {
     const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
     const log = document.getElementById('proctor-log');
@@ -230,6 +280,8 @@ function logMessage(msg) {
 
 // FIX: THE DOWNLOAD LOG FUNCTION
 function downloadLog() {
+    if (!isInstructor()) return;
+
     const logContent = document.getElementById('proctor-log').innerText;
     const blob = new Blob([logContent], { type: 'text/plain' });
     const anchor = document.createElement('a');
@@ -281,7 +333,9 @@ const countdown = setInterval(() => {
 
 // 4. INSTRUCTOR TRIGGER & PARTICIPATION GATES
 function launchScenario() {
+    if (!isInstructor()) return;
     if (!canStart) return;
+
     const trainingBox = document.getElementById('training-module');
     const launchBtn = document.getElementById('launch-assist-btn');
     const nextBtn = document.getElementById('next-module-btn');
@@ -327,12 +381,15 @@ function validateTrainee() {
 }
 
 document.getElementById('next-module-btn').onclick = () => {
+    if (!isInstructor()) return;
+
     document.getElementById('training-module').style.display = 'none';
     logMessage("INSTRUCTOR RESUMING LECTURE");
 };
 
 // 5. THE MASTER HANDOVER
 window.onload = function() {
+     traineeLockdown();
     const intro = document.createElement('div');
     intro.id = "handover-overlay";
     intro.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.98); display:flex; justify-content:center; align-items:center; z-index:10000; text-align:center; padding:40px;";
