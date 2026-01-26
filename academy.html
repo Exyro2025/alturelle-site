@@ -188,7 +188,7 @@
     <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; border-left: 1px solid var(--blue); width: 250px; overflow-y: auto;">
         > INITIALIZING...
     </div>
-    <span onclick="authorizeInstructor()" style="opacity: 0.1; cursor: pointer; font-size: 20px; color: white; padding: 10px;">.</span>
+    <div onclick="authorizeInstructor()" style="position: fixed; bottom: 0; right: 0; width: 50px; height: 50px; cursor: pointer; z-index: 99999; background: transparent;"></div>
 </footer>
 
     <div id="training-module">
@@ -204,8 +204,8 @@
         </div>
     </div>
 
-    <script>
-
+<script>
+// 1. DATA & STATE
 let timeRemaining = 7200; 
 let currentStep = 0;
 let canStart = false; 
@@ -213,25 +213,34 @@ let traineeValidated = true;
 let isInstructor = false; 
 
 const dotScenarios = [
-    { module: "Module 1: Alcohol", title: "Morning Briefing", text: "Driver arrives at 06:00 AM with coordination issues and smell of alcohol.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
+    { module: "Module 1: Alcohol", title: "Morning Briefing", text: "Driver arrives at 06:00 AM. You notice coordination issues and smell alcohol.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
     { module: "Module 2: Drugs", title: "Post-Rest Stop", text: "Driver returns with dilated pupils and hyper-active speech.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
     { module: "Module 3: Documentation", title: "The Record", text: "You initiated a test. Document observations within 24 hours.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
     { module: "Module 4: Behavior", title: "Slurred Response", text: "Driver’s speech is thick and slurred. Remove from duty immediately.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
     { module: "Module 5: Resolution", title: "Refusal to Test", text: "Driver refuses test. Legally identical to a positive test.", note: "✓ PARTICIPATION: Trainee must confirm presence." }
 ];
 
+// 2. THE MASTER UNLOCK
 function authorizeInstructor() {
     const code = prompt("Enter Altruelle Academy Instructor Code:");
     if (code === "Altruelle2026") {
         isInstructor = true;
-        document.getElementById('instructor-controls').style.display = "block";
-        document.getElementById('instructor-controls-slides').style.display = "block";
-        logMessage("ADMIN AUTHENTICATED: SYSTEM UNLOCKED");
+        
+        // This unlocks your Launch button
+        const headerLock = document.getElementById('instructor-controls');
+        if (headerLock) headerLock.style.display = "block";
+        
+        // This unlocks your Figma Lesson Plan
+        const mainLock = document.getElementById('instructor-controls-slides');
+        if (mainLock) mainLock.style.display = "block";
+        
+        logMessage("ADMIN AUTHENTICATED: SYSTEM FULLY UNLOCKED");
     } else {
         alert("Access Denied.");
     }
 }
 
+// 3. LOGGING & DOWNLOAD
 function logMessage(msg) {
     const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
     const log = document.getElementById('proctor-log');
@@ -250,21 +259,24 @@ function downloadLog() {
     anchor.click();
 }
 
+// 4. CLOCK
 const countdown = setInterval(() => {
     if (!canStart || !traineeValidated) return;
     let hours = Math.floor(timeRemaining / 3600);
     let minutes = Math.floor((timeRemaining % 3600) / 60);
     let seconds = timeRemaining % 60;
     document.getElementById('timer').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
     if (timeRemaining <= 0) {
         clearInterval(countdown);
         document.getElementById('timer').textContent = "CERTIFICATION ELIGIBLE";
-        document.getElementById('claimButton').style.display = "block";
+        if (document.getElementById('claimButton')) document.getElementById('claimButton').style.display = "block";
         logMessage("120-MINUTE COMPLIANCE VERIFIED");
     }
     timeRemaining--;
 }, 1000);
 
+// 5. MODULES
 function launchScenario() {
     if (!isInstructor) return;
     const trainingBox = document.getElementById('training-module');
@@ -276,6 +288,7 @@ function launchScenario() {
         document.getElementById('instruction-note').innerText = s.note;
         traineeValidated = false; 
         trainingBox.style.display = 'block';
+        logMessage(`SCENARIO REVEALED: ${s.title}`);
     }
 }
 
@@ -283,17 +296,15 @@ function validateTrainee() {
     traineeValidated = true;
     currentStep++;
     document.getElementById('training-module').style.display = 'none';
-    logMessage("PARTICIPATION VERIFIED");
+    logMessage("PARTICIPATION VERIFIED: RESUMING LECTURE");
 }
 
+// 6. INITIALIZING
 window.onload = function() {
-    setTimeout(() => {
-        canStart = true;
-        logMessage("SESSION AUTHENTICATED: MONITORING ACTIVE");
-    }, 2000);
+    canStart = true;
+    logMessage("SESSION AUTHENTICATED: MONITORING ACTIVE");
 };
 </script>
-
 
 </body>
 </html>
