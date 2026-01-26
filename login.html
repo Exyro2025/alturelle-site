@@ -2,31 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Altruelle Academy | Student Login</title>
+    <title>Academy Entry | Altruelle</title>
     <style>
-        body { background: #0a0c12; color: white; font-family: sans-serif; text-align: center; padding: 100px 20px; }
-        .login-card { background: #161b22; padding: 40px; border-radius: 15px; border: 1px solid #4aa7ff; max-width: 400px; margin: auto; }
-        input { padding: 12px; width: 90%; border-radius: 5px; border: 1px solid #30363d; background: #0d1117; color: white; margin-bottom: 20px; }
-        .start-btn { cursor: pointer; padding: 15px 30px; background: #4aa7ff; color: black; border: none; border-radius: 5px; font-weight: bold; width: 100%; }
+        body { 
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(to bottom, #0a0f1a, #1b263b); 
+            color: #f1f5f9; 
+            display: flex; align-items: center; justify-content: center; height: 100vh;
+        }
+        .login-card { 
+            background: rgba(10, 14, 28, 0.6); 
+            padding: 50px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(120, 160, 255, 0.25); 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 400px;
+        }
+        input { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(120, 160, 255, 0.2); 
+            padding: 15px; width: 100%; border-radius: 10px; color: white; 
+            font-size: 1rem; margin: 20px 0; box-sizing: border-box;
+        }
+        /* Your exact bespoke button style */
+        .academy-btn {
+            cursor: pointer; padding: 15px 25px; border-radius: 10px;
+            border: 1px solid rgba(74, 167, 255, 0.6);
+            background: rgba(74, 167, 255, 0.1);
+            color: #4aa7ff; letter-spacing: .12em; text-transform: uppercase;
+            font-weight: bold; width: 100%; transition: all 0.3s ease;
+        }
+        .academy-btn:hover { background: rgba(74, 167, 255, 0.2); box-shadow: 0 0 15px rgba(74, 167, 255, 0.3); }
     </style>
 </head>
 <body>
     <div class="login-card">
-        <img src="logo.png" alt="Altruelle Logo" style="width: 120px; margin-bottom: 20px;">
-        <h2>Academy Entry</h2>
-        <p style="font-size: 14px; opacity: 0.8;">Enter your legal name to begin the 120-minute DOT certification.</p>
+        <h2 style="letter-spacing: 0.1em;">ACADEMY ENTRY</h2>
+        <p style="opacity: 0.7; font-size: 0.9rem;">Please enter your legal name for the DOT certification record.</p>
         <input type="text" id="studentName" placeholder="Full Legal Name">
-        <button class="start-btn" onclick="startTraining()">START TRAINING SESSION</button>
+        <button class="academy-btn" onclick="startSession()">Start Training</button>
     </div>
 
     <script>
-        function startTraining() {
+        function startSession() {
             const name = document.getElementById('studentName').value;
-            if (name.length < 3) {
-                alert("Please enter your full legal name.");
-                return;
-            }
-            // Stores name locally so it carries over to the certificate
+            if (name.length < 3) { alert("Please enter your full name."); return; }
             localStorage.setItem('altruelle_student_name', name);
             window.location.href = 'academy.html';
         }
