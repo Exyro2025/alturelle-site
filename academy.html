@@ -161,20 +161,21 @@
 </div>
 </footer>
 
-      <div id="training-module" style="max-width: 850px; width: 90%; margin: 2vh auto; padding: 25px; background: rgba(10, 14, 28, 0.95); border: 1px solid rgba(74, 167, 255, 0.3); border-radius: 15px; text-align: left; display: none; position: relative; z-index: 10; box-shadow: 0 10px 40px rgba(0,0,0,0.8);">
+     <div id="training-module" style="max-width: 850px; width: 90%; margin: 2vh auto; padding: 25px; background: rgba(10, 14, 28, 0.95); border: 1px solid rgba(74, 167, 255, 0.3); border-radius: 15px; text-align: left; display: none; position: relative; z-index: 10; box-shadow: 0 10px 40px rgba(0,0,0,0.8);">
     <p id="module-tag" style="color: #4aa7ff; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;">Initializing...</p>
     <h2 id="scenario-title" style="color: white; margin-top: 10px; letter-spacing: 1px;"></h2>
     <hr style="border: 0; border-top: 1px solid rgba(74, 167, 255, 0.1); margin: 20px 0;">
-    <div id="scenario-text" style="color: rgba(255, 255, 255, 0.85); line-height: 1.8; font-size: 17px; margin-bottom: 30px;"></div>
-    <div id="instruction-note" style="font-style: italic; color: #4affaa; font-size: 13px;"></div>
-
-           <div style="text-align: right; margin-top: 30px;">
+    
+    <div style="max-height: 250px; overflow-y: auto; padding-right: 15px; margin-bottom: 20px;">
+        <div id="scenario-text" style="color: rgba(255, 255, 255, 0.85); line-height: 1.8; font-size: 17px;"></div>
+        <div id="instruction-note" style="font-style: italic; color: #4affaa; font-size: 13px; margin-top: 15px;"></div>
+    </div>
+    <div style="text-align: right;">
         <button id="next-module-btn" style="display: none; padding: 12px 25px; background: rgba(74, 167, 255, 0.1); border: 1px solid #4aa7ff; color: #4aa7ff; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
-            Complete Module & Continue
+            Complete & Continue
         </button>
     </div>
 </div>
-
 
     <script>
     // 1. SET THE 120-MINUTE TIMER
