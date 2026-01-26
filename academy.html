@@ -197,18 +197,19 @@
     </div>
 
     <script>
+<script>
 // 1. SETTINGS & DATA
-const moduleLockTime = 1440000; 
 let timeRemaining = 7200; // 120 Minutes
 let currentStep = 0;
 let canStart = false; 
+let traineeValidated = true; // Participation gate for jiggler-proofing
 
 const dotScenarios = [
-    { module: "Module 1: Alcohol Misuse", title: "The Morning Briefing Incident", text: "A driver arrives at 06:00 AM. You notice a slight lack of coordination and the faint smell of alcohol. Under DOT rules, smell alone is sufficient for a Reasonable Suspicion test.", note: "✓ AI Proctoring: Observe behavioral indicators." },
-    { module: "Module 2: Controlled Substances", title: "The Post-Rest Stop Change", text: "After a mid-day break, a driver returns with dilated pupils and hyper-active speech patterns. These are specific physical indicators of stimulant use per FMCSA guidelines.", note: "✓ AI Proctoring: Note pupil dilation as a physical sign." },
-    { module: "Module 3: Documentation", title: "The Contemporaneous Record", text: "You have initiated a test based on appearance and behavior. You must now document these specific observations within 24 hours. Failure to document creates a legal loophole for the driver.", note: "✓ AI Proctoring: Documentation is a legal shield." },
-    { module: "Module 4: Speech & Behavior", title: "The Slurred Response", text: "During a check-in, a driver’s speech is thick and slurred, yet they are coherent. This is a primary indicator. Under DOT rules, you must remove them from safety-sensitive functions immediately.", note: "✓ AI Proctoring: Physical indicators override verbal denials." },
-    { module: "Module 5: Compliance Resolution", title: "Refusal to Test", text: "A driver refuses to go to the collection site. Under DOT regulations, a refusal is legally identical to a positive test result. The driver must be removed from duty and referred to a SAP.", note: "✓ AI Proctoring: Refusal = Positive result." }
+    { module: "Module 1: Alcohol Misuse", title: "The Morning Briefing Incident", text: "A driver arrives at 06:00 AM. You notice a slight lack of coordination and the faint smell of alcohol.", note: "✓ INSTRUCTION: Trainee must confirm observation to restart timer." },
+    { module: "Module 2: Controlled Substances", title: "The Post-Rest Stop Change", text: "A driver returns with dilated pupils and hyper-active speech patterns.", note: "✓ INSTRUCTION: Trainee must confirm physical signs to restart timer." },
+    { module: "Module 3: Documentation", title: "The Contemporaneous Record", text: "You have initiated a test. You must now document these specific observations within 24 hours.", note: "✓ INSTRUCTION: Trainee must verify protocol to restart timer." },
+    { module: "Module 4: Speech & Behavior", title: "The Slurred Response", text: "A driver’s speech is thick and slurred. Under DOT rules, you must remove them from duty.", note: "✓ INSTRUCTION: Trainee must acknowledge indicator to restart timer." },
+    { module: "Module 5: Compliance Resolution", title: "Refusal to Test", text: "A driver refuses a test. Under DOT regulations, this is legally identical to a positive test result.", note: "✓ INSTRUCTION: Trainee must acknowledge Refusal = Positive to restart timer." }
 ];
 
 function logMessage(msg) {
@@ -216,41 +217,34 @@ function logMessage(msg) {
     document.getElementById('proctor-log').innerHTML = `> ${time} : ${msg}`;
 }
 
-// 2. THE SOVEREIGN FOCUS GUARD (Bespoke Participation Monitoring)
-// Pauses clock if trainee clicks another tab or minimizes window
+// 2. THE FOCUS GUARD (Tab Switching Detection)
 document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
         canStart = false; 
         logMessage("SESSION PAUSED: WINDOW FOCUS LOST");
         const light = document.querySelector('.status-light');
-        if(light) {
-            light.style.background = "#ff4a4a"; // Red Alert
-            light.style.boxShadow = "0 0 10px #ff4a4a";
-        }
-    } else {
-        canStart = true; 
+        if (light) light.style.background = "#ff4a4a"; // Red Alert
+    } else if (traineeValidated) {
+        canStart = true;
         logMessage("SESSION RESUMED: FOCUS VERIFIED");
         const light = document.querySelector('.status-light');
-        if(light) {
-            light.style.background = "var(--blue)";
-            light.style.boxShadow = "0 0 10px var(--blue)";
-        }
+        if (light) light.style.background = "var(--blue)";
     }
 });
 
-// 3. COMPLIANCE CLOCK & MILESTONES
+// 3. COMPLIANCE CLOCK & ACTIVE PARTICIPATION GATES
 const countdown = setInterval(() => {
-    if (!canStart) return;
+    if (!canStart || !traineeValidated) return;
     
     let hours = Math.floor(timeRemaining / 3600);
     let minutes = Math.floor((timeRemaining % 3600) / 60);
     let seconds = timeRemaining % 60;
 
-    // Milestone: Pulse button at 10 minutes (6600s left)
+    // Milestone pulse for Instructor at 10 minutes
     if (timeRemaining === 6600 && currentStep === 0) {
         const btn = document.getElementById('launch-assist-btn');
-        if(btn) btn.classList.add('assist-pulse');
-        logMessage("PROCTOR READY: MODULE 1 INITIALIZED");
+        if (btn) btn.classList.add('assist-pulse');
+        logMessage("PROCTOR NOTICE: MODULE 1 READY");
     }
 
     document.getElementById('timer').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
@@ -259,17 +253,17 @@ const countdown = setInterval(() => {
         clearInterval(countdown);
         document.getElementById('timer').textContent = "CERTIFICATION ELIGIBLE";
         document.getElementById('claimButton').style.display = "block";
-        logMessage("COMPLIANCE VERIFIED: SESSION COMPLETE");
+        logMessage("120-MINUTE COMPLIANCE VERIFIED");
     }
     timeRemaining--;
 }, 1000);
 
-// 4. INSTRUCTOR-LED TRIGGER (Launch Scenario)
+// 4. INSTRUCTOR-LED SYNC POINTS (Active Interaction Gate)
 function launchScenario() {
     if (!canStart) return;
-
     const trainingBox = document.getElementById('training-module');
     const launchBtn = document.getElementById('launch-assist-btn');
+    const nextBtn = document.getElementById('next-module-btn');
     
     if (launchBtn) launchBtn.classList.remove('assist-pulse');
 
@@ -280,11 +274,37 @@ function launchScenario() {
         document.getElementById('scenario-text').innerText = s.text;
         document.getElementById('instruction-note').innerText = s.note;
 
+        // PAUSE CLOCK AND HIDE NEXT BUTTON until student interacts
+        nextBtn.style.display = 'none'; 
+        traineeValidated = false; 
+        
         trainingBox.style.display = 'block';
-        document.getElementById('next-module-btn').style.display = 'block'; 
-        currentStep++;
-        logMessage(`INSTRUCTOR REVEAL: ${s.title}`);
+        
+        // Remove old check area if it exists and add new one
+        const oldCheck = document.getElementById('participation-check');
+        if (oldCheck) oldCheck.remove();
+
+        const checkArea = document.createElement('div');
+        checkArea.id = "participation-check";
+        checkArea.style = "margin-top: 20px; padding: 15px; background: rgba(74, 167, 255, 0.1); border-radius: 8px; border: 1px solid var(--blue);";
+        checkArea.innerHTML = `<label style="color:#4affaa; font-size:12px; cursor:pointer;"><input type="checkbox" onchange="validateTrainee()" style="margin-right:10px;"> I am present and acknowledge this compliance milestone.</label>`;
+        trainingBox.appendChild(checkArea);
+
+        logMessage(`SCENARIO REVEALED: ${s.title}`);
     }
+}
+
+// Resumes timer and unlocks 'Complete' button only when checked
+function validateTrainee() {
+    traineeValidated = true;
+    canStart = true;
+    document.getElementById('next-module-btn').style.display = 'block';
+    const check = document.getElementById('participation-check');
+    if (check) {
+        check.style.borderColor = "#4affaa";
+        check.innerHTML = `<span style="color:#4affaa; font-size:12px;">✓ PARTICIPATION VERIFIED. SESSION RESUMED.</span>`;
+    }
+    logMessage("TRAINEE VERIFIED: PARTICIPATION LOGGED");
 }
 
 document.getElementById('next-module-btn').onclick = () => {
@@ -292,11 +312,11 @@ document.getElementById('next-module-btn').onclick = () => {
     logMessage("INSTRUCTOR RESUMING LECTURE");
 };
 
-// 5. THE MASTER HANDOVER (Initializing screen)
+// 5. MASTER HANDOVER
 window.onload = function() {
     const intro = document.createElement('div');
     intro.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.98); display:flex; justify-content:center; align-items:center; z-index:10000; text-align:center;";
-    intro.innerHTML = `<div style="max-width:600px;"><p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p><h2 style="color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2><p style="color:rgba(255,255,255,0.5); font-size:14px;">49 CFR §382.603 Compliance Session</p></div>`;
+    intro.innerHTML = `<div style="max-width:600px;"><p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p><h2 style="color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2><p style="color:rgba(255,255,255,0.4); font-size:13px;">DOT Compliance Monitor Mode</p></div>`;
     document.body.appendChild(intro);
 
     setTimeout(() => {
@@ -306,7 +326,6 @@ window.onload = function() {
     }, 10000);
 };
 </script>
-
 
 </body>
 </html>
