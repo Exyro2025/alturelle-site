@@ -206,37 +206,6 @@
     <script>
     
 // 1. DATA & STATE
-        // ROLE GATE (instructor vs trainee)
-// Instructor opens: academy.html?role=instructor
-// Trainee opens: academy.html (default)
-const params = new URLSearchParams(window.location.search);
-const ROLE = (params.get("role") || "trainee").toLowerCase();
-const IS_INSTRUCTOR = ROLE === "instructor";
-
-function lockControlsForTrainee() {
-  // Only instructor can launch scenarios + download logs (you can change this policy)
-  const launchBtn = document.getElementById("launch-assist-btn");
-  const downloadBtns = Array.from(document.querySelectorAll("button"))
-    .filter(b => (b.textContent || "").toLowerCase().includes("download compliance log"));
-
-  if (!IS_INSTRUCTOR) {
-    if (launchBtn) {
-      launchBtn.disabled = true;
-      launchBtn.style.opacity = "0.35";
-      launchBtn.style.cursor = "not-allowed";
-      launchBtn.title = "Instructor-only control";
-    }
-    downloadBtns.forEach(b => {
-      b.disabled = true;
-      b.style.opacity = "0.35";
-      b.style.cursor = "not-allowed";
-      b.title = "Instructor-only control";
-    });
-  }
-}
- let pausedByFocus = false;
-
-
 let timeRemaining = 7200; // 120 Minutes
 let currentStep = 0;
 let canStart = false; 
@@ -250,55 +219,6 @@ const dotScenarios = [
     { module: "Module 5: Compliance Resolution", title: "Refusal to Test", text: "A driver refuses a test. Under DOT regulations, this is legally identical to a positive test.", note: "✓ PARTICIPATION: Trainee must confirm presence to continue." }
 ];
 
-        // === ROLE GATE (STATIC SAFE) =====================================
-// Default is TRAINEE. Instructor unlock is via URL hash.
-// Example instructor link:
-// academy.html#instructor=CHANGE_THIS_CODE
-
-const INSTRUCTOR_CODE = "AlturelleSovereign2026_9XQ71_PRIVATE";
-const ROLE_KEY = "alturelle_role";
-
-function setRole(role) { sessionStorage.setItem(ROLE_KEY, role); }
-function getRole() { return sessionStorage.getItem(ROLE_KEY) || "trainee"; }
-
-(function initRoleFromHash(){
-  const hash = String(window.location.hash || "");
-  const m = hash.match(/instructor=([^&]+)/i);
-  if (!m) { setRole("trainee"); return; }
-  const code = decodeURIComponent(m[1] || "");
-  if (code === INSTRUCTOR_CODE) setRole("instructor");
-  else setRole("trainee");
-})();
-
-const isInstructor = () => getRole() === "instructor";
-
-// Lock down UI for trainees (no layout break)
-function traineeLockdown() {
-  if (isInstructor()) return;
-
-  // Disable instructor-only buttons
-  const launchBtn = document.getElementById("launch-assist-btn");
-  if (launchBtn) {
-    launchBtn.disabled = true;
-    launchBtn.style.pointerEvents = "none";
-    launchBtn.style.opacity = "0.35";
-    launchBtn.title = "Instructor-controlled";
-  }
-
-  // Your Download button has no ID; target by its onclick
-  document.querySelectorAll("button[onclick='downloadLog()']").forEach(btn => {
-    btn.disabled = true;
-    btn.style.pointerEvents = "none";
-    btn.style.opacity = "0.35";
-    btn.title = "Instructor-controlled";
-  });
-
-  // Prevent trainees from interacting with the slide iframe (recommended)
-  const frame = document.querySelector("iframe");
-  
-// =================================================================
-
-
 function logMessage(msg) {
     const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
     const log = document.getElementById('proctor-log');
@@ -310,9 +230,7 @@ function logMessage(msg) {
 
 // FIX: THE DOWNLOAD LOG FUNCTION
 function downloadLog() {
-    if (!isInstructor()) return;
-
-    const logContent = document.getElementById('proctor-log').innerText || '';
+    const logContent = document.getElementById('proctor-log').innerText;
     const blob = new Blob([logContent], { type: 'text/plain' });
     const anchor = document.createElement('a');
     anchor.download = `Compliance_Log_Altruelle.txt`;
@@ -321,67 +239,19 @@ function downloadLog() {
 }
 
 // 2. THE FOCUS GUARD
-function showResumeGate() {
-  // Trainee must actively re-confirm presence before timer continues
-  traineeValidated = false;
-  pausedByFocus = true;
-  canStart = false;
-
-  logMessage("SESSION PAUSED: WINDOW FOCUS LOST");
-
-  const light = document.querySelector(".status-light");
-  if (light) light.style.background = "#ff4a4a";
-
-  // Reuse training-module as a resume gate (no extra UI)
-  const trainingBox = document.getElementById("training-module");
-  if (!trainingBox) return;
-
-  trainingBox.style.display = "block";
-  document.getElementById("module-tag").innerText = "FOCUS LOST";
-  document.getElementById("scenario-title").innerText = "Participation Required";
-  document.getElementById("scenario-text").innerText =
-    "Your training timer is paused because this window lost focus. Confirm presence to resume.";
-  document.getElementById("instruction-note").innerText =
-    "✓ PARTICIPATION: Trainee must confirm presence to continue.";
-
-  const nextBtn = document.getElementById("next-module-btn");
-  if (nextBtn) nextBtn.style.display = "none";
-
-  const oldCheck = document.getElementById("participation-check");
-  if (oldCheck) oldCheck.remove();
-
-  const checkArea = document.createElement("div");
-  checkArea.id = "participation-check";
-  checkArea.style =
-    "margin-top:20px; padding:15px; background:rgba(74,167,255,0.1); border-radius:8px; border:1px solid var(--blue);";
-  checkArea.innerHTML =
-    `<label style="color:#4affaa; font-size:12px; cursor:pointer;">
-       <input type="checkbox" onchange="resumeFromFocusLoss()" style="margin-right:10px;">
-       I am present and acknowledge resuming this training session.
-     </label>`;
-  trainingBox.appendChild(checkArea);
-}
-
-function resumeFromFocusLoss() {
-  traineeValidated = true;
-  pausedByFocus = false;
-  canStart = true;
-
-  const light = document.querySelector(".status-light");
-  if (light) light.style.background = "var(--blue)";
-
-  const check = document.getElementById("participation-check");
-  if (check) check.innerHTML = `<span style="color:#4affaa; font-size:12px;">✓ PRESENCE VERIFIED. SESSION RESUMED.</span>`;
-
-  logMessage("SESSION RESUMED: PRESENCE VERIFIED");
-}
-
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    showResumeGate();
-  }
+    if (document.hidden) {
+        canStart = false; 
+        logMessage("SESSION PAUSED: WINDOW FOCUS LOST");
+        const light = document.querySelector('.status-light');
+        if (light) light.style.background = "#ff4a4a";
+    } else if (traineeValidated) {
+        canStart = true;
+        logMessage("SESSION RESUMED: FOCUS VERIFIED");
+        const light = document.querySelector('.status-light');
+        if (light) light.style.background = "var(--blue)";
+    }
 });
-
 
 // 3. THE COMPLIANCE CLOCK
 const countdown = setInterval(() => {
@@ -411,9 +281,7 @@ const countdown = setInterval(() => {
 
 // 4. INSTRUCTOR TRIGGER & PARTICIPATION GATES
 function launchScenario() {
-    if (!isInstructor()) return;
     if (!canStart) return;
-
     const trainingBox = document.getElementById('training-module');
     const launchBtn = document.getElementById('launch-assist-btn');
     const nextBtn = document.getElementById('next-module-btn');
@@ -459,21 +327,12 @@ function validateTrainee() {
 }
 
 document.getElementById('next-module-btn').onclick = () => {
-    if (!isInstructor()) return;
-
     document.getElementById('training-module').style.display = 'none';
     logMessage("INSTRUCTOR RESUMING LECTURE");
 };
 
 // 5. THE MASTER HANDOVER
 window.onload = function() {
-
-    // Strip any unknown hash (prevents confusion)
-if (window.location.hash) {
-  history.replaceState(null, "", window.location.pathname + window.location.search);
-}
-
-     traineeLockdown();
     const intro = document.createElement('div');
     intro.id = "handover-overlay";
     intro.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.98); display:flex; justify-content:center; align-items:center; z-index:10000; text-align:center; padding:40px;";
@@ -486,18 +345,15 @@ if (window.location.hash) {
     document.body.appendChild(intro);
 
     setTimeout(() => {
-        intro.remove();
-
+        intro.style.display = 'none';
         canStart = true; 
         logMessage("SESSION AUTHENTICATED: MONITORING ACTIVE");
     }, 10000);
-
-    lockControlsForTrainee();
-
 };
 </script>
 
 
 </body>
 </html>
+
 
