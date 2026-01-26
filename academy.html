@@ -359,47 +359,64 @@ document.getE
 setTimeout(runSovereignTraining, 10500);
 
 
-// Change this to 5000 (5 seconds) to test the flow quickly
-// 1. SET THE LOCK TO 24 MINUTES (1440000ms) 
-const moduleLockTime = 1440000; 
-let currentStep = 0;
+// 1. COMPLIANCE & PROGRESS SETTINGS
+const moduleLockTime = 1440000; // Set to 1440000 for 24-minute DOT compliance
+let currentStep = 0; 
 
+// 2. THE INSTRUCTOR LOGIC
 function updateScenario() {
     const nextBtn = document.getElementById('next-module-btn');
     const trainingBox = document.getElementById('training-module');
     
-    // Hide the button immediately when a new module starts
+    // Always hide the button at the start of a module
     nextBtn.style.display = 'none';
 
     if (currentStep < dotScenarios.length) {
         const s = dotScenarios[currentStep];
         
-        // Populate the fields
+        // Update the Box Content
         document.getElementById('module-tag').innerText = s.module;
         document.getElementById('scenario-title').innerText = s.title;
         document.getElementById('scenario-text').innerText = s.text;
         document.getElementById('instruction-note').innerText = s.note;
 
-        // Reveal the box only if it's currently hidden
+        // Make the module visible ONLY when called
         trainingBox.style.display = 'block';
 
-        // THE COMPLIANCE LOCK: Button only appears after the set time
+        // Start the Proctor's Seat-Time Lock
         setTimeout(() => {
             nextBtn.style.display = 'block';
             logMessage("MODULE ACCESS GRANTED: SEAT TIME VERIFIED");
         }, moduleLockTime);
 
-        currentStep++; // Move to next for the FUTURE click
+        currentStep++; 
     } else {
-        // Final Completion State
+        // Final Completion Screen
         document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
         document.getElementById('scenario-text').innerHTML = `
             <div style="text-align: center; padding: 10px;">
                 <p style="color: #4affaa; font-size: 18px; margin-bottom: 20px;">✓ 120-MINUTE COMPLIANCE VERIFIED</p>
-                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase;">Claim Official Certificate</button>
+                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Claim Official Certificate</button>
             </div>`;
     }
 }
+
+// 3. THE HANDOVER (IMAGE 1 -> IMAGE 2)
+// This is the ONLY thing that should run when the page loads
+window.onload = function() {
+    // Keep the Initializing Overlay visible for 10 seconds
+    setTimeout(() => {
+        // Hide Overlay
+        const intro = document.getElementById('handover-overlay');
+        if (intro) intro.style.display = 'none';
+        
+        // NOW Start Module 1
+        updateScenario(); 
+        
+        // Lock background for professionalism
+        document.body.style.overflow = 'hidden';
+    }, 10000); 
+};
 
 // 2. THE MASTER HANDOVER: Ensures 10 seconds of Image 1, then starts Module 1
 setTimeout(() => {
