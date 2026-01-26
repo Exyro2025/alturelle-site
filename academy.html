@@ -359,28 +359,28 @@ document.getE
 setTimeout(runSovereignTraining, 10500);
 
 
-// 1. COMPLIANCE & PROGRESS SETTINGS
-const moduleLockTime = 1440000; // Set to 1440000 for 24-minute DOT compliance
-let currentStep = 0; 
+// 1. GLOBAL SETTINGS
+const moduleLockTime = 1440000; // 24 minutes for production
+let currentStep = 0;
 
-// 2. THE INSTRUCTOR LOGIC
+// 2. THE CORE LOGIC: Populates the scenario box
 function updateScenario() {
     const nextBtn = document.getElementById('next-module-btn');
     const trainingBox = document.getElementById('training-module');
     
-    // Always hide the button at the start of a module
+    // Reset button state
     nextBtn.style.display = 'none';
 
     if (currentStep < dotScenarios.length) {
         const s = dotScenarios[currentStep];
         
-        // Update the Box Content
+        // Populate Scenario Content
         document.getElementById('module-tag').innerText = s.module;
         document.getElementById('scenario-title').innerText = s.title;
         document.getElementById('scenario-text').innerText = s.text;
         document.getElementById('instruction-note').innerText = s.note;
 
-        // Make the module visible ONLY when called
+        // Ensure the training box is now visible (but only after the 10s intro)
         trainingBox.style.display = 'block';
 
         // Start the Proctor's Seat-Time Lock
@@ -391,7 +391,7 @@ function updateScenario() {
 
         currentStep++; 
     } else {
-        // Final Completion Screen
+        // Show the Final Certificate Claim
         document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
         document.getElementById('scenario-text').innerHTML = `
             <div style="text-align: center; padding: 10px;">
@@ -401,22 +401,19 @@ function updateScenario() {
     }
 }
 
-// 3. THE HANDOVER (IMAGE 1 -> IMAGE 2)
-// This is the ONLY thing that should run when the page loads
-window.onload = function() {
-    // Keep the Initializing Overlay visible for 10 seconds
-    setTimeout(() => {
-        // Hide Overlay
-        const intro = document.getElementById('handover-overlay');
-        if (intro) intro.style.display = 'none';
-        
-        // NOW Start Module 1
-        updateScenario(); 
-        
-        // Lock background for professionalism
-        document.body.style.overflow = 'hidden';
-    }, 10000); 
-};
+// 3. THE HANDOVER: This is the only trigger that should run
+setTimeout(() => {
+    // Hide Intro Overlay (Image 1)
+    if (document.getElementById('handover-overlay')) {
+        document.getElementById('handover-overlay').style.display = 'none';
+    }
+    
+    // Start Module 1 (Image 2)
+    updateScenario(); 
+    
+    // Professional background lock
+    document.body.style.overflow = 'hidden';
+}, 10000);
 // 3. THE HANDOVER (IMAGE 1 -> IMAGE 2)
 // This is the ONLY thing that should run when the page loads
 window.onload = function() {
