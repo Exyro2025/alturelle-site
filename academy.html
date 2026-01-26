@@ -125,7 +125,19 @@
             box-shadow: 0 0 50px rgba(0,0,0,0.9);
             overflow-y: auto;
         }
+
+        @keyframes instructorAlert {
+    0% { background: rgba(74, 167, 255, 0.1); box-shadow: 0 0 0px var(--blue); }
+    50% { background: rgba(74, 167, 255, 0.4); box-shadow: 0 0 15px var(--blue); }
+    100% { background: rgba(74, 167, 255, 0.1); box-shadow: 0 0 0px var(--blue); }
+}
+
+.assist-pulse {
+    animation: instructorAlert 2s infinite ease-in-out;
+    border-color: #4affaa !important; /* Green border to signal 'Ready' */
+}
     </style>
+    
 </head>
 <body>
 
