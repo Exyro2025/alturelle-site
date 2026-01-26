@@ -391,20 +391,40 @@ function updateScenario() {
         }, moduleLockTime); 
 
     } else {
-
+        // FINAL COMPLIANCE STATE: Triggers after all 5 modules (120 mins)
         document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
-
-        document.getElementById('scenario-text').innerText = "The AI Proctor has validated your seat time. You may now claim your certificate.";
-
-        document.getElementById('instruction-note').innerText = "✓ Compliance requirements fully satisfied.";
-
+        document.getElementById('scenario-text').innerHTML = `
+            <div style="text-align: center; padding: 10px;">
+                <p style="color: #4affaa; font-size: 18px; margin-bottom: 20px;">✓ 120-MINUTE COMPLIANCE VERIFIED</p>
+                <p style="margin-bottom: 25px;">The Sovereign Proctor has validated your session data. You are now authorized to claim your Federal Compliance Certificate.</p>
+                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+                    Claim Official Certificate
+                </button>
+            </div>`;
+        document.getElementById('instruction-note').innerText = "Session Authenticated.";
+        logMessage("AUDIT COMPLETE: SESSION VERIFIED");
     }
-
 }
 
+// THE HANDOVER LOCK: Ensures Image 1 (Intro) stays for 10 seconds before training appears
+setTimeout(() => {
+    // 1. Hide the Initializing Overlay
+    if (typeof handoverOverlay !== 'undefined') {
+        handoverOverlay.style.display = 'none';
+    }
+    
+    // 2. Reveal the Fixed Training Box
+    const trainingBox = document.getElementById('training-module');
+    if (trainingBox) {
+        trainingBox.style.display = 'block';
+        updateScenario(); // Start Module 1
+    }
+    
+    // 3. Prevent background scrolling
+    document.body.style.overflow = 'hidden';
+
+}, 10000); // 10 Second Delay to match your "Sovereign Tone"
 </script>
-
-
 
 </body>
 
