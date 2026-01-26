@@ -201,7 +201,7 @@
 const moduleLockTime = 1440000; 
 let timeRemaining = 7200; // 120 Minutes
 let currentStep = 0;
-let canStart = false;
+let canStart = false; 
 
 const dotScenarios = [
     { module: "Module 1: Alcohol Misuse", title: "The Morning Briefing Incident", text: "A driver arrives at 06:00 AM. You notice a slight lack of coordination and the faint smell of alcohol. Under DOT rules, smell alone is sufficient for a Reasonable Suspicion test.", note: "✓ AI Proctoring: Observe behavioral indicators." },
@@ -217,15 +217,24 @@ function logMessage(msg) {
 }
 
 // 2. THE SOVEREIGN FOCUS GUARD (Bespoke Participation Monitoring)
+// Pauses clock if trainee clicks another tab or minimizes window
 document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
-        canStart = false; // Clock stops immediately
+        canStart = false; 
         logMessage("SESSION PAUSED: WINDOW FOCUS LOST");
-        document.querySelector('.status-light').style.background = "#ff4a4a"; // Red Alert
+        const light = document.querySelector('.status-light');
+        if(light) {
+            light.style.background = "#ff4a4a"; // Red Alert
+            light.style.boxShadow = "0 0 10px #ff4a4a";
+        }
     } else {
-        canStart = true; // Clock resumes only when they return
+        canStart = true; 
         logMessage("SESSION RESUMED: FOCUS VERIFIED");
-        document.querySelector('.status-light').style.background = "var(--blue)";
+        const light = document.querySelector('.status-light');
+        if(light) {
+            light.style.background = "var(--blue)";
+            light.style.boxShadow = "0 0 10px var(--blue)";
+        }
     }
 });
 
@@ -237,7 +246,7 @@ const countdown = setInterval(() => {
     let minutes = Math.floor((timeRemaining % 3600) / 60);
     let seconds = timeRemaining % 60;
 
-    // Milestone pulse for Instructor at 10 minutes (6600s left)
+    // Milestone: Pulse button at 10 minutes (6600s left)
     if (timeRemaining === 6600 && currentStep === 0) {
         const btn = document.getElementById('launch-assist-btn');
         if(btn) btn.classList.add('assist-pulse');
@@ -250,6 +259,7 @@ const countdown = setInterval(() => {
         clearInterval(countdown);
         document.getElementById('timer').textContent = "CERTIFICATION ELIGIBLE";
         document.getElementById('claimButton').style.display = "block";
+        logMessage("COMPLIANCE VERIFIED: SESSION COMPLETE");
     }
     timeRemaining--;
 }, 1000);
@@ -296,5 +306,7 @@ window.onload = function() {
     }, 10000);
 };
 </script>
+
+
 </body>
 </html>
