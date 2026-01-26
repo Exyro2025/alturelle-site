@@ -130,15 +130,18 @@
 <body>
 
     <header>
-        <div>
-            <span style="letter-spacing: 0.2em; font-size: 11px;">ALTRUELLE ACADEMY</span>
-            <h1 style="margin: 5px 0 0 0; font-size: 18px;">DOT Supervisor Training</h1>
-        </div>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <span style="font-size: 11px; color: var(--blue);">PROCTOR STATUS: ACTIVE</span>
-            <div class="status-light"></div>
-        </div>
-    </header>
+    <div>
+        <span style="letter-spacing: 0.2em; font-size: 11px;">ALTRUELLE ACADEMY</span>
+        <h1 style="margin: 5px 0 0 0; font-size: 18px;">DOT Supervisor Training</h1>
+    </div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <button id="launch-assist-btn" onclick="launchScenario()" style="padding: 5px 12px; background: rgba(74, 167, 255, 0.1); border: 1px solid #4aa7ff; color: #4aa7ff; border-radius: 4px; font-size: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;">
+            Launch Assist
+        </button>
+        <span style="font-size: 11px; color: var(--blue);">PROCTOR STATUS: ACTIVE</span>
+        <div class="status-light"></div>
+    </div>
+</header>
 
     <div class="roadmap-wrapper">
         <div class="roadmap-bar">
