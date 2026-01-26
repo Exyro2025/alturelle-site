@@ -7,18 +7,18 @@
     <style>
         /* THE SOVEREIGN THEME */
         :root {
-            --obsidian: #0a0c12; /* Deep background to prevent eye strain */
+            --obsidian: #0a0c12; 
             --glass: rgba(255, 255, 255, 0.03);
-            --blue: #4aa7ff; /* Your signature digital blue */
+            --blue: #4aa7ff; 
             --glow: rgba(74, 167, 255, 0.3);
         }
 
         body {
             background-color: var(--obsidian);
             color: #e0e0e0;
-            font-family: 'Inter', sans-serif; /* Clean institutional font */
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            overflow: hidden; /* Keeps the command center feeling tight */
+            overflow: hidden;
         }
 
         /* COMMAND CENTER HEADER */
@@ -36,19 +36,19 @@
             background: var(--blue);
             border-radius: 50%;
             box-shadow: 0 0 10px var(--blue);
-            animation: proctorPulse 2s infinite ease-in-out; /* Your custom pulse */
+            animation: proctorPulse 2s infinite ease-in-out;
         }
 
         @keyframes proctorPulse {
-            0% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.1); }
-            100% { opacity: 0.2; transform: scale(0.8); }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 167, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(74, 167, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 167, 255, 0); }
         }
 
-        /* THE STAGE: YOUR FIGMA SLIDES GO HERE */
+        /* THE STAGE: YOUR FIGMA SLIDES */
         .stage-container {
             width: 100%;
-            height: calc(100vh - 160px); /* Adjusts for header/footer */
+            height: calc(100vh - 160px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -61,59 +61,70 @@
             border: none;
         }
 
-        /* 120-MINUTE COMPLIANCE BAR */
+        /* ROADMAP PROGRESS BAR */
+        .roadmap-wrapper {
+            margin: 10px 0 20px 0;
+            padding: 0 20px;
+        }
+        .roadmap-bar {
+            display: flex;
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,0.05);
+        }
+        .roadmap-seg {
+            flex: 1;
+            transition: all 1s ease;
+        }
+        .seg-active {
+            background: #4aa7ff;
+            box-shadow: 0 0 10px rgba(74, 167, 255, 0.5);
+        }
+        .roadmap-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-family: monospace;
+            font-size: 9px;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* 120-MINUTE COMPLIANCE FOOTER */
         footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             height: 60px;
             padding: 0 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--glass);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: #0a0e1c;
+            border-top: 1px solid rgba(74, 167, 255, 0.2);
+            box-sizing: border-box;
+            z-index: 999;
         }
 
-        .status-light {
-    width: 10px;
-    height: 10px;
-    background-color: #4aa7ff;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #4aa7ff;
-    animation: pulse 2s infinite; /* The Proctor's heartbeat */
-}
-
-@keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 167, 255, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(74, 167, 255, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 167, 255, 0); }
-}
-
-        .roadmap-wrapper {
-    margin: 10px 0 20px 0;
-    padding: 0 20px;
-}
-.roadmap-bar {
-    display: flex;
-    width: 100%;
-    height: 2px; /* Ultra-thin for sophistication */
-    background: rgba(255,255,255,0.05);
-}
-.roadmap-seg {
-    flex: 1;
-    transition: all 1s ease;
-}
-.seg-active {
-    background: #4aa7ff;
-    box-shadow: 0 0 10px rgba(74, 167, 255, 0.5);
-}
-.roadmap-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 8px;
-    font-family: monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: rgba(255,255,255,0.3);
-}
+        /* FIXED TRAINING MODULE (CENTERED) */
+        #training-module {
+            display: none; 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 800px; 
+            max-width: 90%; 
+            max-height: 75vh; 
+            background: rgba(10, 14, 28, 0.98); 
+            border: 1px solid rgba(74, 167, 255, 0.4); 
+            border-radius: 15px; 
+            padding: 30px; 
+            z-index: 9999; 
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -130,294 +141,151 @@
     </header>
 
     <div class="roadmap-wrapper">
-    <div class="roadmap-bar">
-        <div id="seg1" class="roadmap-seg seg-active"></div>
-        <div id="seg2" class="roadmap-seg"></div>
+        <div class="roadmap-bar">
+            <div id="seg1" class="roadmap-seg seg-active"></div>
+            <div id="seg2" class="roadmap-seg"></div>
+        </div>
+        <div class="roadmap-labels">
+            <span>PHASE I: CONTROLLED SUBSTANCES (60M)</span>
+            <span>PHASE II: ALCOHOL MISUSE (60M)</span>
+        </div>
     </div>
-    <div class="roadmap-labels">
-        <span>PHASE I: CONTROLLED SUBSTANCES (60M)</span>
-        <span>PHASE II: ALCOHOL MISUSE (60M)</span>
-    </div>
-</div>
 
     <main class="stage-container">
         <iframe src="https://attic-swoop-68239140.figma.site/"></iframe>
     </main>
 
-   <footer>
-       <footer style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 9999; background: #0a0e1c; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(74, 167, 255, 0.2); box-sizing: border-box;">
-    <div style="display: flex; align-items: center; gap: 20px;">
-        <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
-        
-        <a id="claimButton" href="certificate-form.html" style="display: none; text-decoration: none;">
-            <button style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #4affaa; background: rgba(74, 255, 170, 0.1); color: #4affaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">
-                Claim Certificate
+    <footer>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
+            <a id="claimButton" href="certificate-form.html" style="display: none; text-decoration: none;">
+                <button style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #4affaa; background: rgba(74, 255, 170, 0.1); color: #4affaa; font-size: 11px; text-transform: uppercase;">Claim Certificate</button>
+            </a>
+        </div>
+        <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
+        <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; border-left: 1px solid var(--blue); width: 250px;">
+            > INITIALIZING ALTRUELLE PROCTOR...
+        </div>
+    </footer>
+
+    <div id="training-module">
+        <p id="module-tag" style="color: #4aa7ff; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin: 0;">MODULE INITIALIZED</p>
+        <h2 id="scenario-title" style="color: white; margin: 10px 0; font-size: 22px;"></h2>
+        <hr style="border: 0; border-top: 1px solid rgba(74, 167, 255, 0.2); margin: 15px 0;">
+        <div id="scenario-text" style="color: rgba(255, 255, 255, 0.95); line-height: 1.7; font-size: 16px; margin-bottom: 25px;"></div>
+        <div id="instruction-note" style="font-style: italic; color: #4affaa; font-size: 13px; margin-bottom: 20px;"></div>
+        <div style="text-align: right; margin-top: 20px;">
+            <button id="next-module-btn" style="display: none; padding: 12px 25px; background: rgba(74, 167, 255, 0.2); border: 1px solid #4aa7ff; color: #4aa7ff; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase;">
+                Next Module
             </button>
-        </a>
+        </div>
     </div>
-    <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
-       <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; overflow-y: hidden; border-left: 1px solid var(--blue); width: 250px; text-align: left;">
-    > INITIALIZING ALTRUELLE PROCTOR...
-</div>
-</footer>
-
-     <div id="training-module" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); ...">
-    display: none; 
-    position: fixed; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    width: 800px; 
-    max-width: 90%; 
-    max-height: 80vh; 
-    background: rgba(10, 14, 28, 0.98); 
-    border: 1px solid rgba(74, 167, 255, 0.4); 
-    border-radius: 15px; 
-    padding: 30px; 
-    z-index: 9999; 
-    box-shadow: 0 0 50px rgba(0,0,0,0.9);
-    overflow-y: auto;
-">
-    <p id="module-tag" style="color: #4aa7ff; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin: 0;">MODULE INITIALIZED</p>
-    <h2 id="scenario-title" style="color: white; margin: 10px 0; font-size: 22px;"></h2>
-    <hr style="border: 0; border-top: 1px solid rgba(74, 167, 255, 0.2); margin: 15px 0;">
-    
-    <div id="scenario-text" style="color: rgba(255, 255, 255, 0.95); line-height: 1.7; font-size: 16px; margin-bottom: 25px;"></div>
-    <div id="instruction-note" style="font-style: italic; color: #4affaa; font-size: 13px; margin-bottom: 20px;"></div>
-
-    <div style="text-align: right; margin-top: 20px;">
-        <button id="next-module-btn" style="display: none; padding: 12px 25px; background: rgba(74, 167, 255, 0.2); border: 1px solid #4aa7ff; color: #4aa7ff; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase;">
-            Next Module
-        </button>
-    </div>
-</div>
 
     <script>
-    // 1. SET THE 120-MINUTE TIMER
-    let timeRemaining = 120 * 60; // Set to 7,200 seconds for DOT compliance
-    const timerDisplay = document.getElementById('timer');
+    // 1. GLOBAL SETTINGS & DATA
+    const moduleLockTime = 1440000; // 24 minutes per scenario
+    let timeRemaining = 7200; // 120 minutes total
+    let currentStep = 0;
+    let canStart = false; // Safety gate for intro timing
 
-    // 2. THE AI PROCTOR HANDOVER INITIALIZATION
-    const handoverOverlay = document.createElement('div');
-    handoverOverlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.95); display:flex; justify-content:center; align-items:center; z-index:1000; text-align:center; padding:40px;";
-    handoverOverlay.innerHTML = `
-        <div style="max-width:600px;">
-            <p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p>
-            <h2 style="font-size:24px; color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2>
-            <p style="color:rgba(255,255,255,0.6); line-height:1.6;">Monitoring 120-minute DOT compliance session.<br>Authorized Personnel Only.</p>
-        </div>`;
-    document.body.appendChild(handoverOverlay);
+    const dotScenarios = [
+        { module: "Module 1: Alcohol Misuse", title: "The Morning Briefing Incident", text: "A driver arrives at 06:00 AM. You notice a slight lack of coordination and the faint smell of alcohol. Under DOT rules, smell alone is sufficient for a Reasonable Suspicion test.", note: "✓ AI Proctoring: Observe behavioral indicators." },
+        { module: "Module 2: Controlled Substances", title: "The Post-Rest Stop Change", text: "After a mid-day break, a driver returns with dilated pupils and hyper-active speech patterns. These are specific physical indicators of stimulant use per FMCSA guidelines.", note: "✓ AI Proctoring: Note pupil dilation as a physical sign." },
+        { module: "Module 3: Documentation", title: "The Contemporaneous Record", text: "You have initiated a test based on appearance and behavior. You must now document these specific observations within 24 hours. Failure to document creates a legal loophole for the driver.", note: "✓ AI Proctoring: Documentation is a legal shield." },
+        { module: "Module 4: Speech & Behavior", title: "The Slurred Response", text: "During a check-in, a driver’s speech is thick and slurred, yet they are coherent. This is a primary indicator. Under DOT rules, you must remove them from safety-sensitive functions immediately.", note: "✓ AI Proctoring: Physical indicators override verbal denials." },
+        { module: "Module 5: Compliance Resolution", title: "Refusal to Test", text: "A driver refuses to go to the collection site. Under DOT regulations, a refusal is legally identical to a positive test result. The driver must be removed from duty and referred to a SAP.", note: "✓ AI Proctoring: Refusal = Positive result." }
+    ];
 
-    // AI Proctor message stays for 10 seconds to set the "Sovereign" tone
-    setTimeout(() => {
-        handoverOverlay.style.display = 'none';
-    }, 10000);
+    // 2. LOGGING & AUDIT
+    function logMessage(msg) {
+        const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
+        document.getElementById('proctor-log').innerHTML = `> ${time} : ${msg}`;
+    }
 
-    // 3. START THE COMPLIANCE CLOCK
+    const messages = ["EYE-TRACKING VERIFIED", "COMPLIANCE RATIO: OPTIMAL", "SEAT TIME VALIDATED", "BIOMETRIC MARKERS STABLE"];
+    setInterval(() => {
+        if (canStart) {
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            logMessage(randomMsg);
+        }
+    }, 45000);
+
+    // 3. THE COMPLIANCE CLOCK
     const countdown = setInterval(() => {
+        if (!canStart) return;
         let hours = Math.floor(timeRemaining / 3600);
         let minutes = Math.floor((timeRemaining % 3600) / 60);
         let seconds = timeRemaining % 60;
 
-        // Inside your setInterval countdown function:
-if (timeRemaining <= 3600) { // 3600 seconds = 60 minutes remaining
-    document.getElementById('seg1').classList.remove('seg-active');
-    document.getElementById('seg1').style.background = "rgba(74, 167, 255, 0.2)"; // Dim completed phase
-    document.getElementById('seg2').classList.add('seg-active');
-}
+        if (timeRemaining <= 3600) {
+            document.getElementById('seg1').classList.remove('seg-active');
+            document.getElementById('seg1').style.background = "rgba(74, 167, 255, 0.2)";
+            document.getElementById('seg2').classList.add('seg-active');
+        }
 
-        timerDisplay.textContent = 
-            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        document.getElementById('timer').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
         if (timeRemaining <= 0) {
             clearInterval(countdown);
-            timerDisplay.textContent = "CERTIFICATION ELIGIBLE";
-            
-            // Show the button
-            const claimBtn = document.getElementById('claimButton');
-            claimBtn.style.display = "block";
-            
-            // Tell the button to open the certificate form
-            claimBtn.onclick = () => {
-                window.location.href = 'certificate-form.html';
-            };
-
-            timerDisplay.style.color = "#4affaa"; 
+            document.getElementById('timer').textContent = "CERTIFICATION ELIGIBLE";
+            document.getElementById('timer').style.color = "#4affaa";
         }
         timeRemaining--;
     }, 1000);
 
-        // PROCTOR AUDIT: Random check-ins to verify engagement
-let lastMove = Date.now();
-document.addEventListener('mousemove', () => lastMove = Date.now());
+    // 4. THE INSTRUCTOR LOGIC
+    function updateScenario() {
+        if (!canStart) return;
+        const nextBtn = document.getElementById('next-module-btn');
+        const trainingBox = document.getElementById('training-module');
+        nextBtn.style.display = 'none';
 
-const proctorAudit = setInterval(() => {
-    let idleTime = (Date.now() - lastMove) / 1000;
-    
-    // If the user hasn't moved the mouse in 15 minutes, the proctor "pauses" the clock
-    if (idleTime > 900) { 
-        alert("ALTRUELLE PROCTOR NOTICE: Session paused due to inactivity. Move your mouse to resume compliance timer.");
-        lastMove = Date.now(); // Reset after alert
+        if (currentStep < dotScenarios.length) {
+            const s = dotScenarios[currentStep];
+            document.getElementById('module-tag').innerText = s.module;
+            document.getElementById('scenario-title').innerText = s.title;
+            document.getElementById('scenario-text').innerText = s.text;
+            document.getElementById('instruction-note').innerText = s.note;
+            trainingBox.style.display = 'block';
+
+            setTimeout(() => {
+                nextBtn.style.display = 'block';
+                logMessage("MODULE ACCESS GRANTED");
+            }, moduleLockTime);
+            currentStep++;
+        } else {
+            document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
+            document.getElementById('scenario-text').innerHTML = `
+                <div style="text-align: center; padding: 10px;">
+                    <p style="color: #4affaa; font-size: 18px; margin-bottom: 20px;">✓ 120-MINUTE COMPLIANCE VERIFIED</p>
+                    <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase;">Claim Official Certificate</button>
+                </div>`;
+            document.getElementById('claimButton').style.display = "block";
+        }
     }
-}, 60000); // Checks every minute
 
-        const proctorLog = document.getElementById('proctor-log');
+    document.getElementById('next-module-btn').onclick = updateScenario;
 
-function logMessage(msg) {
-    const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
-    proctorLog.innerHTML = `> ${time} : ${msg}`;
-}
-
-// Random Proctor Check-ins
-const messages = [
-    "EYE-TRACKING VERIFIED",
-    "COMPLIANCE RATIO: OPTIMAL",
-    "49 CFR §382.603 AUDIT IN PROGRESS",
-    "SEAT TIME VALIDATED",
-    "BIOMETRIC MARKERS STABLE",
-    "SOVEREIGN ENCRYPTION ACTIVE"
-];
-
-setInterval(() => {
-    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-    logMessage(randomMsg);
-}, 45000); // Posts a new "check-in" every 45 seconds
-
-// 3. THE SCENARIO DATA (DOT COMPLIANT)
-const dotScenarios = [
-    {
-        module: "Module 1: Alcohol Misuse",
-        title: "The Morning Briefing Incident",
-        text: "A driver arrives at 06:00 AM. You notice a slight lack of coordination and the faint smell of alcohol. Under DOT rules, smell alone is sufficient for a Reasonable Suspicion test.",
-        note: "✓ AI Proctoring: Observe behavioral indicators."
-    },
-    {
-        module: "Module 2: Controlled Substances",
-        title: "The Post-Rest Stop Change",
-        text: "After a mid-day break, a driver returns with dilated pupils and hyper-active speech patterns. These are specific physical indicators of stimulant use per FMCSA guidelines.",
-        note: "✓ AI Proctoring: Note pupil dilation as a physical sign."
-    },
-    {
-        module: "Module 3: Documentation",
-        title: "The Contemporaneous Record",
-        text: "You have initiated a test based on appearance and behavior. You must now document these specific observations within 24 hours. Failure to document creates a legal loophole for the driver.",
-        note: "✓ AI Proctoring: Documentation is a legal shield."
-    },
-    {
-        module: "Module 4: Speech & Behavior",
-        title: "The Slurred Response",
-        text: "During a check-in, a driver’s speech is thick and slurred, yet they are coherent. This is a primary indicator. Under DOT rules, you must remove them from safety-sensitive functions immediately.",
-        note: "✓ AI Proctoring: Physical indicators override verbal denials."
-    },
-    {
-        module: "Module 5: Compliance Resolution",
-        title: "Refusal to Test",
-        text: "A driver refuses to go to the collection site. Under DOT regulations, a refusal is legally identical to a positive test result. The driver must be removed from duty and referred to a SAP.",
-        note: "✓ AI Proctoring: Refusal = Positive result."
-    }
-]; // This is the only place the square bracket and semicolon should be.
-
-let currentStep = 0;
-
-// 4. THE HANDOVER FUNCTION
-function runSovereignTraining() {
-    const trainingBox = document.getElementById('training-module');
-    if (trainingBox) {
-        trainingBox.style.display = 'block';
-        updateScenario();
-    }
-}
-
-function updateScenario() {
-    const nextBtn = document.getElementById('next-module-btn');
-    nextBtn.style.display = 'none'; // Hide the button immediately for the new module
-
-    if (currentStep < dotScenarios.length) {
-        const s = dotScenarios[currentStep];
-        document.getElementById('module-tag').innerText = s.module;
-        document.getElementById('scenario-title').innerText = s.title;
-        document.getElementById('scenario-text').innerText = s.text;
-        document.getElementById('instruction-note').innerText = s.note;
-        currentStep++;
-
-        // THE LOCK: The Proctor waits 24 minutes (1,440,000ms) before showing the button
-        // This ensures 5 modules = 120 minutes total.
-        setTimeout(() => {
-            nextBtn.style.display = 'block';
-            logMessage("MODULE ACCESS GRANTED: PROCTOR VERIFIED");
-        }, 1440000); 
-    } else {
-        // If they finished all 5, the "Instructor" tells them they are eligible
-        document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
-        document.getElementById('scenario-text').innerText = "The AI Proctor has validated your seat time. You may now claim your certificate.";
-    }
-}
-
-// Ensure the button actually works when clicked
-document.getE
-// 5. TRIGGER REVEAL: Starts after the 10-second Proctor Overlay hides
-setTimeout(runSovereignTraining, 10500);
-
-
-// 1. COMPLIANCE SETTINGS
-const moduleLockTime = 1440000; // 24 minutes per module (120 min total)
-let currentStep = 0;
-let canStart = false; // This "Safety Gate" prevents the Module 2 skip
-
-// 2. THE INSTRUCTOR LOGIC
-function updateScenario() {
-    // If the 10-second intro hasn't finished, this function does nothing
-    if (!canStart) return; 
-
-    const nextBtn = document.getElementById('next-module-btn');
-    const trainingBox = document.getElementById('training-module');
-    
-    nextBtn.style.display = 'none';
-
-    if (currentStep < dotScenarios.length) {
-        const s = dotScenarios[currentStep];
-        
-        document.getElementById('module-tag').innerText = s.module;
-        document.getElementById('scenario-title').innerText = s.title;
-        document.getElementById('scenario-text').innerText = s.text;
-        document.getElementById('instruction-note').innerText = s.note;
-
-        // Reveal the centered box
-        trainingBox.style.display = 'block';
-
-        // Start the Proctor's Seat-Time Lock
-        setTimeout(() => {
-            nextBtn.style.display = 'block';
-            logMessage("MODULE ACCESS GRANTED: SEAT TIME VERIFIED");
-        }, moduleLockTime);
-
-        currentStep++; 
-    } else {
-        // FINAL COMPLETION STATE
-        document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
-        document.getElementById('scenario-text').innerHTML = `
-            <div style="text-align: center; padding: 10px;">
-                <p style="color: #4affaa; font-size: 18px; margin-bottom: 20px;">✓ 120-MINUTE COMPLIANCE VERIFIED</p>
-                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Claim Official Certificate</button>
+    // 5. THE MASTER HANDOVER (INTRO -> TRAINING)
+    window.onload = function() {
+        const handoverOverlay = document.createElement('div');
+        handoverOverlay.id = "handover-overlay";
+        handoverOverlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.98); display:flex; justify-content:center; align-items:center; z-index:10000; text-align:center; padding:40px;";
+        handoverOverlay.innerHTML = `
+            <div style="max-width:600px;">
+                <p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p>
+                <h2 style="font-size:24px; color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2>
+                <p style="color:rgba(255,255,255,0.6); line-height:1.6;">Monitoring 120-minute DOT compliance session.</p>
             </div>`;
-    }
-}
+        document.body.appendChild(handoverOverlay);
 
-// 3. THE SINGLE MASTER TIMER: Manages the Handover
-window.onload = function() {
-    setTimeout(() => {
-        // Hide Intro Overlay (Image 1)
-        const intro = document.getElementById('handover-overlay');
-        if (intro) intro.style.display = 'none';
-        
-        // Open the Safety Gate and Start Module 1 (Image 2)
-        canStart = true; 
-        updateScenario(); 
-        
-        document.body.style.overflow = 'hidden';
-    }, 10000); // 10-second delay for Initializing screen
-};
-</script>
-
+        setTimeout(() => {
+            handoverOverlay.style.display = 'none';
+            canStart = true;
+            updateScenario(); // Starts Module 1 exactly once
+            logMessage("SESSION AUTHENTICATED");
+        }, 10000);
+    };
+    </script>
 </body>
 </html>
