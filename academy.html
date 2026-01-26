@@ -197,60 +197,90 @@
     </div>
 
     <script>
-    // 1. COMPLIANCE SETTINGS & DATA
-    const moduleLockTime = 1440000; // 24 mins per scenario
-    let timeRemaining = 7200; // 120-minute total session
-    let currentStep = 0;
-    let canStart = false; // Safety gate for intro timing
+ // 1. SETTINGS & DATA
+const moduleLockTime = 1440000; 
+let timeRemaining = 7200; // 120 Minutes
+let currentStep = 0;
+let canStart = false;
 
-    const dotScenarios = [
-        { module: "Module 1: Alcohol Misuse", title: "The Morning Briefing Incident", text: "A driver arrives at 06:00 AM. You notice a slight lack of coordination and the faint smell of alcohol. Under DOT rules, smell alone is sufficient for a Reasonable Suspicion test.", note: "✓ AI Proctoring: Observe behavioral indicators." },
-        { module: "Module 2: Controlled Substances", title: "The Post-Rest Stop Change", text: "After a mid-day break, a driver returns with dilated pupils and hyper-active speech patterns. These are specific physical indicators of stimulant use per FMCSA guidelines.", note: "✓ AI Proctoring: Note pupil dilation as a physical sign." },
-        { module: "Module 3: Documentation", title: "The Contemporaneous Record", text: "You have initiated a test based on appearance and behavior. You must now document these specific observations within 24 hours. Failure to document creates a legal loophole for the driver.", note: "✓ AI Proctoring: Documentation is a legal shield." },
-        { module: "Module 4: Speech & Behavior", title: "The Slurred Response", text: "During a check-in, a driver’s speech is thick and slurred, yet they are coherent. This is a primary indicator. Under DOT rules, you must remove them from safety-sensitive functions immediately.", note: "✓ AI Proctoring: Physical indicators override verbal denials." },
-        { module: "Module 5: Compliance Resolution", title: "Refusal to Test", text: "A driver refuses to go to the collection site. Under DOT regulations, a refusal is legally identical to a positive test result. The driver must be removed from duty and referred to a SAP.", note: "✓ AI Proctoring: Refusal = Positive result." }
-    ];
+const dotScenarios = [
+    { module: "Module 1: Alcohol Misuse", title: "The Morning Briefing Incident", text: "A driver arrives at 06:00 AM. You notice a slight lack of coordination and the faint smell of alcohol. Under DOT rules, smell alone is sufficient for a Reasonable Suspicion test.", note: "✓ AI Proctoring: Observe behavioral indicators." },
+    { module: "Module 2: Controlled Substances", title: "The Post-Rest Stop Change", text: "After a mid-day break, a driver returns with dilated pupils and hyper-active speech patterns. These are specific physical indicators of stimulant use per FMCSA guidelines.", note: "✓ AI Proctoring: Note pupil dilation as a physical sign." },
+    { module: "Module 3: Documentation", title: "The Contemporaneous Record", text: "You have initiated a test based on appearance and behavior. You must now document these specific observations within 24 hours. Failure to document creates a legal loophole for the driver.", note: "✓ AI Proctoring: Documentation is a legal shield." },
+    { module: "Module 4: Speech & Behavior", title: "The Slurred Response", text: "During a check-in, a driver’s speech is thick and slurred, yet they are coherent. This is a primary indicator. Under DOT rules, you must remove them from safety-sensitive functions immediately.", note: "✓ AI Proctoring: Physical indicators override verbal denials." },
+    { module: "Module 5: Compliance Resolution", title: "Refusal to Test", text: "A driver refuses to go to the collection site. Under DOT regulations, a refusal is legally identical to a positive test result. The driver must be removed from duty and referred to a SAP.", note: "✓ AI Proctoring: Refusal = Positive result." }
+];
 
-    // 2. LOGGING & PROGRESS CHECK
-    function logMessage(msg) {
-        const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
-        document.getElementById('proctor-log').innerHTML = `> ${time} : ${msg}`;
+function logMessage(msg) {
+    const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
+    document.getElementById('proctor-log').innerHTML = `> ${time} : ${msg}`;
+}
+
+// 2. COMPLIANCE CLOCK & MILESTONES
+const countdown = setInterval(() => {
+    if (!canStart) return;
+    
+    let hours = Math.floor(timeRemaining / 3600);
+    let minutes = Math.floor((timeRemaining % 3600) / 60);
+    let seconds = timeRemaining % 60;
+
+    // MILESTONE: At 10 minutes (6600s left), pulse the button to remind the Instructor
+    if (timeRemaining === 6600 && currentStep === 0) {
+        document.getElementById('launch-assist-btn').classList.add('assist-pulse');
+        logMessage("PROCTOR SUGGESTION: READY FOR MODULE 1");
     }
 
-    // THE INSTRUCTOR-LED SYNC: Proctor only assists at the 10-minute mark
-    function checkClassProgress() {
-        if (!canStart) return;
-        // Trigger Module 1 at 10 minutes (6600 seconds remaining)
-        if (timeRemaining === 6600 && currentStep === 0) {
-            launchScenario();
-        }
+    document.getElementById('timer').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+    if (timeRemaining <= 0) {
+        clearInterval(countdown);
+        document.getElementById('timer').textContent = "CERTIFICATION ELIGIBLE";
+        document.getElementById('claimButton').style.display = "block";
     }
+    timeRemaining--;
+}, 1000);
 
-  
-        // 3. THE COMPLIANCE CLOCK (Agreed 120-minute Background Monitor)
-    const countdown = setInterval(() => {
-        if (!canStart) return;
-        let hours = Math.floor(timeRemaining / 3600);
-        let minutes = Math.floor((timeRemaining % 3600) / 60);
-        let seconds = timeRemaining % 60;
+// 3. INSTRUCTOR-LED TRIGGER
+function launchScenario() {
+    if (!canStart) return;
 
-        // Visual Roadmap Transition
-        if (timeRemaining === 3600) {
-            document.getElementById('seg1').classList.remove('seg-active');
-            document.getElementById('seg2').classList.add('seg-active');
-            logMessage("PHASE II: ALCOHOL MISUSE PROTOCOLS ACTIVE");
-        }
+    const trainingBox = document.getElementById('training-module');
+    const launchBtn = document.getElementById('launch-assist-btn');
+    
+    // Stop the pulsing once the Instructor clicks it
+    launchBtn.classList.remove('assist-pulse');
 
-        document.getElementById('timer').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        
-        if (timeRemaining <= 0) {
-            clearInterval(countdown);
-            document.getElementById('timer').textContent = "CERTIFICATION ELIGIBLE";
-            document.getElementById('claimButton').style.display = "block";
-            logMessage("COMPLIANCE VERIFIED: SESSION COMPLETE");
-        }
-        timeRemaining--;
-    }, 1000);
+    if (currentStep < dotScenarios.length) {
+        const s = dotScenarios[currentStep];
+        document.getElementById('module-tag').innerText = s.module;
+        document.getElementById('scenario-title').innerText = s.title;
+        document.getElementById('scenario-text').innerText = s.text;
+        document.getElementById('instruction-note').innerText = s.note;
+
+        trainingBox.style.display = 'block';
+        document.getElementById('next-module-btn').style.display = 'block'; // Immediate Instructor control
+        currentStep++;
+    }
+}
+
+document.getElementById('next-module-btn').onclick = () => {
+    document.getElementById('training-module').style.display = 'none'; // Return to lecture
+};
+
+// 4. THE HANDOVER (IMAGE 1)
+window.onload = function() {
+    const intro = document.createElement('div');
+    intro.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.98); display:flex; justify-content:center; align-items:center; z-index:10000; text-align:center;";
+    intro.innerHTML = `<div style="max-width:600px;"><p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p><h2 style="color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2></div>`;
+    document.body.appendChild(intro);
+
+    setTimeout(() => {
+        intro.style.display = 'none';
+        canStart = true;
+        logMessage("SESSION AUTHENTICATED: MONITORING CLASS");
+    }, 10000);
+};
+</script>
 
     // 4. THE PROCTOR ASSIST (Agreed Instructor-Triggered Reveal)
     function launchScenario() {
