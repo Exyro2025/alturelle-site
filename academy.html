@@ -342,6 +342,34 @@ document.getElementById('next-module-btn').onclick = updateScenario;
 
 // 5. TRIGGER REVEAL: Starts after the 10-second Proctor Overlay hides
 setTimeout(runSovereignTraining, 10500);
+
+        // TEST MODE OVERRIDE (For developer use only)
+// Change this to 5000 (5 seconds) to test the flow quickly
+const moduleLockTime = 5000; 
+
+function updateScenario() {
+    const nextBtn = document.getElementById('next-module-btn');
+    nextBtn.style.display = 'none';
+
+    if (currentStep < dotScenarios.length) {
+        const s = dotScenarios[currentStep];
+        document.getElementById('module-tag').innerText = s.module;
+        document.getElementById('scenario-title').innerText = s.title;
+        document.getElementById('scenario-text').innerText = s.text;
+        document.getElementById('instruction-note').innerText = s.note;
+        currentStep++;
+
+        // In production, this would be 1440000ms (24 minutes)
+        setTimeout(() => {
+            nextBtn.style.display = 'block';
+            logMessage("MODULE ACCESS GRANTED: PROCTOR VERIFIED");
+        }, moduleLockTime); 
+    } else {
+        document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
+        document.getElementById('scenario-text').innerText = "The AI Proctor has validated your seat time. You may now claim your certificate.";
+        document.getElementById('instruction-note').innerText = "✓ Compliance requirements fully satisfied.";
+    }
+}
 </script>
 
 </body>
