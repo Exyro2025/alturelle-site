@@ -169,31 +169,27 @@
     </div>
 
     <div id="instructor-controls-slides" style="display: none;">
-        <main class="stage-container">
-            <iframe src="https://attic-swoop-68239140.figma.site/"></iframe>
-        </main>
-    </div>
+    <main class="stage-container">
+        <iframe src="https://attic-swoop-68239140.figma.site/"></iframe>
+    </main>
+</div>
 
     <footer>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
-            
-            <a id="claimButton" href="certificate-form.html" style="display: none; text-decoration: none;">
-                <button style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #4affaa; background: rgba(74, 255, 170, 0.1); color: #4affaa; font-size: 11px; text-transform: uppercase;">Claim Certificate</button>
-            </a>
-
-            <button onclick="downloadLog()" style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--blue); background: rgba(74, 167, 255, 0.1); color: var(--blue); font-size: 11px; text-transform: uppercase;">
-                Download Compliance Log
-            </button>
-        </div>
-
-        <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
-        
-        <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; border-left: 1px solid var(--blue); width: 250px; overflow-y: auto;">
-            > INITIALIZING...
-        </div>
-        <span onclick="authorizeInstructor()" style="opacity: 0.1; cursor: default; font-size: 10px;">.</span>
-    </footer>
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
+        <a id="claimButton" href="certificate-form.html" style="display: none; text-decoration: none;">
+            <button style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #4affaa; background: rgba(74, 255, 170, 0.1); color: #4affaa; font-size: 11px; text-transform: uppercase;">Claim Certificate</button>
+        </a>
+        <button onclick="downloadLog()" style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--blue); background: rgba(74, 167, 255, 0.1); color: var(--blue); font-size: 11px; text-transform: uppercase;">
+            Download Compliance Log
+        </button>
+    </div>
+    <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
+    <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; border-left: 1px solid var(--blue); width: 250px; overflow-y: auto;">
+        > INITIALIZING...
+    </div>
+    <span onclick="authorizeInstructor()" style="opacity: 0.1; cursor: pointer; font-size: 20px; color: white; padding: 10px;">.</span>
+</footer>
 
     <div id="training-module">
         <p id="module-tag" style="color: #4aa7ff; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin: 0;">MODULE INITIALIZED</p>
@@ -210,7 +206,6 @@
 
     <script>
 
-        // 1. DATA & STATE
 let timeRemaining = 7200; 
 let currentStep = 0;
 let canStart = false; 
@@ -218,32 +213,25 @@ let traineeValidated = true;
 let isInstructor = false; 
 
 const dotScenarios = [
-    { module: "Module 1: Alcohol", title: "Morning Briefing", text: "Driver arrives at 06:00 AM. You notice coordination issues and smell alcohol.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
+    { module: "Module 1: Alcohol", title: "Morning Briefing", text: "Driver arrives at 06:00 AM with coordination issues and smell of alcohol.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
     { module: "Module 2: Drugs", title: "Post-Rest Stop", text: "Driver returns with dilated pupils and hyper-active speech.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
     { module: "Module 3: Documentation", title: "The Record", text: "You initiated a test. Document observations within 24 hours.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
     { module: "Module 4: Behavior", title: "Slurred Response", text: "Driver’s speech is thick and slurred. Remove from duty immediately.", note: "✓ PARTICIPATION: Trainee must confirm presence." },
     { module: "Module 5: Resolution", title: "Refusal to Test", text: "Driver refuses test. Legally identical to a positive test.", note: "✓ PARTICIPATION: Trainee must confirm presence." }
 ];
 
-// 2. SECURITY: THE MASTER UNLOCK
 function authorizeInstructor() {
     const code = prompt("Enter Altruelle Academy Instructor Code:");
     if (code === "Altruelle2026") {
         isInstructor = true;
-        // Unlocks the Header button
         document.getElementById('instructor-controls').style.display = "block";
-        // Unlocks the Slide navigation buttons
-        const slideControls = document.getElementById('instructor-controls-slides');
-        if (slideControls) slideControls.style.display = "block";
-        
-        logMessage("ADMIN AUTHENTICATED: FULL CONTROL ENABLED");
+        document.getElementById('instructor-controls-slides').style.display = "block";
+        logMessage("ADMIN AUTHENTICATED: SYSTEM UNLOCKED");
     } else {
         alert("Access Denied.");
-        logMessage("SECURITY: UNAUTHORIZED ADMIN ACCESS ATTEMPT");
     }
 }
 
-// 3. LOGGING & DOWNLOAD
 function logMessage(msg) {
     const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
     const log = document.getElementById('proctor-log');
@@ -257,48 +245,28 @@ function downloadLog() {
     const logContent = document.getElementById('proctor-log').innerText;
     const blob = new Blob([logContent], { type: 'text/plain' });
     const anchor = document.createElement('a');
-    anchor.download = `Compliance_Log_Altruelle.txt`;
+    anchor.download = "Compliance_Log.txt";
     anchor.href = window.URL.createObjectURL(blob);
     anchor.click();
 }
 
-// 4. FOCUS GUARD
-document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-        canStart = false; 
-        logMessage("SESSION PAUSED: WINDOW FOCUS LOST");
-        const light = document.querySelector('.status-light');
-        if (light) light.style.background = "#ff4a4a";
-    } else if (traineeValidated) {
-        canStart = true;
-        logMessage("SESSION RESUMED: FOCUS VERIFIED");
-        const light = document.querySelector('.status-light');
-        if (light) light.style.background = "var(--blue)";
-    }
-});
-
-// 5. CLOCK
 const countdown = setInterval(() => {
     if (!canStart || !traineeValidated) return;
     let hours = Math.floor(timeRemaining / 3600);
     let minutes = Math.floor((timeRemaining % 3600) / 60);
     let seconds = timeRemaining % 60;
     document.getElementById('timer').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
     if (timeRemaining <= 0) {
         clearInterval(countdown);
         document.getElementById('timer').textContent = "CERTIFICATION ELIGIBLE";
-        const claim = document.getElementById('claimButton');
-        if (claim) claim.style.display = "block";
+        document.getElementById('claimButton').style.display = "block";
         logMessage("120-MINUTE COMPLIANCE VERIFIED");
     }
     timeRemaining--;
 }, 1000);
 
-// 6. MODULES
 function launchScenario() {
-    if (!isInstructor) return; 
-    if (!canStart) return;
+    if (!isInstructor) return;
     const trainingBox = document.getElementById('training-module');
     if (currentStep < dotScenarios.length) {
         const s = dotScenarios[currentStep];
@@ -308,45 +276,22 @@ function launchScenario() {
         document.getElementById('instruction-note').innerText = s.note;
         traineeValidated = false; 
         trainingBox.style.display = 'block';
-        const oldCheck = document.getElementById('participation-check');
-        if (oldCheck) oldCheck.remove();
-        const checkArea = document.createElement('div');
-        checkArea.id = "participation-check";
-        checkArea.style = "margin-top:20px; padding:15px; background:rgba(74,167,255,0.1); border-radius:8px; border:1px solid var(--blue);";
-        checkArea.innerHTML = `<label style="color:#4affaa; font-size:12px; cursor:pointer;"><input type="checkbox" onchange="validateTrainee()" style="margin-right:10px;"> I am present and acknowledge this compliance milestone.</label>`;
-        trainingBox.appendChild(checkArea);
-        logMessage(`SCENARIO REVEALED: ${s.title}`);
     }
 }
 
 function validateTrainee() {
     traineeValidated = true;
-    canStart = true;
-    currentStep++; 
-    const check = document.getElementById('participation-check');
-    if (check) check.innerHTML = `<span style="color:#4affaa; font-size:12px;">✓ PARTICIPATION VERIFIED.</span>`;
-    logMessage("TRAINEE VERIFIED: PARTICIPATION LOGGED");
-}
-
-function closeModule() {
+    currentStep++;
     document.getElementById('training-module').style.display = 'none';
-    logMessage("INSTRUCTOR RESUMING LECTURE");
+    logMessage("PARTICIPATION VERIFIED");
 }
 
-// 7. INITIALIZING
 window.onload = function() {
-    const intro = document.createElement('div');
-    intro.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,9,15,0.98); display:flex; justify-content:center; align-items:center; z-index:10000; text-align:center; padding:40px;";
-    intro.innerHTML = `<div style="max-width:600px;"><p style="color:#4aa7ff; letter-spacing:0.3em; font-size:12px;">SYSTEM INITIALIZING</p><h2 style="color:white;">ALTRUELLE SOVEREIGN PROCTOR ACTIVE</h2><p style="color:rgba(255,255,255,0.4); font-size:13px;">DOT Compliance Monitor Mode: 49 CFR §382.603</p></div>`;
-    document.body.appendChild(intro);
     setTimeout(() => {
-        intro.style.display = 'none';
-        canStart = true; 
+        canStart = true;
         logMessage("SESSION AUTHENTICATED: MONITORING ACTIVE");
-    }, 10000);
+    }, 2000);
 };
-    
-
 </script>
 
 
