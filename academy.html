@@ -359,14 +359,15 @@ document.getE
 setTimeout(runSovereignTraining, 10500);
 
 
-// 1. SETTINGS
-const moduleLockTime = 1440000; // 24 mins
+// 1. SETTINGS & SAFETY GATE
+const moduleLockTime = 1440000; 
 let currentStep = 0;
-let canStart = false; // The Master Safety Gate
+let canStart = false; // THE KEY FIX: This stays false for 10 seconds
 
-// 2. THE LOGIC
+// 2. THE INSTRUCTOR LOGIC
 function updateScenario() {
-    if (!canStart) return; // Prevents the "Early Pop-up" or "Module 2" jump
+    // BLOCKADE: If the gate is closed, the function stops here
+    if (!canStart) return; 
 
     const nextBtn = document.getElementById('next-module-btn');
     const trainingBox = document.getElementById('training-module');
@@ -390,21 +391,26 @@ function updateScenario() {
         currentStep++; 
     } else {
         document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
-        document.getElementById('scenario-text').innerHTML = `<div style="text-align:center;"><button onclick="window.location.href='certificate-form.html'" style="padding:15px 30px; background:#4aa7ff; color:white; border:none; border-radius:5px; cursor:pointer;">Claim Official Certificate</button></div>`;
+        document.getElementById('scenario-text').innerHTML = `
+            <div style="text-align: center; padding: 10px;">
+                <p style="color: #4affaa; font-size: 18px; margin-bottom: 20px;">✓ 120-MINUTE COMPLIANCE VERIFIED</p>
+                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Claim Official Certificate</button>
+            </div>`;
     }
 }
 
-// 3. THE HANDOVER (Timed to your Intro Screen)
+// 3. THE HANDOVER (IMAGE 1 -> IMAGE 2)
 window.onload = function() {
     setTimeout(() => {
         const intro = document.getElementById('handover-overlay');
         if (intro) intro.style.display = 'none';
         
-        canStart = true; // Unlock the gate
-        updateScenario(); // Now Module 1 (Index 0) starts correctly
+        // OPEN THE GATE: Now updateScenario is allowed to run
+        canStart = true; 
+        updateScenario(); 
         
         document.body.style.overflow = 'hidden';
-    }, 10000); // Wait 10 seconds exactly
+    }, 10000); // 10-second delay
 };
 
 // 3. THE HANDOVER (IMAGE 1 -> IMAGE 2)
