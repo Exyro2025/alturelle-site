@@ -171,17 +171,24 @@
     </main>
 
     <footer>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
-            <a id="claimButton" href="certificate-form.html" style="display: none; text-decoration: none;">
-                <button style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #4affaa; background: rgba(74, 255, 170, 0.1); color: #4affaa; font-size: 11px; text-transform: uppercase;">Claim Certificate</button>
-            </a>
-        </div>
-        <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
-        <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; border-left: 1px solid var(--blue); width: 250px;">
-            > INITIALIZING...
-        </div>
-    </footer>
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <div id="timer" style="font-family: monospace; font-size: 14px; color: var(--blue);">120:00:00</div>
+        
+        <a id="claimButton" href="certificate-form.html" style="display: none; text-decoration: none;">
+            <button style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #4affaa; background: rgba(74, 255, 170, 0.1); color: #4affaa; font-size: 11px; text-transform: uppercase;">Claim Certificate</button>
+        </a>
+
+        <button onclick="downloadLog()" style="cursor:pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--blue); background: rgba(74, 167, 255, 0.1); color: var(--blue); font-size: 11px; text-transform: uppercase;">
+            Download Compliance Log
+        </button>
+    </div>
+
+    <div style="font-size: 11px; opacity: 0.5;">CERTIFICATION STATUS | 49 CFR §382.603</div>
+    
+    <div id="proctor-log" style="font-family: monospace; font-size: 10px; color: rgba(74, 167, 255, 0.7); background: rgba(0,0,0,0.3); padding: 5px 10px; height: 30px; border-left: 1px solid var(--blue); width: 250px; overflow-y: hidden;">
+        > INITIALIZING...
+    </div>
+</footer>
 
     <div id="training-module">
         <p id="module-tag" style="color: #4aa7ff; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin: 0;">MODULE INITIALIZED</p>
