@@ -167,6 +167,12 @@
     <hr style="border: 0; border-top: 1px solid rgba(74, 167, 255, 0.1); margin: 20px 0;">
     <div id="scenario-text" style="color: rgba(255, 255, 255, 0.85); line-height: 1.8; font-size: 17px; margin-bottom: 30px;"></div>
     <div id="instruction-note" style="font-style: italic; color: #4affaa; font-size: 13px;"></div>
+
+           <div style="text-align: right; margin-top: 30px;">
+        <button id="next-module-btn" style="display: none; padding: 12px 25px; background: rgba(74, 167, 255, 0.1); border: 1px solid #4aa7ff; color: #4aa7ff; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+            Complete Module & Continue
+        </button>
+    </div>
 </div>
 
 
@@ -309,6 +315,9 @@ function runSovereignTraining() {
 }
 
 function updateScenario() {
+    const nextBtn = document.getElementById('next-module-btn');
+    nextBtn.style.display = 'none'; // Hide the button immediately for the new module
+
     if (currentStep < dotScenarios.length) {
         const s = dotScenarios[currentStep];
         document.getElementById('module-tag').innerText = s.module;
@@ -316,8 +325,22 @@ function updateScenario() {
         document.getElementById('scenario-text').innerText = s.text;
         document.getElementById('instruction-note').innerText = s.note;
         currentStep++;
+
+        // THE LOCK: The Proctor waits 24 minutes (1,440,000ms) before showing the button
+        // This ensures 5 modules = 120 minutes total.
+        setTimeout(() => {
+            nextBtn.style.display = 'block';
+            logMessage("MODULE ACCESS GRANTED: PROCTOR VERIFIED");
+        }, 1440000); 
+    } else {
+        // If they finished all 5, the "Instructor" tells them they are eligible
+        document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
+        document.getElementById('scenario-text').innerText = "The AI Proctor has validated your seat time. You may now claim your certificate.";
     }
 }
+
+// Ensure the button actually works when clicked
+document.getElementById('next-module-btn').onclick = updateScenario;
 
 // 5. TRIGGER REVEAL: Starts after the 10-second Proctor Overlay hides
 setTimeout(runSovereignTraining, 10500);
