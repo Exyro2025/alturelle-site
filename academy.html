@@ -222,7 +222,12 @@ const dotScenarios = [
 function logMessage(msg) {
     const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
     const log = document.getElementById('proctor-log');
-    if (log) log.innerHTML = `> ${time} : ${msg}`;
+    if (log) {
+        // Change '=' to '+=' to keep the history, and add '<br>' for spacing
+        log.innerHTML += `> ${time} : ${msg}<br>`; 
+        // This ensures the box stays scrolled to the latest message
+        log.scrollTop = log.scrollHeight; 
+    }
 }
 
 // 2. THE FOCUS GUARD (Tab Detection)
