@@ -354,56 +354,63 @@ function updateScenario() {
 }
 
 // Ensure the button actually works when clicked
-document.getElementById('next-module-btn').onclick = updateScenario;
-
+document.getE
 // 5. TRIGGER REVEAL: Starts after the 10-second Proctor Overlay hides
 setTimeout(runSovereignTraining, 10500);
 
-        // TEST MODE OVERRIDE (For developer use only)
+
 // Change this to 5000 (5 seconds) to test the flow quickly
-const moduleLockTime = 1440000;
+// 1. SET THE LOCK TO 24 MINUTES (1440000ms) 
+const moduleLockTime = 1440000; 
+let currentStep = 0;
 
 function updateScenario() {
     const nextBtn = document.getElementById('next-module-btn');
+    const trainingBox = document.getElementById('training-module');
+    
+    // Hide the button immediately when a new module starts
     nextBtn.style.display = 'none';
 
     if (currentStep < dotScenarios.length) {
         const s = dotScenarios[currentStep];
+        
+        // Populate the fields
         document.getElementById('module-tag').innerText = s.module;
         document.getElementById('scenario-title').innerText = s.title;
         document.getElementById('scenario-text').innerText = s.text;
         document.getElementById('instruction-note').innerText = s.note;
-        currentStep++;
 
-        // In production, this would be 1440000ms (24 minutes)
+        // Reveal the box only if it's currently hidden
+        trainingBox.style.display = 'block';
+
+        // THE COMPLIANCE LOCK: Button only appears after the set time
         setTimeout(() => {
             nextBtn.style.display = 'block';
-            logMessage("MODULE ACCESS GRANTED: PROCTOR VERIFIED");
-        }, moduleLockTime); 
- 
+            logMessage("MODULE ACCESS GRANTED: SEAT TIME VERIFIED");
+        }, moduleLockTime);
 
+        currentStep++; // Move to next for the FUTURE click
     } else {
-        // FINAL COMPLIANCE STATE: Triggers after all 5 modules (120 mins)
+        // Final Completion State
         document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
         document.getElementById('scenario-text').innerHTML = `
             <div style="text-align: center; padding: 10px;">
                 <p style="color: #4affaa; font-size: 18px; margin-bottom: 20px;">✓ 120-MINUTE COMPLIANCE VERIFIED</p>
-                <p style="margin-bottom: 25px;">The Sovereign Proctor has validated your session data. You are now authorized to claim your Federal Compliance Certificate.</p>
-                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
-                    Claim Official Certificate
-                </button>
+                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase;">Claim Official Certificate</button>
             </div>`;
-        document.getElementById('instruction-note').innerText = "Session Authenticated.";
-        logMessage("AUDIT COMPLETE: SESSION VERIFIED");
     }
 }
 
-// THE HANDOVER LOCK: Ensures Image 1 (Intro) stays for 10 seconds before training appears
+// 2. THE MASTER HANDOVER: Ensures 10 seconds of Image 1, then starts Module 1
 setTimeout(() => {
-    // 1. Hide the Initializing Overlay
-    if (typeof handoverOverlay !== 'undefined') {
-        handoverOverlay.style.display = 'none';
-    }
+    // Hide the Sovereign Intro Overlay
+    if (typeof handoverOverlay !== 'undefined') handoverOverlay.style.display = 'none';
+    
+    // START MODULE 1 FOR THE FIRST TIME
+    updateScenario(); 
+    
+    document.body.style.overflow = 'hidden';
+}, 10000);
     
     // 2. Reveal the Fixed Training Box
     const trainingBox = document.getElementById('training-module');
