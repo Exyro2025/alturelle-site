@@ -161,6 +161,14 @@
 </div>
 </footer>
 
+       <div id="training-module" style="max-width: 800px; margin: 40px auto; padding: 40px; background: rgba(10, 14, 28, 0.8); border: 1px solid rgba(74, 167, 255, 0.2); border-radius: 20px; text-align: left; display: none;">
+    <p id="module-tag" style="color: #4aa7ff; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;">Initializing...</p>
+    <h2 id="scenario-title" style="color: white; margin-top: 10px; letter-spacing: 1px;"></h2>
+    <hr style="border: 0; border-top: 1px solid rgba(74, 167, 255, 0.1); margin: 20px 0;">
+    <div id="scenario-text" style="color: rgba(255, 255, 255, 0.85); line-height: 1.8; font-size: 17px; margin-bottom: 30px;"></div>
+    <div id="instruction-note" style="font-style: italic; color: #4affaa; font-size: 13px;"></div>
+</div>
+
 
     <script>
     // 1. SET THE 120-MINUTE TIMER
@@ -252,6 +260,47 @@ setInterval(() => {
     const randomMsg = messages[Math.floor(Math.random() * messages.length)];
     logMessage(randomMsg);
 }, 45000); // Posts a new "check-in" every 45 seconds
+
+        // 3. THE SCENARIO DATA (DOT COMPLIANT)
+const dotScenarios = [
+    {
+        module: "Module 1: Alcohol Misuse",
+        title: "The Morning Briefing Incident",
+        text: "A driver arrives at 06:00 AM. You notice a slight lack of coordination and the faint smell of alcohol. Under DOT rules, smell alone is sufficient for a Reasonable Suspicion test.",
+        note: "✓ AI Proctoring: Observe behavioral indicators."
+    },
+    {
+        module: "Module 2: Controlled Substances",
+        title: "The Post-Rest Stop Change",
+        text: "After a mid-day break, a driver returns with dilated pupils and hyper-active speech patterns. These are specific physical indicators of stimulant use per FMCSA guidelines.",
+        note: "✓ AI Proctoring: Note pupil dilation as a physical sign."
+    }
+];
+
+let currentStep = 0;
+
+// 4. THE HANDOVER FUNCTION
+function runSovereignTraining() {
+    const trainingBox = document.getElementById('training-module');
+    if (trainingBox) {
+        trainingBox.style.display = 'block';
+        updateScenario();
+    }
+}
+
+function updateScenario() {
+    if (currentStep < dotScenarios.length) {
+        const s = dotScenarios[currentStep];
+        document.getElementById('module-tag').innerText = s.module;
+        document.getElementById('scenario-title').innerText = s.title;
+        document.getElementById('scenario-text').innerText = s.text;
+        document.getElementById('instruction-note').innerText = s.note;
+        currentStep++;
+    }
+}
+
+// 5. TRIGGER REVEAL: Starts after the 10-second Proctor Overlay hides
+setTimeout(runSovereignTraining, 10500);
 </script>
 
 </body>
