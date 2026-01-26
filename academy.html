@@ -267,7 +267,7 @@ setInterval(() => {
     logMessage(randomMsg);
 }, 45000); // Posts a new "check-in" every 45 seconds
 
-        // 3. THE SCENARIO DATA (DOT COMPLIANT)
+// 3. THE SCENARIO DATA (DOT COMPLIANT)
 const dotScenarios = [
     {
         module: "Module 1: Alcohol Misuse",
@@ -280,28 +280,26 @@ const dotScenarios = [
         title: "The Post-Rest Stop Change",
         text: "After a mid-day break, a driver returns with dilated pupils and hyper-active speech patterns. These are specific physical indicators of stimulant use per FMCSA guidelines.",
         note: "✓ AI Proctoring: Note pupil dilation as a physical sign."
-    }
-
-        // Add these to your existing dotScenarios array
-{
+    },
+    {
         module: "Module 3: Documentation",
         title: "The Contemporaneous Record",
         text: "You have initiated a test based on appearance and behavior. You must now document these specific observations within 24 hours. Failure to document creates a legal loophole for the driver.",
         note: "✓ AI Proctoring: Documentation is a legal shield."
     },
-{
+    {
         module: "Module 4: Speech & Behavior",
         title: "The Slurred Response",
         text: "During a check-in, a driver’s speech is thick and slurred, yet they are coherent. This is a primary indicator. Under DOT rules, you must remove them from safety-sensitive functions immediately.",
         note: "✓ AI Proctoring: Physical indicators override verbal denials."
     },
-{
+    {
         module: "Module 5: Compliance Resolution",
         title: "Refusal to Test",
         text: "A driver refuses to go to the collection site. Under DOT regulations, a refusal is legally identical to a positive test result. The driver must be removed from duty and referred to a SAP.",
         note: "✓ AI Proctoring: Refusal = Positive result."
-}
-];
+    }
+]; // This is the only place the square bracket and semicolon should be.
 
 let currentStep = 0;
 
