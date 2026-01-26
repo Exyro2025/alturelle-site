@@ -202,8 +202,17 @@ if (timeRemaining <= 3600) { // 3600 seconds = 60 minutes remaining
         if (timeRemaining <= 0) {
             clearInterval(countdown);
             timerDisplay.textContent = "CERTIFICATION ELIGIBLE";
-            document.getElementById('claimButton').style.display = "block";
-            timerDisplay.style.color = "#4affaa"; // Changes to Digital Green when legal requirement is met
+            
+            // Show the button
+            const claimBtn = document.getElementById('claimButton');
+            claimBtn.style.display = "block";
+            
+            // Tell the button to open the certificate form
+            claimBtn.onclick = () => {
+                window.location.href = 'certificate-form.html';
+            };
+
+            timerDisplay.style.color = "#4affaa"; 
         }
         timeRemaining--;
     }, 1000);
