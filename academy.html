@@ -223,14 +223,22 @@ function logMessage(msg) {
     const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
     const log = document.getElementById('proctor-log');
     if (log) {
-        // Change '=' to '+=' to keep the history, and add '<br>' for spacing
         log.innerHTML += `> ${time} : ${msg}<br>`; 
-        // This ensures the box stays scrolled to the latest message
         log.scrollTop = log.scrollHeight; 
     }
 }
 
-// 2. THE FOCUS GUARD (Tab Detection)
+// FIX: THE DOWNLOAD LOG FUNCTION
+function downloadLog() {
+    const logContent = document.getElementById('proctor-log').innerText;
+    const blob = new Blob([logContent], { type: 'text/plain' });
+    const anchor = document.createElement('a');
+    anchor.download = `Compliance_Log_Altruelle.txt`;
+    anchor.href = window.URL.createObjectURL(blob);
+    anchor.click();
+}
+
+// 2. THE FOCUS GUARD
 document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
         canStart = false; 
@@ -253,7 +261,6 @@ const countdown = setInterval(() => {
     let minutes = Math.floor((timeRemaining % 3600) / 60);
     let seconds = timeRemaining % 60;
 
-    // Instructor Pulse at 10 Minutes
     if (timeRemaining === 6600 && currentStep === 0) {
         const btn = document.getElementById('launch-assist-btn');
         if (btn) btn.classList.add('assist-pulse');
@@ -288,7 +295,6 @@ function launchScenario() {
         document.getElementById('scenario-text').innerText = s.text;
         document.getElementById('instruction-note').innerText = s.note;
 
-        // GATE: Pause timer and require check
         traineeValidated = false; 
         if (nextBtn) nextBtn.style.display = 'none';
         trainingBox.style.display = 'block';
@@ -309,6 +315,10 @@ function launchScenario() {
 function validateTrainee() {
     traineeValidated = true;
     canStart = true;
+    
+    // FIX: MOVES TO THE NEXT MODULE FOR THE NEXT TIME YOU CLICK LAUNCH
+    currentStep++; 
+
     const nextBtn = document.getElementById('next-module-btn');
     if (nextBtn) nextBtn.style.display = 'block';
     const check = document.getElementById('participation-check');
@@ -321,7 +331,7 @@ document.getElementById('next-module-btn').onclick = () => {
     logMessage("INSTRUCTOR RESUMING LECTURE");
 };
 
-// 5. THE MASTER HANDOVER (Restored Initializing Screen)
+// 5. THE MASTER HANDOVER
 window.onload = function() {
     const intro = document.createElement('div');
     intro.id = "handover-overlay";
@@ -336,7 +346,7 @@ window.onload = function() {
 
     setTimeout(() => {
         intro.style.display = 'none';
-        canStart = true; // The system wakes up after 10 seconds
+        canStart = true; 
         logMessage("SESSION AUTHENTICATED: MONITORING ACTIVE");
     }, 10000);
 };
