@@ -161,7 +161,7 @@
 </div>
 </footer>
 
-     <div id="training-module" style="
+     <div id="training-module" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); ...">
     display: none; 
     position: fixed; 
     top: 50%; 
@@ -359,83 +359,65 @@ document.getE
 setTimeout(runSovereignTraining, 10500);
 
 
-// 1. SET THE LOCK TO 24 MINUTES (1440000ms) 
-const moduleLockTime = 1440000; 
+// 1. COMPLIANCE SETTINGS
+const moduleLockTime = 1440000; // 24 minutes per module (120 min total)
 let currentStep = 0;
+let canStart = false; // This "Safety Gate" prevents the Module 2 skip
 
+// 2. THE INSTRUCTOR LOGIC
 function updateScenario() {
+    // If the 10-second intro hasn't finished, this function does nothing
+    if (!canStart) return; 
+
     const nextBtn = document.getElementById('next-module-btn');
     const trainingBox = document.getElementById('training-module');
     
-    // Hide the button immediately when a new module starts
     nextBtn.style.display = 'none';
 
     if (currentStep < dotScenarios.length) {
         const s = dotScenarios[currentStep];
         
-        // Populate the fields
         document.getElementById('module-tag').innerText = s.module;
         document.getElementById('scenario-title').innerText = s.title;
         document.getElementById('scenario-text').innerText = s.text;
         document.getElementById('instruction-note').innerText = s.note;
 
-        // Reveal the box only if it's currently hidden
+        // Reveal the centered box
         trainingBox.style.display = 'block';
 
-        // THE COMPLIANCE LOCK: Button only appears after the set time
+        // Start the Proctor's Seat-Time Lock
         setTimeout(() => {
             nextBtn.style.display = 'block';
             logMessage("MODULE ACCESS GRANTED: SEAT TIME VERIFIED");
         }, moduleLockTime);
 
-        currentStep++; // Move to next for the FUTURE click
+        currentStep++; 
     } else {
-        // Final Completion State
+        // FINAL COMPLETION STATE
         document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
         document.getElementById('scenario-text').innerHTML = `
             <div style="text-align: center; padding: 10px;">
                 <p style="color: #4affaa; font-size: 18px; margin-bottom: 20px;">✓ 120-MINUTE COMPLIANCE VERIFIED</p>
-                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; text-transform: uppercase;">Claim Official Certificate</button>
+                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Claim Official Certificate</button>
             </div>`;
     }
 }
 
-// 2. THE MASTER HANDOVER: Ensures 10 seconds of Image 1, then starts Module 1
-setTimeout(() => {
-    // Hide the Sovereign Intro Overlay
-    if (typeof handoverOverlay !== 'undefined') handoverOverlay.style.display = 'none';
-    
-    // START MODULE 1 FOR THE FIRST TIME
-    updateScenario(); 
-    
-    document.body.style.overflow = 'hidden';
-}, 10000);
-
-// 2. THE MASTER HANDOVER: Ensures 10 seconds of Image 1, then starts Module 1
-setTimeout(() => {
-    // Hide the Sovereign Intro Overlay
-    if (typeof handoverOverlay !== 'undefined') handoverOverlay.style.display = 'none';
-    
-    // START MODULE 1 FOR THE FIRST TIME
-    updateScenario(); 
-    
-    document.body.style.overflow = 'hidden';
-}, 10000);
-    
-    // 2. Reveal the Fixed Training Box
-    const trainingBox = document.getElementById('training-module');
-    if (trainingBox) {
-        trainingBox.style.display = 'block';
-        updateScenario(); // Start Module 1
-    }
-    
-    // 3. Prevent background scrolling
-    document.body.style.overflow = 'hidden';
-
-}, 10000); // 10 Second Delay to match your "Sovereign Tone"
+// 3. THE SINGLE MASTER TIMER: Manages the Handover
+window.onload = function() {
+    setTimeout(() => {
+        // Hide Intro Overlay (Image 1)
+        const intro = document.getElementById('handover-overlay');
+        if (intro) intro.style.display = 'none';
+        
+        // Open the Safety Gate and Start Module 1 (Image 2)
+        canStart = true; 
+        updateScenario(); 
+        
+        document.body.style.overflow = 'hidden';
+    }, 10000); // 10-second delay for Initializing screen
+};
 </script>
 
 </body>
 </html>
-
-
