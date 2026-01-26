@@ -206,6 +206,37 @@
     <script>
     
 // 1. DATA & STATE
+        // ROLE GATE (instructor vs trainee)
+// Instructor opens: academy.html?role=instructor
+// Trainee opens: academy.html (default)
+const params = new URLSearchParams(window.location.search);
+const ROLE = (params.get("role") || "trainee").toLowerCase();
+const IS_INSTRUCTOR = ROLE === "instructor";
+
+function lockControlsForTrainee() {
+  // Only instructor can launch scenarios + download logs (you can change this policy)
+  const launchBtn = document.getElementById("launch-assist-btn");
+  const downloadBtns = Array.from(document.querySelectorAll("button"))
+    .filter(b => (b.textContent || "").toLowerCase().includes("download compliance log"));
+
+  if (!IS_INSTRUCTOR) {
+    if (launchBtn) {
+      launchBtn.disabled = true;
+      launchBtn.style.opacity = "0.35";
+      launchBtn.style.cursor = "not-allowed";
+      launchBtn.title = "Instructor-only control";
+    }
+    downloadBtns.forEach(b => {
+      b.disabled = true;
+      b.style.opacity = "0.35";
+      b.style.cursor = "not-allowed";
+      b.title = "Instructor-only control";
+    });
+  }
+}
+ let pausedByFocus = false;
+
+
 let timeRemaining = 7200; // 120 Minutes
 let currentStep = 0;
 let canStart = false; 
@@ -290,19 +321,67 @@ function downloadLog() {
 }
 
 // 2. THE FOCUS GUARD
+function showResumeGate() {
+  // Trainee must actively re-confirm presence before timer continues
+  traineeValidated = false;
+  pausedByFocus = true;
+  canStart = false;
+
+  logMessage("SESSION PAUSED: WINDOW FOCUS LOST");
+
+  const light = document.querySelector(".status-light");
+  if (light) light.style.background = "#ff4a4a";
+
+  // Reuse training-module as a resume gate (no extra UI)
+  const trainingBox = document.getElementById("training-module");
+  if (!trainingBox) return;
+
+  trainingBox.style.display = "block";
+  document.getElementById("module-tag").innerText = "FOCUS LOST";
+  document.getElementById("scenario-title").innerText = "Participation Required";
+  document.getElementById("scenario-text").innerText =
+    "Your training timer is paused because this window lost focus. Confirm presence to resume.";
+  document.getElementById("instruction-note").innerText =
+    "✓ PARTICIPATION: Trainee must confirm presence to continue.";
+
+  const nextBtn = document.getElementById("next-module-btn");
+  if (nextBtn) nextBtn.style.display = "none";
+
+  const oldCheck = document.getElementById("participation-check");
+  if (oldCheck) oldCheck.remove();
+
+  const checkArea = document.createElement("div");
+  checkArea.id = "participation-check";
+  checkArea.style =
+    "margin-top:20px; padding:15px; background:rgba(74,167,255,0.1); border-radius:8px; border:1px solid var(--blue);";
+  checkArea.innerHTML =
+    `<label style="color:#4affaa; font-size:12px; cursor:pointer;">
+       <input type="checkbox" onchange="resumeFromFocusLoss()" style="margin-right:10px;">
+       I am present and acknowledge resuming this training session.
+     </label>`;
+  trainingBox.appendChild(checkArea);
+}
+
+function resumeFromFocusLoss() {
+  traineeValidated = true;
+  pausedByFocus = false;
+  canStart = true;
+
+  const light = document.querySelector(".status-light");
+  if (light) light.style.background = "var(--blue)";
+
+  const check = document.getElementById("participation-check");
+  if (check) check.innerHTML = `<span style="color:#4affaa; font-size:12px;">✓ PRESENCE VERIFIED. SESSION RESUMED.</span>`;
+
+  logMessage("SESSION RESUMED: PRESENCE VERIFIED");
+}
+
 document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-        canStart = false; 
-        logMessage("SESSION PAUSED: WINDOW FOCUS LOST");
-        const light = document.querySelector('.status-light');
-        if (light) light.style.background = "#ff4a4a";
-    } else if (traineeValidated) {
-        canStart = true;
-        logMessage("SESSION RESUMED: FOCUS VERIFIED");
-        const light = document.querySelector('.status-light');
-        if (light) light.style.background = "var(--blue)";
-    }
+  if (document.hidden) {
+    showResumeGate();
+  }
 });
+
 
 // 3. THE COMPLIANCE CLOCK
 const countdown = setInterval(() => {
@@ -388,6 +467,12 @@ document.getElementById('next-module-btn').onclick = () => {
 
 // 5. THE MASTER HANDOVER
 window.onload = function() {
+
+    // Strip any unknown hash (prevents confusion)
+if (window.location.hash) {
+  history.replaceState(null, "", window.location.pathname + window.location.search);
+}
+
      traineeLockdown();
     const intro = document.createElement('div');
     intro.id = "handover-overlay";
@@ -401,10 +486,14 @@ window.onload = function() {
     document.body.appendChild(intro);
 
     setTimeout(() => {
-        intro.style.display = 'none';
+        intro.remove();
+
         canStart = true; 
         logMessage("SESSION AUTHENTICATED: MONITORING ACTIVE");
     }, 10000);
+
+    lockControlsForTrainee();
+
 };
 </script>
 
