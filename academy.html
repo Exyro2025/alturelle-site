@@ -359,31 +359,29 @@ document.getE
 setTimeout(runSovereignTraining, 10500);
 
 
-// 1. COMPLIANCE & PROGRESS SETTINGS
-const moduleLockTime = 1440000; // Set to 1440000 for 24-minute DOT compliance
-let currentStep = 0; 
+// 1. SETTINGS
+const moduleLockTime = 1440000; // 24 mins
+let currentStep = 0;
+let canStart = false; // The Master Safety Gate
 
-// 2. THE INSTRUCTOR LOGIC
+// 2. THE LOGIC
 function updateScenario() {
+    if (!canStart) return; // Prevents the "Early Pop-up" or "Module 2" jump
+
     const nextBtn = document.getElementById('next-module-btn');
     const trainingBox = document.getElementById('training-module');
     
-    // Always hide the button at the start of a module
     nextBtn.style.display = 'none';
 
     if (currentStep < dotScenarios.length) {
         const s = dotScenarios[currentStep];
-        
-        // Update the Box Content
         document.getElementById('module-tag').innerText = s.module;
         document.getElementById('scenario-title').innerText = s.title;
         document.getElementById('scenario-text').innerText = s.text;
         document.getElementById('instruction-note').innerText = s.note;
 
-        // Make the module visible ONLY when called
         trainingBox.style.display = 'block';
 
-        // Start the Proctor's Seat-Time Lock
         setTimeout(() => {
             nextBtn.style.display = 'block';
             logMessage("MODULE ACCESS GRANTED: SEAT TIME VERIFIED");
@@ -391,15 +389,23 @@ function updateScenario() {
 
         currentStep++; 
     } else {
-        // Final Completion Screen
         document.getElementById('scenario-title').innerText = "CURRICULUM COMPLETE";
-        document.getElementById('scenario-text').innerHTML = `
-            <div style="text-align: center; padding: 10px;">
-                <p style="color: #4affaa; font-size: 18px; margin-bottom: 20px;">✓ 120-MINUTE COMPLIANCE VERIFIED</p>
-                <button onclick="window.location.href='certificate-form.html'" style="padding: 15px 30px; background: #4aa7ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Claim Official Certificate</button>
-            </div>`;
+        document.getElementById('scenario-text').innerHTML = `<div style="text-align:center;"><button onclick="window.location.href='certificate-form.html'" style="padding:15px 30px; background:#4aa7ff; color:white; border:none; border-radius:5px; cursor:pointer;">Claim Official Certificate</button></div>`;
     }
 }
+
+// 3. THE HANDOVER (Timed to your Intro Screen)
+window.onload = function() {
+    setTimeout(() => {
+        const intro = document.getElementById('handover-overlay');
+        if (intro) intro.style.display = 'none';
+        
+        canStart = true; // Unlock the gate
+        updateScenario(); // Now Module 1 (Index 0) starts correctly
+        
+        document.body.style.overflow = 'hidden';
+    }, 10000); // Wait 10 seconds exactly
+};
 
 // 3. THE HANDOVER (IMAGE 1 -> IMAGE 2)
 // This is the ONLY thing that should run when the page loads
